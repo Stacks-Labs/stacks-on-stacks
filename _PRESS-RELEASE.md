@@ -32,7 +32,7 @@ Once the project moves into development, the press release can be used as a touc
   > amiGo connects people who will be on vacation at the same time and in the same place. They can plan meetups, review destinations, and leave feedback on other user's profiles.
 
 ## Quote from You ##
-  > amiGo makes finding fellow travelers easy and fun! - Brian Boyko, PR Director
+  > "amiGo makes finding fellow travelers easy and fun!" - Brian Boyko, PR Director
 
 ## How to Get Started ##
   > Sign up via social media, and either search for trips that others have planned, or create your own.
