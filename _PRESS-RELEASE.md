@@ -38,7 +38,7 @@ Once the project moves into development, the press release can be used as a touc
   > Sign up via social media, and either search for trips that others have planned, or create your own.
 
 ## Customer Quote ##
-  > "I was tired of going on my solo vacations and having all of my meals and outings be solo. Thanks to amiGo,
+  > "I was tired of going on my solo vacations and having all of my meals and outings have to be alone. Thanks to amiGo,
   > I met Bob and Carol, and now we plan all kinds of trips together!"
   > -- Alice (amiGo user)
 
