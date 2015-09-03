@@ -1,5 +1,5 @@
 [![Stories in Ready](https://badge.waffle.io/stacks-on-stacks/stacks-on-stacks.png?label=ready&title=Ready)](https://waffle.io/stacks-on-stacks/stacks-on-stacks)
-# Trip Pal/Tripply/amiGo
+# amiGo
 
 > A social network for travelers, vacationers, and nomads
 
