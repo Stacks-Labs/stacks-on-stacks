@@ -1,4 +1,4 @@
-# Project Name #
+# amiGo #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -17,28 +17,30 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > A social network for travelers, vacationers, and nomads
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > Connecting people who are looking for new friends on the road.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > An application that allows people to plan their vacation and connect with other people who have either taken the same vacation in the past or are also planning to take the same trip.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > People who are going on vacation, especially on a solo vacation, may be looking for groups to do activities with.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > amiGo connects people who will be on vacation at the same time and in the same place. They can plan meetups, review destinations, and leave feedback on other user's profiles.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > amiGo makes finding fellow travelers easy and fun! - Brian Boyko, PR Director
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Sign up via social media, and either search for trips that others have planned, or create your own.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "I was tired of going on my solo vacations and having all of my meals and outings be solo. Thanks to amiGo,
+  > I met Bob and Carol, and now we plan all kinds of trips together!"
+  > -- Alice (amiGo user)
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Get started with amiGo today! Click [here](http://nothinghereyet/) to sign up.
