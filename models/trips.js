@@ -18,7 +18,17 @@ module.exports for trips.js
     It also automatically calculates the geocode of the latitude and longitude (with functions to be impliemented)
     All are stored in the database. 
   deleteTrip:
-    Checks to see if any other user is referencing the trip. 
+    Checks to see if any other user is referencing the trip. If not, deletes the trip
+  searchByDistanceAndTime: 
+    Queries the database for all trips within 'distance' of an origin point and time. 
+    Before this function is called, the geocode must be parsed into latitude and longitude 'double' float values. 
+  searchByDistance: 
+    Queries the database for all trips within 'distance' of an origin. It is hardcoded to 
+    return only trips that are not yet passed -- that line must be deleted if an "include past trips" checkbox is an option
+    available to the user. 
+  searchByTime:
+    Queries the database for all trips that intersect with a time period specified by the user; 
+
 -------------------------------------*/
 
 // BE SURE TO INCLUDE:
@@ -77,6 +87,7 @@ module.exports = {
   },
   searchByDistance: function(latitude, longitude, distance, includePastTrips) { // int, int, int, bool
     var time;
+    includePastTrips = false; // delete this if implimenting past trips checkbox
     return knex('trips').select()
       .then(function(trips) {
         if (includePastTrips) {
