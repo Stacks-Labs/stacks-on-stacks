@@ -4,7 +4,6 @@ module.exports = function(app, passport, connection) {
 		res.render('index.ejs');
 	});
 
-
     app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
         res.render('signup.ejs', { message: req.flash('signupMessage')})
@@ -35,11 +34,6 @@ module.exports = function(app, passport, connection) {
         });
     });
 
-    app.get('/logout', function(req, res) {
-        req.logout();
-        req.direct('/')
-    });
-
     app.get('/auth/facebook', passport.authenticate('facebook'));
 
     app.get('/auth/facebook/callback',
@@ -48,6 +42,11 @@ module.exports = function(app, passport, connection) {
             failureRedirect: '/' 
         })
     );
+
+    app.get('/logout', function(req, res) {
+        req.logout();
+        req.direct('/')
+    });
 
     function isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {

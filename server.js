@@ -27,8 +27,11 @@ app.use(bodyParser()); // get info from html forms
 app.set('view engine', 'ejs')
 
 app.use(session({
-	secret: 'somestring'
-}))
+	secret: 'somestring',
+	saveUninitialized: true,
+	save: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
