@@ -26,8 +26,8 @@ module.exports for users.js
 -------------------------------------*/
 
 module.exports = {
-  signup: function(username, hashedPass, facebookID, facebookToken) {
-    knex('users').where({'username': username}).select('username')
+  signup: function(username, email, hashedPass, facebookID, facebookToken) {
+    knex('users').where({loginMethod: username}).select('username')
       .then(function(userInTable) {
         if (userInTable) {
           return false;
@@ -35,6 +35,7 @@ module.exports = {
           if (facebookID) {
             knex('users').insert({
               'username': username,
+              'email': email,
               'password': hashedPass,
               'fb_id': facebookID,
               'fb_token': facebookToken
@@ -43,6 +44,7 @@ module.exports = {
           } else {
             knex('users').insert({
               'username': username,
+              'email': email,
               'password': hashedPass,
               'fb_id': null,
               'fb_token': null
@@ -53,9 +55,10 @@ module.exports = {
       });
   },
 
-  login: function(username, hashedPass, facebookID, facebookToken) {
+  login: function(loginString, hashedPass, facebookID, facebookToken) {
+
     if (facebookID) {
-      knex('users').where({'username': username}).select('username', 'fb_id', 'fb_token')
+      knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'fb_id', 'fb_token')
         .then(function(loginInfo) {
           if (facebookToken === loginInfo[0].fb_token) {
             return true;
@@ -64,7 +67,7 @@ module.exports = {
           }
         });
     } else {
-      knex('users').where({'username': username}).select('username', 'password')
+      knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'password')
         .then(function(loginInfo) {
           if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
             return true;
