@@ -1,3 +1,30 @@
+
+// THIS MUST BE ON THE SERVER FILE FOR THIS TO WORK.
+// var databasehost = process.env.HOST || 'localhost';
+// var knex = require('knex')({
+//   client: 'mysql',
+//   connection: {
+//     host: databasehost,
+//     user: 'amigo',
+//     password: 'letstravel',
+//     database: 'amigo',
+//     charset: 'utf8'
+//   }
+// });
+
+/*------------------------------------
+module.exports for users.js
+  signup: 
+    Checks to see if user exists. If so, returns false; if not,
+    takes username, hashedPass, facebookID, facebookToken and inserts them in the database. 
+    If FacebookID is null, works with just username and hashpass. 
+  login: 
+    Grabs the username and hashed password from the database, checks the password provided
+    against the hashed password in the database
+    TODO REQUIRED: Must use hashing function (not yet written) -- BB
+
+-------------------------------------*/
+
 module.exports = {
   signup: function(username, email, hashedPass, facebookID, facebookToken) {
     knex('users').where({loginMethod: username}).select('username')
@@ -28,8 +55,7 @@ module.exports = {
       });
   },
 
-  login: function(loginString, hashedPass, facebookID, facebookToken) {
-
+  login: function(username, hashedPass, facebookID, facebookToken) {
     if (facebookID) {
       knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'fb_id', 'fb_token')
         .then(function(loginInfo) {
