@@ -12,62 +12,24 @@
 //   }
 // });
 
-// /*------------------------------------
-// module.exports for trips.js
-//   addTrip: 
-//     Adds a trip to the database. It takes the destination name (string), start and end times (both in timestamp form).
-//     It also automatically calculates the geocode of the latitude and longitude (with functions to be impliemented)
-//     All are stored in the database. 
-// -------------------------------------*/
+/*------------------------------------
+module.exports for trips.js
+  addTrip: 
+    Adds a trip to the database. It takes the destination name (string), start and end times (both in timestamp form).
+    It also automatically calculates the geocode of the latitude and longitude (with functions to be impliemented)
+    All are stored in the database. 
+  // TODO! getGeocode function which takes a destination and returns the geocode from Google Maps. 
+-------------------------------------*/
 
 
-// module.exports = {
-//   signup: function(username, hashedPass, facebookID, facebookToken) {
-//     knex('users').where({'username': username}).select('username')
-//       .then(function(userInTable) {
-//         if (userInTable) {
-//           return false;
-//         } else {
-//           if (facebookID) {
-//             knex('users').insert({
-//               'username': username,
-//               'password': hashedPass,
-//               'fb_id': facebookID,
-//               'fb_token': facebookToken
-//             });
-//             return true;
-//           } else {
-//             knex('users').insert({
-//               'username': username,
-//               'password': hashedPass,
-//               'fb_id': null,
-//               'fb_token': null
-//             });
-//             return true;
-//           }
-//         }
-//       });
-//   },
-
-//   login: function(username, hashedPass, facebookID, facebookToken) {
-//     if (facebookID) {
-//       knex('users').where({'username': username}).select('username', 'fb_id', 'fb_token')
-//         .then(function(loginInfo) {
-//           if (facebookToken === loginInfo[0].fb_token) {
-//             return true;
-//           } else {
-//             return false;
-//           }
-//         });
-//     } else {
-//       knex('users').where({'username': username}).select('username', 'password')
-//         .then(function(loginInfo) {
-//           if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
-//             return true;
-//           } else {
-//             return false;
-//           }
-//         });
-//     }
-//   }
-// }; // end module.exports object
+module.exports = {
+  addTrip: function(destination, timeStart, timeEnd) { // string, timestamp, timestamp. 
+    var geocode = getGeocode(destination); 
+    knex('trips').insert({
+              'dest_name': destination,
+              'geocode_latitude': geocode.latitude,
+              'geocode_longitude': geocode.longitude,
+              'time_start': timeStart,
+              'time_end': timeEnd,
+              });
+  }
