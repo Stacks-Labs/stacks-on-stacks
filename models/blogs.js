@@ -34,50 +34,27 @@ module.exports for trips.js
 // BE SURE TO INCLUDE:
 // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
+var users = require('users')
 var _ = require('underscore');
 
 module.exports = {
   // takes a comma delimited string, splits it into an array
-  parseInterests: function(interestStr) {
-    return interestStr.split(',');
+  addBlog: function(author, subject, body){
+    var created = new Date();
+    knex('blogs').insert({
+      'author_id': author,
+      'subject': subject,
+      'body': body,
+      'created_at' created
+    })
   },
-  updateInterests: function(interestsArr, userTripId) {
-    knex('activities').where({
-        user_trips_id: userTripId
-      }).select()
-      .then(function(userTrip) {
-        var interests = _.uniq(interestsArr.concat(JSON.parse(userTrip[0]
-          .activity)));
-        acts = JSON.stringify(interests);
-        knex('activities').update({
-          'activity': acts
-        });
-      });
+  removeBlog: function(blogId){
+    knex('blogs').where({id: blog_id}).del();
   },
-  addInterests: function(interestStr, userTripId) {
-    var dbInterests = JSON.stringify(module.exports.parseInterests(
-      interestStr));
-    knex('activities').insert({
-      'users_trips_id': userTripId,
-      'activity': dbInterests
-    });
+  modifyBlog: function(blogId, subject, body){
+    knex('blogs').where({id: blog_id}).update({'subject': subject, 'body': body})
   },
-  removeInterests: function(interestStr, userTripId) {
-    var dbInterests = JSON.stringify(module.exports.parseInterests(
-      interestStr));
-    removeArr = module.exports.parseInterests(interestStr);
-    knex('activities').where({
-        'user_trips_id': userTripId
-      }).select()
-      .then(function(userTrip) {
-        newInterestList = dbInterests.reject(function(element) {
-          return (removeArr.indexOf(element) > -1);
-        });
-        acts = JSON.stringify(newInterestList);
-        knex('activities').update({
-          'activity': acts
-        });
-      });
+  getBlogsByUser: function(userId){
+    return knex('blogs').where({user_id: userId}).select();
   }
-
 };
