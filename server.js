@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
           host     : 'localhost',
           user     : 'root',
           password : '',
-          database: 'strength_tracker'
+          database: 'amigo'
         });
 
 require('./config/passport')(passport, connection)

@@ -34,12 +34,12 @@ module.exports = function(app, passport, connection) {
         });
     });
 
-    app.get('/auth/facebook', passport.authenticate('facebook'));
+    app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { 
             successRedirect: '/profile',
-            failureRedirect: '/' 
+            failureRedirect: '/login' 
         })
     );
 
