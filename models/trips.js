@@ -85,7 +85,7 @@ module.exports = {
         });
       });
   },
-  searchByDistance: function(latitude, longitude, distance, includePastTrips) { // int, int, int, bool
+  getTripsByDistance: function(latitude, longitude, distance, includePastTrips) { // int, int, int, bool
     var time;
     includePastTrips = false; // delete this if implimenting past trips checkbox
     return knex('trips').select()
@@ -111,7 +111,7 @@ module.exports = {
       });
   },
 
-  searchByTime: function(begin, end) { // timestamp, timestamp
+  getTripsByTime: function(begin, end) { // timestamp, timestamp
     return knex('trips').select()
       .then(function(trips) {
         return trips.map(function(trip) {
