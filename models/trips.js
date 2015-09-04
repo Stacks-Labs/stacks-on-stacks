@@ -38,20 +38,15 @@ module.exports for trips.js
 
 
 module.exports = {
-  addTrip: function(destination, timeStart, timeEnd, callback) { // string, timestamp, timestamp. 
+  addTrip: function(destination, timeStart, timeEnd) { // string, timestamp, timestamp.
     var geocode = getGeocode(destination);
-    knex('trips').insert({
+    return knex('trips').insert({
       'dest_name': destination,
       'geocode_latitude': geocode.latitude,
       'geocode_longitude': geocode.longitude,
       'time_start': timeStart,
       'time_end': timeEnd,
-    }).then(function(){
-      if(callback){
-        callback();
-      }
     });
-    return true;
   },
   deleteTrip: function(trip) {
     knex('user_trips').where({
@@ -89,7 +84,8 @@ module.exports = {
         });
       });
   },
-  getTripsByDistance: function(latitude, longitude, distance, includePastTrips) { // int, int, int, bool
+  getTripsByDistance: function(latitude, longitude, distance,
+    includePastTrips) { // int, int, int, bool
     var time;
     includePastTrips = false; // delete this if implimenting past trips checkbox
     return knex('trips').select()
