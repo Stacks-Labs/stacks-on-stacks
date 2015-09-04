@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
   id INTEGER AUTO_INCREMENT NOT NULL PRIMARY KEY,
   username VARCHAR(40) NOT NULL,
+  email VARCHAR(255),
   password VARCHAR(255) DEFAULT 'sogimasogimasogima',
   fb_id VARCHAR(255),
   fb_token VARCHAR(255)
