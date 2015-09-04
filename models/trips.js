@@ -38,7 +38,7 @@ module.exports for trips.js
 
 
 module.exports = {
-  addTrip: function(destination, timeStart, timeEnd) { // string, timestamp, timestamp. 
+  addTrip: function(destination, timeStart, timeEnd, callback) { // string, timestamp, timestamp. 
     var geocode = getGeocode(destination);
     knex('trips').insert({
       'dest_name': destination,
@@ -46,6 +46,10 @@ module.exports = {
       'geocode_longitude': geocode.longitude,
       'time_start': timeStart,
       'time_end': timeEnd,
+    }).then(function(){
+      if(callback){
+        callback();
+      }
     });
     return true;
   },
