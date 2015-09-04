@@ -76,5 +76,8 @@ module.exports = {
           }
         });
     }
+  },
+  getUserByName: function(username){
+    return knex('users').where({'username':username}).select();
   }
 };
