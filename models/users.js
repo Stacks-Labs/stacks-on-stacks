@@ -55,7 +55,8 @@ module.exports = {
       });
   },
 
-  login: function(username, hashedPass, facebookID, facebookToken) {
+  login: function(loginString, hashedPass, facebookID, facebookToken) {
+
     if (facebookID) {
       knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'fb_id', 'fb_token')
         .then(function(loginInfo) {
