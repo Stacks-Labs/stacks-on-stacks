@@ -34,30 +34,51 @@ module.exports for trips.js
 // BE SURE TO INCLUDE:
 // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
-var trips = require('./trips.js');
-
+var trips = require('./users_trips.js');
+var _ = require('underscore');
 
 module.exports = {
-  makeTrip: function(destination, timeStart, timeEnd, user) {
-    trips.addTrip(destination, timeStart, timeEnd)
-      .then(
-        function(user) { // can you promisify this?
-          var trip = knex('trips').raw('SELECT LAST_INSERT_ID();');
-          tripId = trip[0].id;
-          knex('users_trips').insert({
-            'user_id': user,
-            'trip_id': tripId
-          });
+  // takes a comma delimited string, splits it into an array
+  parseInterests: function(interestStr) {
+    return interestStr.split(',');
+  },
+  updateInterests: function(interestsArr, userTripId) {
+    knex('activities').where({
+        user_trips_id: userTripId
+      }).select()
+      .then(function(userTrip) {
+        var interests = _.uniq(interestsArr.concat(JSON.parse(userTrip[0]
+          .activity)));
+        acts = JSON.stringify(interests);
+        knex('activities').update({
+          'activity': acts
         });
+      });
   },
-  getTripsByUser: function(user) {
-    return knex('users_trips').where({
-      'user_id': user
-    }).select();
+  addInterests: function(interestStr, userTripId) {
+    var dbInterests = JSON.stringify(module.exports.parseInterests(
+      interestStr));
+    knex('activities').insert({
+      'users_trips_id': userTripId,
+      'activity': dbInterests
+    });
   },
-  getUsersByTrip: function(trip) {
-    return knex('users_trips').where({
-      'trip_id': trip
-    }).select();
+  removeInterests: function(interestStr, userTripId) {
+    var dbInterests = JSON.stringify(module.exports.parseInterests(
+      interestStr));
+    removeArr = module.exports.parseInterests(interestStr);
+    knex('activities').where({
+        'user_trips_id': userTripId
+      }).select()
+      .then(function(userTrip) {
+        newInterestList = dbInterests.reject(function(element) {
+          return (removeArr.indexOf(element) > -1);
+        });
+        acts = JSON.stringify(newInterestList);
+        knex('activities').update({
+          'activity': acts
+        });
+      });
   }
+
 };
