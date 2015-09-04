@@ -6,3 +6,4 @@ build/
 dist/
 
 .DS_Store
+db/.DS_Store

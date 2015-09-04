@@ -1,0 +1,32 @@
+{
+  "name": "stacks-on-stacks",
+  "version": "1.0.0",
+  "description": "[![Stories in Ready](https://badge.waffle.io/stacks-on-stacks/stacks-on-stacks.png?label=ready&title=Ready)](https://waffle.io/stacks-on-stacks/stacks-on-stacks) # stacks-on-stacks",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stacks-on-stacks/stacks-on-stacks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stacks-on-stacks/stacks-on-stacks/issues"
+  },
+  "homepage": "https://github.com/stacks-on-stacks/stacks-on-stacks#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.3.5",
+    "ejs": "^2.3.3",
+    "express": "^4.13.3",
+    "mysql": "^2.9.0",
+    "passport": "^0.3.0",
+    "passport-facebook": "^2.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
