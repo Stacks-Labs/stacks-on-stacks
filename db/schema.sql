@@ -57,6 +57,7 @@ CREATE TABLE messages (
   receiver_id INTEGER NOT NULL,
   subject VARCHAR(255) NOT NULL,
   body TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL,
   FOREIGN KEY (sender_id) REFERENCES users(id),
   FOREIGN KEY (receiver_id) REFERENCES users(id)
 );
@@ -68,6 +69,7 @@ CREATE TABLE amigo_feedback (
   author_id INTEGER NOT NULL,
   subject_id INTEGER NOT NULL,
   feedback TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL,
   FOREIGN KEY(author_id) REFERENCES users(id),
   FOREIGN KEY(subject_id) REFERENCES users(id)
 );
