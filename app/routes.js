@@ -1,8 +1,14 @@
+var path = require('path');
+
 module.exports = function(app, passport, connection) {
 	
 	app.get('/', function(req, res) {
-		res.render('index.ejs');
+		res.render('index.ejs', { message: req.flash('signupMessage')});
 	});
+
+    app.get('/dashboard', isLoggedIn, function(req, res) {
+        res.render('dashboard.ejs');
+    });
 
     app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
@@ -10,8 +16,8 @@ module.exports = function(app, passport, connection) {
     });
 
     app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
+        successRedirect: '/dashboard',
+        failureRedirect: '/#signup',
         failureFlash: true 
         }) 
     );
@@ -22,7 +28,7 @@ module.exports = function(app, passport, connection) {
     });
 
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
+        successRedirect: '/dashboard',
         failureRedirect: '/login',
         failureFlash: true
         })
@@ -38,7 +44,7 @@ module.exports = function(app, passport, connection) {
 
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { 
-            successRedirect: '/profile',
+            successRedirect: '/dashboard',
             failureRedirect: '/login' 
         })
     );
@@ -46,7 +52,7 @@ module.exports = function(app, passport, connection) {
     app.get('/logout', function(req, res) {
         console.log('req', req.logout)
         req.logout();
-        res.render('index.ejs');
+        res.redirect('/');
     });
 
 // =============================================================================
@@ -89,7 +95,7 @@ module.exports = function(app, passport, connection) {
         user.fb_id = undefined;
         var updateQuery = "UPDATE users set fb_id=?, fb_token=? where id=?";
         connection.query(updateQuery, [null, null, user.id]);
-        res.redirect('/profile');
+        res.redirect('/dashboard');
     });
 
     function isLoggedIn(req, res, next) {

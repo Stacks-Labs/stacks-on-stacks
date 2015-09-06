@@ -29,13 +29,14 @@ app.set('view engine', 'ejs')
 app.use(session({
 	secret: 'somestring',
 	saveUninitialized: true,
-	save: true
+	save: true,
+  resave: true
 }));
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-//app.use(express.static('public'));
+app.use(express.static('views'));
 
 require('./app/routes.js')(app, passport, connection) // load our routes and pass in our app and fully configured passport
 
