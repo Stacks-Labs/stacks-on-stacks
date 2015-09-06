@@ -20,48 +20,48 @@ module.exports = function(passport, connection) {
 
     passport.use('local-signup', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
-        usernameField : 'email',
+        usernameField : 'username',
         passwordField : 'password',
         passReqToCallback : true // allows us to pass back the entire request to the callback
     },
-    function(req, email, password, done) {
+    function(req, username, password, done) {
         process.nextTick(function() {
 
-        // find a user whose email is the same as the forms email
+        // find a user whose username is the same as the forms username
         // we are checking to see if the user trying to login already exists
-        connection.query( "SELECT * FROM users WHERE username = ?",  [email], function(err, user) {
+        connection.query( "SELECT * FROM users WHERE username = ?",  [username], function(err, user) {
             // if there are any errors, return the error
             if (err)
                 return done(err);
 
-            // check to see if theres already a user with that email
+            // check to see if theres already a user with that username
             if (user.length) {
-                return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
             }
             if (!req.user) {
                 console.log('error')
 
             
-                // if there is no user with that email create the user
+                // if there is no user with that username create the user
                 var newUser            = new Object();
 
                 // set the user's local credentials
-                newUser.email    = email;
+                newUser.username    = username;
                 newUser.password = bcrypt.hashSync(password, 10);
 
                 var insertQuery = "INSERT INTO users (username, password) values (?, ?)"
                 // save the user
-                connection.query(insertQuery, [email, newUser.password], function(err, user) {
+                connection.query(insertQuery, [username, newUser.password], function(err, user) {
                     newUser.id = user.insertId;
                     return done(null, newUser);
                 });
             } else {
                 var user = req.user;
-                user.email    = email;
+                user.username    = username;
                 user.password = bcrypt.hashSync(password, 10);
 
-                var updateQuery = "UPDATE users set email=?, set password=?";
-                connection.query(insertQuery, [email, password], function(err,user) {
+                var updateQuery = "UPDATE users set username=?, set password=?";
+                connection.query(insertQuery, [username, password], function(err,user) {
                     return done(null, user);
                 })
             }
