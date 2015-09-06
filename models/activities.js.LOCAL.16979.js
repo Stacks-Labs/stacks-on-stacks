@@ -49,5 +49,4 @@ module.exports = {
       'id': id
     }).del();
   }
-
 };

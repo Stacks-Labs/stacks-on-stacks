@@ -38,6 +38,7 @@ var _ = require('underscore');
 
 module.exports = {
   // takes a comma delimited string, splits it into an array
+<<<<<<< HEAD
   addInterests: function(interest, userTripId) {
     knex('activities').insert({
       'users_trips_id': userTripId,
@@ -49,5 +50,48 @@ module.exports = {
       'id': id
     }).del();
   }
+=======
+  parseInterests: function(interestStr) {
+    return interestStr.split(',');
+  },
+  updateInterests: function(interestsArr, userTripId) {
+    knex('activities').where({
+        user_trips_id: userTripId
+      }).select()
+      .then(function(userTrip) {
+        var interests = _.uniq(interestsArr.concat(JSON.parse(userTrip[0]
+          .activity)));
+        acts = JSON.stringify(interests);
+        knex('activities').update({
+          'activity': acts
+        });
+      });
+  },
+  addInterests: function(interestStr, userTripId) {
+    var dbInterests = JSON.stringify(module.exports.parseInterests(
+      interestStr));
+    knex('activities').insert({
+      'users_trips_id': userTripId,
+      'activity': dbInterests
+    });
+  },
+  removeInterests: function(interestStr, userTripId) {
+    var dbInterests = JSON.stringify(module.exports.parseInterests(
+      interestStr));
+    removeArr = module.exports.parseInterests(interestStr);
+    knex('activities').where({
+        'user_trips_id': userTripId
+      }).select()
+      .then(function(userTrip) {
+        newInterestList = dbInterests.reject(function(element) {
+          return (removeArr.indexOf(element) > -1);
+        });
+        acts = JSON.stringify(newInterestList);
+        knex('activities').update({
+          'activity': acts
+        });
+      });
+  }
 
+>>>>>>> 8a832497f914eb651cd89d519e457facbe00016f
 };

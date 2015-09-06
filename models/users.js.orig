@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-module.exports = {
-  signup: function(username, email, hashedPass, facebookID, facebookToken) {
-    knex('users').where({loginMethod: username}).select('username')
-=======
 
 // THIS MUST BE ON THE SERVER FILE FOR THIS TO WORK.
 // var databasehost = process.env.HOST || 'localhost';
@@ -31,9 +26,8 @@ module.exports for users.js
 -------------------------------------*/
 
 module.exports = {
-  signup: function(username, hashedPass, facebookID, facebookToken) {
-    knex('users').where({'username': username}).select('username')
->>>>>>> impliment users model file (first pass)
+  signup: function(username, email, hashedPass, facebookID, facebookToken) {
+    knex('users').where({loginMethod: username}).select('username')
       .then(function(userInTable) {
         if (userInTable) {
           return false;
@@ -41,10 +35,7 @@ module.exports = {
           if (facebookID) {
             knex('users').insert({
               'username': username,
-<<<<<<< HEAD
               'email': email,
-=======
->>>>>>> impliment users model file (first pass)
               'password': hashedPass,
               'fb_id': facebookID,
               'fb_token': facebookToken
@@ -53,10 +44,7 @@ module.exports = {
           } else {
             knex('users').insert({
               'username': username,
-<<<<<<< HEAD
               'email': email,
-=======
->>>>>>> impliment users model file (first pass)
               'password': hashedPass,
               'fb_id': null,
               'fb_token': null
@@ -67,16 +55,10 @@ module.exports = {
       });
   },
 
-<<<<<<< HEAD
   login: function(loginString, hashedPass, facebookID, facebookToken) {
 
     if (facebookID) {
       knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'fb_id', 'fb_token')
-=======
-  login: function(username, hashedPass, facebookID, facebookToken) {
-    if (facebookID) {
-      knex('users').where({'username': username}).select('username', 'fb_id', 'fb_token')
->>>>>>> impliment users model file (first pass)
         .then(function(loginInfo) {
           if (facebookToken === loginInfo[0].fb_token) {
             return true;
@@ -85,11 +67,7 @@ module.exports = {
           }
         });
     } else {
-<<<<<<< HEAD
       knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'password')
-=======
-      knex('users').where({'username': username}).select('username', 'password')
->>>>>>> impliment users model file (first pass)
         .then(function(loginInfo) {
           if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
             return true;
@@ -98,9 +76,12 @@ module.exports = {
           }
         });
     }
+  },
+  getUserByName: function(username){
+    return knex('users').where({'username':username}).select();
   }
 <<<<<<< HEAD
 };
 =======
 }; // end module.exports object
->>>>>>> impliment users model file (first pass)
+>>>>>>> 8a832497f914eb651cd89d519e457facbe00016f
