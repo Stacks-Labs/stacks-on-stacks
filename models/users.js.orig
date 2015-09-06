@@ -80,4 +80,8 @@ module.exports = {
   getUserByName: function(username){
     return knex('users').where({'username':username}).select();
   }
+<<<<<<< HEAD
 };
+=======
+}; // end module.exports object
+>>>>>>> 8a832497f914eb651cd89d519e457facbe00016f
