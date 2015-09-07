@@ -1,12 +1,4 @@
 /*------------------------------------
-<<<<<<< HEAD
-=======
-module.exports for activities.js
-
-  addInterests: Takes an interest string and a userTripID and adds an interest to the table. 
-  removeInterests: Takes an activities id, and removes it from this table. 
-  getInterestId: Takes an interest and a user trip id and returns the ID number of this activity. 
->>>>>>> minor style guide modifications
 
 // This module.exports is a function. It's the way that we
 // pass in the live database connection ("knex") and use it with
@@ -21,10 +13,10 @@ module.exports for activities.js
   removeInterests: takes an ID# FOR THIS TABLE and removes
   it from the database. 
 
-<<<<<<< HEAD
   getInterestID: Takes an interest and userTripID and
   returns the specific record(s) where that id can be found. 
 
+<<<<<<< HEAD
 -------------------------------------*/
 
 module.exports = function(knex) {
@@ -37,7 +29,6 @@ module.exports = function(knex) {
           });
       }
     }
-  }
 =======
 module.exports = {
   // takes a comma delimited string, splits it into an array
@@ -62,6 +53,5 @@ module.exports = {
         'users_trips_id': userTripId
         })
       .select('id');
+>>>>>>> Minor modifications for style
   }
-};
->>>>>>> minor style guide modifications

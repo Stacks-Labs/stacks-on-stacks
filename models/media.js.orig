@@ -13,51 +13,19 @@ module.exports for media.js
   addMedia: adds a URL reference to the media table and connects it with the
   appropriate type and id. 
 
+<<<<<<< HEAD
   getMediaById: takes an id# and a type, and returns that media's recrod. 
 
   deleteMediaByTypeId: given an id# and a type, deletes that media. 
+=======
+module.exports = {
+  // takes a comma delimited string, splits it into an array
+  addMedia: function(url, type, id) { // type is a string that can be 'blog' 'trip' or 'user'
+>>>>>>> Minor modifications for style
 
-<<<<<<< HEAD
   deleteMediaByMediaId: given an id# FOR THIS TABLE, deletes that media. 
 
 -------------------------------------*/
-=======
-    type = type + '_id';
-    var mediaObject = {
-      'url': url,
-      'blog_id': null,
-      'trip_id': null,
-      'user_id': null
-    };
-    mediaObject[type].id = id;
-    knex('media')
-      .insert(
-        mediaObject
-      );
-  },
-  getMediaById: function(id, type) {
-    var type = type + '_id';
-    var searchObj = {};
-    searchObj[type] = id;
-    return knex('media')
-      .where(searchObj)
-      .select();
-  },
-  deleteMediaByTypeId: function(id, type) {
-    var type = type + '_id';
-    var searchObj = {};
-    searchObj[type] = id;
-    knex('media')
-      .where(searchObj)
-      .del();
-  },
-  deleteMediaByMediaId: function(id) {
-    knex('media')
-      .where({
-        id: id
-      }).del();
-  }
->>>>>>> minor style guide modifications
 
 module.exports = function(knex) {
   return {
