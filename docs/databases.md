@@ -11,10 +11,6 @@ Password: letstravel
 Default Port: 5432
 Hostname (Azure): // todo
 
-To use this project with heroku's Postgres database solution, make sure the ['pg' npm module](https://www.npmjs.com/package/pg) is listed in dependencies in your package.json file. 
-
-With express, you can connect to the database using pg.connect
-
 ## Schema
 
 ```
@@ -25,6 +21,7 @@ With express, you can connect to the database using pg.connect
   -- password
   -- fb_id
   -- fb_token
+  -- profile
 
 //Table where information on trips is stored
   trips
