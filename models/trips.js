@@ -40,34 +40,38 @@ module.exports for trips.js
 module.exports = {
   addTrip: function(destination, timeStart, timeEnd) { // string, timestamp, timestamp.
     var geocode = getGeocode(destination);
-    return knex('trips').insert({
-      'dest_name': destination,
-      'geocode_latitude': geocode.latitude,
-      'geocode_longitude': geocode.longitude,
-      'time_start': timeStart,
-      'time_end': timeEnd,
-    });
+    return knex('trips')
+      .insert({
+        'dest_name': destination,
+        'geocode_latitude': geocode.latitude,
+        'geocode_longitude': geocode.longitude,
+        'time_start': timeStart,
+        'time_end': timeEnd,
+      });
   },
   deleteTrip: function(trip) {
-    knex('user_trips').where({
-      'trip_id': trip
-    }).select().
-    then(function(tripCheck) {
-      if (!tripCheck.length) {
-        knex('trips').where({
-          'id': trip
-        }).del();
-        return true;
-      } else {
-        return false;
-      }
-    });
+    knex('user_trips')
+      .where({
+        'trip_id': trip
+      })
+      .select()
+      .then(function(tripCheck) {
+        if (!tripCheck.length) {
+          knex('trips').where({
+            'id': trip
+          }).del();
+          return true;
+        } else {
+          return false;
+        }
+      });
   },
 
   // BE SURE TO INCLUDE:
   // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
   searchByDistanceAndTime: function(latitude, longitude, distance, time) {
-    return knex('trips').select()
+    return knex('trips')
+      .select()
       .then(function(trips) {
         return trips.map(function(trip) {
           if (google.maps.geometry.spherical.computeDistanceBetween({
@@ -84,11 +88,12 @@ module.exports = {
         });
       });
   },
-  getTripsByDistance: function(latitude, longitude, distance,
-    includePastTrips) { // int, int, int, bool
+
+  searchTripsByDistance: function(latitude, longitude, distance, includePastTrips) { // int, int, int, bool
     var time;
     includePastTrips = false; // delete this if implimenting past trips checkbox
-    return knex('trips').select()
+    return knex('trips')
+      .select()
       .then(function(trips) {
         if (includePastTrips) {
           time = 0;
@@ -111,8 +116,9 @@ module.exports = {
       });
   },
 
-  getTripsByTime: function(begin, end) { // timestamp, timestamp
-    return knex('trips').select()
+  searchTripsByTime: function(begin, end) { // timestamp, timestamp
+    return knex('trips')
+      .select()
       .then(function(trips) {
         return trips.map(function(trip) {
           if ((begin >= trip.time_start && begin <= trip.time_end) ||

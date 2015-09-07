@@ -26,32 +26,38 @@
 
 module.exports = {
   addMessage: function(sender, reciever, subject, body) { // int, int, string, string
-    knex('messages').insert({
-      'sender_id': sender,
-      'receiver_id': receiver,
-      'subject': subject,
-      'body': body
-    });
+    knex('messages')
+      .insert({
+        'sender_id': sender,
+        'receiver_id': receiver,
+        'subject': subject,
+        'body': body
+      });
     return true;
   },
   deleteMessage: function(msgId) { // int, int, string, string
-    knex('messages').where({
-      'id': msgId
-    }).del();
+    knex('messages')
+      .where({
+        'id': msgId
+      }).del();
     return true;
   },
   getMyMessages: function(userId) {
-    return knex('messages').where({
-        'receiver_id': userId
-      }).select()
+    return knex('messages')
+      .where({
+          'receiver_id': userId
+      })
+      .select()
       .then(function(messages) {
-        return messages;
+          return messages;
       });
   },
   getMySentMessages: function(userId) {
-    return knex('messages').where({
+    return knex('messages')
+      .where({
         'sender_id': userId
-      }).select()
+      })
+      .select()
       .then(function(messages) {
         return messages;
       });

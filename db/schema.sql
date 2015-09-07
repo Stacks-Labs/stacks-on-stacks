@@ -6,7 +6,8 @@ CREATE TABLE users (
   email VARCHAR(255),
   password VARCHAR(255) DEFAULT 'sogimasogimasogima',
   fb_id VARCHAR(255),
-  fb_token VARCHAR(255)
+  fb_token VARCHAR(255),
+  profile TEXT NOT NULL,  
 );
 
 DROP TABLE IF EXISTS trips;

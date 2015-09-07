@@ -34,9 +34,6 @@ module.exports for trips.js
 // BE SURE TO INCLUDE:
 // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
-var users = require('users')
-var _ = require('underscore');
-
 module.exports = {
   // takes a comma delimited string, splits it into an array
   addBlog: function(author, subject, body){
@@ -49,12 +46,18 @@ module.exports = {
     })
   },
   removeBlog: function(blogId){
-    knex('blogs').where({id: blog_id}).del();
+    knex('blogs')
+      .where({id: blog_id})
+      .del();
   },
   modifyBlog: function(blogId, subject, body){
-    knex('blogs').where({id: blog_id}).update({'subject': subject, 'body': body})
+    knex('blogs')
+      .where({id: blog_id})
+      .update({'subject': subject, 'body': body})
   },
   getBlogsByUser: function(userId){
-    return knex('blogs').where({user_id: userId}).select();
+    return knex('blogs')
+      .where({user_id: userId})
+      .select();
   }
 };

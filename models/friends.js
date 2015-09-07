@@ -13,26 +13,33 @@
 
 module.exports = {
   befriend: function(frienderId, friendeeId) { // int, int, string, string
-    knex('friends').insert({
-      'friender_id': frienderId,
-      'friendee_id': friendeeId
-    });
+    knex('friends')
+      .insert({
+        'friender_id': frienderId,
+        'friendee_id': friendeeId
+      });
     return true;
   },
-  defriend: function(friendship) { // int, int, string, string
-    knex('friends').where({
-      'id': friendship
-    }).del();
+  defriend: function(friendshipId) { // int
+    knex('friends')
+      .where({
+          'id': friendshipId
+        })
+      .del();
     return true;
   },
   listFriends: function(user) {
-    return knex('friends').where({
-      'friender_id': user
-    }).select();
+    return knex('friends')
+      .where({
+        'friender_id': user
+      })
+      .select();
   },
   listWhoFriendsMe: function(user) {
-    return knex('friends').where({
-      'friendee_id': user
-    }).select();
+    return knex('friends')
+      .where({
+        'friendee_id': user
+      })
+      .select();
   }
 };
