@@ -34,8 +34,6 @@ module.exports for trips.js
 // BE SURE TO INCLUDE:
 // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
-var _ = require('underscore');
-
 module.exports = {
   // takes a comma delimited string, splits it into an array
   addMedia: function(url, type, id) { // type is a string that can be 'blog' 'trip' or 'user'

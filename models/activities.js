@@ -23,8 +23,6 @@ module.exports for activities.js
 // BE SURE TO INCLUDE:
 // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
-var _ = require('underscore');
-
 module.exports = {
   // takes a comma delimited string, splits it into an array
   addInterests: function(interest, userTripId) {
