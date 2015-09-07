@@ -49,12 +49,18 @@ module.exports = {
     })
   },
   removeBlog: function(blogId){
-    knex('blogs').where({id: blog_id}).del();
+    knex('blogs')
+      .where({id: blog_id})
+      .del();
   },
   modifyBlog: function(blogId, subject, body){
-    knex('blogs').where({id: blog_id}).update({'subject': subject, 'body': body})
+    knex('blogs')
+      .where({id: blog_id})
+      .update({'subject': subject, 'body': body})
   },
   getBlogsByUser: function(userId){
-    return knex('blogs').where({user_id: userId}).select();
+    return knex('blogs')
+      .where({user_id: userId})
+      .select();
   }
 };
