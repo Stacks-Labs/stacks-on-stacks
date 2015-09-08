@@ -29,74 +29,81 @@ module.exports for users.js
 
 -------------------------------------*/
 
-module.exports = {
-  signup: function(username, email, hashedPass, facebookID, facebookToken) {
-    knex('users')
-      .where({loginMethod: username})
-      .select('username')
-      .then(function(userInTable) {
-        if (userInTable) {
-          return false;
-        } else {
-          if (facebookID) {
-            knex('users').insert({
-              'username': username,
-              'email': email,
-              'password': hashedPass,
-              'fb_id': facebookID,
-              'fb_token': facebookToken
-            });
-            return true;
-          } else {
-            knex('users').insert({
-              'username': username,
-              'email': email,
-              'password': hashedPass,
-              'fb_id': null,
-              'fb_token': null
-            });
-            return true;
-          }
-        }
+module.exports = function(knex) {
+
+  return {
+    signupLocal: function(username, hashedPass) {
+      return knex('users').insert({
+        'username': username,
+        'password': hashedPass,
       });
-  },
+    },
 
-  login: function(loginString, hashedPass, facebookID, facebookToken) {
+    signupFacebook: function(username, facebookId, facebookToken) {
+      return knex('users').insert({
+        'username': username,
+        'fb_id': facebookId,
+        'fb_token': facebookToken
+      });
+    },
 
-    if (facebookID) {
-      knex('users')
-        .where({'username': loginString})
-        .orWhere({'email': loginString})
-        .select('username', 'fb_id', 'fb_token')
-        .then(function(loginInfo) {
-          if (facebookToken === loginInfo[0].fb_token) {
-            return true;
-          } else {
-            return false;
-          }
+    updateFacebook: function(facebookId, facebookToken, userId) {
+      return knex('users').where('id', '=', userId)
+        .update({
+          'fb_id': facebookId,
+          'fb_token': facebookToken
         });
-    } else {
-      knex('users')
-        .where({'username': loginString})
-        .orWhere({'email': loginString})
-        .select('username', 'password')
-        .then(function(loginInfo) {
-          if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
-            return true;
-          } else {
-            return false;
-          }
-        });
+    },
+
+    login: function(loginString, hashedPass, facebookID, facebookToken) {
+
+      if (facebookID) {
+        knex('users')
+          .where({'username': loginString})
+          .orWhere({'email': loginString})
+          .select('username', 'fb_id', 'fb_token')
+          .then(function(loginInfo) {
+            if (facebookToken === loginInfo[0].fb_token) {
+              return true;
+            } else {
+              return false;
+            }
+          });
+      } else {
+        knex('users')
+          .where({'username': loginString})
+          .orWhere({'email': loginString})
+          .select('username', 'password')
+          .then(function(loginInfo) {
+            if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
+              return true;
+            } else {
+              return false;
+            }
+          });
+      }
+    },
+    addProfile: function(id, profileText){
+      return knex('users')
+        .where({'id': id})
+        .update({'profile':profileText});
+    },
+    getUserByName: function(username){
+      return knex('users')
+        .where({'username':username})
+        .select();
+    },
+    getUserById: function(id){
+      return knex('users')
+        .where({'id':id})
+        .select();
+    },
+    getUserByFB: function(facebookId){
+      return knex('users')
+        .where({'fb_id':facebookId})
+        .select();
     }
-  },
-  addProfile: function(id, profileText){
-    knex('users')
-      .where({'id': id})
-      .update({'profile':profileText});
-  },
-  getUserByName: function(username){
-    return knex('users')
-      .where({'username':username})
-      .select();
+    
   }
+
 };
