@@ -1,6 +1,12 @@
+
+
+
 var path = require('path');
 
 module.exports = function(app, passport, connection) {
+
+var UsersTrips = require('../models/users_trips')(connection);
+var Trips = require('../models/trips')(connection);
 	
 	app.get('/', function(req, res) {
 		res.render('index.ejs', { message: req.flash('signupMessage')});
@@ -54,6 +60,27 @@ module.exports = function(app, passport, connection) {
         req.logout();
         res.redirect('/');
     });
+
+    app.get('/test', function(req, res) {
+        res.render('dummy.ejs');
+    });
+
+    // Below stuff is for testing purposes
+
+    app.get('/controllers/MakeTrips.js', function(req, res) {
+        res.sendfile('controllers/MakeTrips.js');
+    });
+
+    app.post('/api/createTrip', function(req, res){
+        for (var key in req.body) {
+          var body = JSON.parse(key);
+         }
+        UsersTrips.makeTrip(body.destination, body.start, body.end, '1')
+        .then(function(){
+            console.log("anything")
+            res.status(200);
+        });
+    })
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
