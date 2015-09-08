@@ -34,14 +34,16 @@ module.exports for trips.js
 module.exports = function(knex) {
   return {
     addTrip: function(destination, timeStart, timeEnd) { // string, timestamp, timestamp.
-      var geocode = getGeocode(destination);
+      // var geocode = getGeocode(destination);
+
+     console.log('destination inside trips', destination);
       return knex('trips')
         .insert({
           'dest_name': destination,
-          'geocode_latitude': geocode.latitude,
-          'geocode_longitude': geocode.longitude,
+          // 'geocode_latitude': geocode.latitude,
+          // 'geocode_longitude': geocode.longitude,
           'time_start': timeStart,
-          'time_end': timeEnd,
+          'time_end': timeEnd
         });
     },
     deleteTrip: function(trip) {
@@ -64,53 +66,52 @@ module.exports = function(knex) {
 
     // BE SURE TO INCLUDE:
     // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
-    searchByDistanceAndTime: function(latitude, longitude, distance, time) {
-      return knex('trips')
-        .select()
-        .then(function(trips) {
-          return trips.map(function(trip) {
-            if (google.maps.geometry.spherical.computeDistanceBetween({
-              'lat': latitude,
-              'lng': longitude
-            }, {
-              'lat': trip.geocode_latitude,
-              'lng': trip.geocode_longitude
-            }) && time >= trip.time_start && time <= trip.time_end) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-        });
-    },
+    // searchByDistanceAndTime: function(latitude, longitude, distance, time) {
+    //   return knex('trips')
+    //     .select()
+    //     .then(function(trips) {
+    //       return trips.map(function(trip) {
+    //         if (google.maps.geometry.spherical.computeDistanceBetween({
+    //           'lat': latitude,
+    //           'lng': longitude
+    //         }, {
+    //           'lat': trip.geocode_latitude,
+    //           'lng': trip.geocode_longitude
+    //         }) && time >= trip.time_start && time <= trip.time_end) {
+    //           return true;
+    //         } else {
+    //           return false;
+    //         }
+    //       });
+    //     });
+    // },
 
-    searchTripsByDistance: function(latitude, longitude, distance,
-      includePastTrips) { // int, int, int, bool
-      var time;
-      includePastTrips = false; // delete this if implimenting past trips checkbox
-      return knex('trips')
-        .select()
-        .then(function(trips) {
-          if (includePastTrips) {
-            time = 0;
-          } else {
-            time = new Date();
-          }
-          return trips.map(function(trip) {
-            if (google.maps.geometry.spherical.computeDistanceBetween({
-              'lat': latitude,
-              'lng': longitude
-            }, {
-              'lat': trip.geocode_latitude,
-              'lng': trip.geocode_longitude
-            }) && time >= trip.time_start) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-        });
-    },
+    // searchTripsByDistance: function(latitude, longitude, distance, includePastTrips) { // int, int, int, bool
+    //   var time;
+    //   includePastTrips = false; // delete this if implimenting past trips checkbox
+    //   return knex('trips')
+    //     .select()
+    //     .then(function(trips) {
+    //       if (includePastTrips) {
+    //         time = 0;
+    //       } else {
+    //         time = new Date();
+    //       }
+    //       return trips.map(function(trip) {
+    //         if (google.maps.geometry.spherical.computeDistanceBetween({
+    //           'lat': latitude,
+    //           'lng': longitude
+    //         }, {
+    //           'lat': trip.geocode_latitude,
+    //           'lng': trip.geocode_longitude
+    //         }) && time >= trip.time_start) {
+    //           return true;
+    //         } else {
+    //           return false;
+    //         }
+    //       });
+    //     });
+    // },
 
     searchTripsByTime: function(begin, end) { // timestamp, timestamp
       return knex('trips')

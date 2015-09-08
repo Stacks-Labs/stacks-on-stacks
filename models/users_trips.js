@@ -17,21 +17,23 @@ module.exports for users_trips.js
 
 -------------------------------------*/
 
-var trips = require('./trips.js');
 
 
 module.exports = function(knex) {
+var trips = require('./trips.js')(knex);
   return {
     makeTrip: function(destination, timeStart, timeEnd, user) {
-      trips.addTrip(destination, timeStart, timeEnd)
+      console.log('destination inside users trips', destination);
+      return trips.addTrip(destination, timeStart, timeEnd)
         .then(
-          function(user) { // can you promisify this?
-            var trip = knex('trips').raw('SELECT LAST_INSERT_ID();');
-            tripId = trip[0].id;
-            knex('users_trips').insert({
+          function(trip) { // can you promisify this?
+            console.log('hello', trip);
+            tripId = trip[0];
+            knex('users_trips')
+              .insert({
               'user_id': user,
               'trip_id': tripId
-            });
+             });
           });
     },
     getTripsByUser: function(user) {
