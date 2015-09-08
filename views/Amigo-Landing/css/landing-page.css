@@ -39,8 +39,8 @@ h6 {
     background-size: cover;
 }
 
-.intro-box {
-    background-color:rgba(107, 97, 97, 0.6);
+/*.intro-box {
+    background-color:rgba(107, 97, 97, 0.8);
     max-height: 500px;
     max-width: 600px;
     margin-top:50px;
@@ -48,6 +48,9 @@ h6 {
     
     padding-bottom: 20px;
     border-radius: 2%;
+}*/
+#submit {
+  margin-top: 5px;
 }
 
 .intro-message {
@@ -78,6 +81,10 @@ h6 {
   margin-left: auto;
   margin-right: auto;
   padding:20px;
+}
+
+#password {
+  margin-top: 4px;
 }
 
 
