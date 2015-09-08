@@ -13,15 +13,9 @@ module.exports for media.js
   addMedia: adds a URL reference to the media table and connects it with the
   appropriate type and id. 
 
-<<<<<<< HEAD
   getMediaById: takes an id# and a type, and returns that media's recrod. 
 
   deleteMediaByTypeId: given an id# and a type, deletes that media. 
-=======
-module.exports = {
-  // takes a comma delimited string, splits it into an array
-  addMedia: function(url, type, id) { // type is a string that can be 'blog' 'trip' or 'user'
->>>>>>> Minor modifications for style
 
   deleteMediaByMediaId: given an id# FOR THIS TABLE, deletes that media. 
 
@@ -29,7 +23,11 @@ module.exports = {
 
 module.exports = function(knex) {
   return {
+<<<<<<< HEAD
     addMedia: function(id, url, type) { // type is a string that can be 'blog' 'trip' or 'user'
+=======
+    addMedia: function(url, type, id) { // type is a string that can be 'blog' 'trip' or 'user'
+>>>>>>> update models to correct knex syntax
       type = type + '_id';
       var mediaObject = {
         'url': url,
@@ -37,8 +35,13 @@ module.exports = function(knex) {
         'trip_id': null,
         'user_id': null
       };
+<<<<<<< HEAD
       mediaObject[type] = id;
       return knex('media')
+=======
+      mediaObject[type].id = id;
+      knex('media')
+>>>>>>> update models to correct knex syntax
         .insert(
           mediaObject
         );
@@ -55,12 +58,20 @@ module.exports = function(knex) {
       type = type + '_id';
       var searchObj = {};
       searchObj[type] = id;
+<<<<<<< HEAD
       return knex('media')
+=======
+      knex('media')
+>>>>>>> update models to correct knex syntax
         .where(searchObj)
         .del();
     },
     deleteMediaByMediaId: function(id) {
+<<<<<<< HEAD
       return knex('media')
+=======
+      knex('media')
+>>>>>>> update models to correct knex syntax
         .where({
           id: id
         }).del();

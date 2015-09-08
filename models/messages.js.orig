@@ -6,7 +6,6 @@
 // to just export an object of methods will not work without
 // the live database. 
 
-<<<<<<< HEAD
 module.exports for messages.js
   addMessage: Takes a senderID, a reciver ID, a subject and a body, and inserts it into the database.
 
@@ -20,14 +19,20 @@ module.exports for messages.js
 
 module.exports = function(knex) {
   return {
+<<<<<<< HEAD
     addMessage: function(sender, receiver, subject, body) { // int, int, string, string
       return knex('messages')
+=======
+    addMessage: function(sender, reciever, subject, body) { // int, int, string, string
+      knex('messages')
+>>>>>>> update models to correct knex syntax
         .insert({
           'sender_id': sender,
           'receiver_id': receiver,
           'subject': subject,
           'body': body
         });
+<<<<<<< HEAD
     },
     deleteMessage: function(msgId) { // int, int, string, string
       return knex('messages')
@@ -48,47 +53,36 @@ module.exports = function(knex) {
         .innerJoin('users AS sUsers', 'sUsers.id', 'messages.sender_id')
         .where(grabId, username)
         .select('sUsers.username as sender', 'rUsers.username as receiver', 'subject', 'body');
+=======
+      return true;
+    },
+    deleteMessage: function(msgId) { // int, int, string, string
+      knex('messages')
+        .where({
+          'id': msgId
+        }).del();
+      return true;
+    },
+    getMyMessages: function(userId) {
+      return knex('messages')
+        .where({
+          'receiver_id': userId
+        })
+        .select()
+        .then(function(messages) {
+          return messages;
+        });
+    },
+    getMySentMessages: function(userId) {
+      return knex('messages')
+        .where({
+          'sender_id': userId
+        })
+        .select()
+        .then(function(messages) {
+          return messages;
+        });
+>>>>>>> update models to correct knex syntax
     }
   };
 }
-=======
-module.exports = {
-  addMessage: function(sender, reciever, subject, body) { // int, int, string, string
-    knex('messages')
-      .insert({
-        'sender_id': sender,
-        'receiver_id': receiver,
-        'subject': subject,
-        'body': body
-      });
-    return true;
-  },
-  deleteMessage: function(msgId) { // int, int, string, string
-    knex('messages')
-      .where({
-        'id': msgId
-      }).del();
-    return true;
-  },
-  getMyMessages: function(userId) {
-    return knex('messages')
-      .where({
-          'receiver_id': userId
-      })
-      .select()
-      .then(function(messages) {
-          return messages;
-      });
-  },
-  getMySentMessages: function(userId) {
-    return knex('messages')
-      .where({
-        'sender_id': userId
-      })
-      .select()
-      .then(function(messages) {
-        return messages;
-      });
-  }
-};
->>>>>>> minor style guide modifications

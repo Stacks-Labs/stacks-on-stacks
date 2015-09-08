@@ -16,11 +16,11 @@ module.exports for activities.js
   getInterestID: Takes an interest and userTripID and
   returns the specific record(s) where that id can be found. 
 
-<<<<<<< HEAD
 -------------------------------------*/
 
 module.exports = function(knex) {
   return {
+<<<<<<< HEAD
     addActivity: function(userTripId, activity) {
       return knex('activities')
         .insert({
@@ -29,29 +29,30 @@ module.exports = function(knex) {
           });
       }
     }
-=======
-module.exports = {
-  // takes a comma delimited string, splits it into an array
-  addInterests: function(interest, userTripId) {
-    knex('activities')
-      .insert({
-        'users_trips_id': userTripId,
-        'activity': interest
-      });
-  },
-  removeInterests: function(id) {
-    knex('activities')
-      .where({
-        'id': id
-      })
-      .del();
-  },
-  getInterestId: function(interest, userTripId){
-    knex('activities')
-      .where({
-        'activity': interest,
-        'users_trips_id': userTripId
-        })
-      .select('id');
->>>>>>> Minor modifications for style
   }
+=======
+    addInterests: function(interest, userTripId) {
+      knex('activities')
+        .insert({
+          'users_trips_id': userTripId,
+          'activity': interest
+        });
+    },
+    removeInterests: function(id) {
+      knex('activities')
+        .where({
+          'id': id
+        })
+        .del();
+    },
+    getInterestId: function(interest, userTripId) {
+      knex('activities')
+        .where({
+          'activity': interest,
+          'users_trips_id': userTripId
+        })
+        .select('id');
+    }
+  };
+};
+>>>>>>> update models to correct knex syntax
