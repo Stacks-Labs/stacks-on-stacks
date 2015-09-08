@@ -140,6 +140,6 @@ module.exports = function(passport, knex) {
             Users.updateFacebook(profile.id, accessToken, user.id);
           }
         });
+    })); 
+}
 
-    }));
-};

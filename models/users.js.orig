@@ -1,11 +1,18 @@
+<<<<<<< HEAD
+=======
 /*------------------------------------
+>>>>>>> Removed login function from users model
 // This module.exports is a function. It's the way that we
 // pass in the live database connection ("knex") and use it with
 // all the various module methods (which are returned.)  Trying
 // to just export an object of methods will not work without
 // the live database. 
+<<<<<<< HEAD
+/*------------------------------------
+=======
 
 
+>>>>>>> Removed login function from users model
 module.exports for users.js
   signupLocal: -- takes a username and a hashed password,
   returns a promise to insert that username and hashed password
@@ -38,10 +45,7 @@ module.exports for users.js
 
 -------------------------------------*/
 
-<<<<<<< HEAD
 
-=======
->>>>>>> Changed passport to use the user model with knex
 module.exports = function(knex) {
 
   return {
@@ -61,49 +65,14 @@ module.exports = function(knex) {
     },
 
     updateFacebook: function(facebookId, facebookToken, userId) {
-<<<<<<< HEAD
       return knex('users')
         .where('id', userId) 
-=======
-      return knex('users').where('id', '=', userId)
->>>>>>> Changed passport to use the user model with knex
         .update({
           'fb_id': facebookId,
           'fb_token': facebookToken
         });
     },
 
-<<<<<<< HEAD
-=======
-    login: function(loginString, hashedPass, facebookID, facebookToken) {
-
-      if (facebookID) {
-        knex('users')
-          .where({'username': loginString})
-          .orWhere({'email': loginString})
-          .select('username', 'fb_id', 'fb_token')
-          .then(function(loginInfo) {
-            if (facebookToken === loginInfo[0].fb_token) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-      } else {
-        knex('users')
-          .where({'username': loginString})
-          .orWhere({'email': loginString})
-          .select('username', 'password')
-          .then(function(loginInfo) {
-            if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
-              return true;
-            } else {
-              return false;
-            }
-          });
-      }
-    },
->>>>>>> Changed passport to use the user model with knex
     addProfile: function(id, profileText){
       return knex('users')
         .where({'id': id})
