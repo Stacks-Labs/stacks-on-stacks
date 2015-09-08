@@ -1,33 +1,43 @@
-
-// THIS MUST BE ON THE SERVER FILE FOR THIS TO WORK.
-// var databasehost = process.env.HOST || 'localhost';
-// var knex = require('knex')({
-//   client: 'mysql',
-//   connection: {
-//     host: databasehost,
-//     user: 'amigo',
-//     password: 'letstravel',
-//     database: 'amigo',
-//     charset: 'utf8'
-//   }
-// });
-
 /*------------------------------------
+// This module.exports is a function. It's the way that we
+// pass in the live database connection ("knex") and use it with
+// all the various module methods (which are returned.)  Trying
+// to just export an object of methods will not work without
+// the live database. 
+
+
 module.exports for users.js
-  signup: 
+  signupLocal: -- takes a username and a hashed password,
+  returns a promise to insert that username and hashed password
+  into the database. 
+
+  signupFacebook -- using the passport framework, it takes
+  a username, a facebook ID, and a facebook token and returns
+  a promise to insert that username and facebook info into
+  the database.  
+
+  updateFacebook -- Takes a facebook ID, facebook Token, and userID (an int)
+  if a user already exists, this is a way for  them to add their
+  facebook profile to their user info. 
     Checks to see if user exists. If so, returns false; if not,
     takes username, hashedPass, facebookID, facebookToken and inserts them in the database. 
     If FacebookID is null, works with just username and hashpass. 
-  login: 
-    Grabs the username and hashed password from the database, checks the password provided
-    against the hashed password in the database
-    TODO REQUIRED: Must use hashing function (not yet written) -- BB
-  addProfile: Takes the user ID and a text string, and adds that text string to the
-    profile in the database
-  getUserByName: Looks up a username and returns that username's user ID in the table. 
+  
+  addProfile -- takes a userID#, and profile text, updateing
+  the profile to include the new profile text.  
+
+  getUserByName -- a helper function that returns a user record
+  if you only have the username. 
+
+  getUserById -- a helper function that returns a user's record
+  if you only have the id#
+
+  getUserByFacebook -- a helper function that returns a user's record
+  if you only have the facebookID. 
 
 
 -------------------------------------*/
+
 
 module.exports = function(knex) {
 
@@ -48,41 +58,14 @@ module.exports = function(knex) {
     },
 
     updateFacebook: function(facebookId, facebookToken, userId) {
-      return knex('users').where('id', '=', userId)
+      return knex('users')
+        .where('id', userId) 
         .update({
           'fb_id': facebookId,
           'fb_token': facebookToken
         });
     },
 
-    login: function(loginString, hashedPass, facebookID, facebookToken) {
-
-      if (facebookID) {
-        knex('users')
-          .where({'username': loginString})
-          .orWhere({'email': loginString})
-          .select('username', 'fb_id', 'fb_token')
-          .then(function(loginInfo) {
-            if (facebookToken === loginInfo[0].fb_token) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-      } else {
-        knex('users')
-          .where({'username': loginString})
-          .orWhere({'email': loginString})
-          .select('username', 'password')
-          .then(function(loginInfo) {
-            if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
-              return true;
-            } else {
-              return false;
-            }
-          });
-      }
-    },
     addProfile: function(id, profileText){
       return knex('users')
         .where({'id': id})
