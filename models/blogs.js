@@ -1,38 +1,21 @@
-// THIS MUST BE ON THE SERVER FILE FOR THIS TO WORK.
-// var databasehost = process.env.HOST || 'localhost';
-// var knex = require('knex')({
-//   client: 'mysql',
-//   connection: {
-//     host: databasehost,
-//     user: 'amigo',
-//     password: 'letstravel',
-//     database: 'amigo',
-//     charset: 'utf8'
-//   }
-// });
-
 /*------------------------------------
-module.exports for trips.js
-  addTrip: 
-    Adds a trip to the database. It takes the destination name (string), start and end times (both in timestamp form).
-    It also automatically calculates the geocode of the latitude and longitude (with functions to be impliemented)
-    All are stored in the database. 
-  deleteTrip:
-    Checks to see if any other user is referencing the trip. If not, deletes the trip
-  searchByDistanceAndTime: 
-    Queries the database for all trips within 'distance' of an origin point and time. 
-    Before this function is called, the geocode must be parsed into latitude and longitude 'double' float values. 
-  searchByDistance: 
-    Queries the database for all trips within 'distance' of an origin. It is hardcoded to 
-    return only trips that are not yet passed -- that line must be deleted if an "include past trips" checkbox is an option
-    available to the user. 
-  searchByTime:
-    Queries the database for all trips that intersect with a time period specified by the user; 
+
+// This module.exports is a function. It's the way that we
+// pass in the live database connection ("knex") and use it with
+// all the various module methods (which are returned.)  Trying
+// to just export an object of methods will not work without
+// the live database. 
+
+module.exports for blogs.js
+  addBlog: Takes an authorid#, a subject and a body, and adds it to the db. 
+
+  removeBlog: Takes a blog id FOR THIS TABLE and removes it from the db.
+
+  modifyBlog: Updates a blogpost, given the id# FOR THIS TABLE for the blog
+
+  getBlogsByUser: returns all records for a particular user #. 
 
 -------------------------------------*/
-
-// BE SURE TO INCLUDE:
-// <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
 module.exports = {
   // takes a comma delimited string, splits it into an array
