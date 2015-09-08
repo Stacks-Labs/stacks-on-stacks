@@ -20,7 +20,6 @@ module.exports for users_trips.js
 
 
 module.exports = function(knex) {
-var trips = require('./trips.js')(knex);
   return {
 <<<<<<< HEAD
     makeTrip: function(trip, user) {
@@ -38,13 +37,13 @@ var trips = require('./trips.js')(knex);
           function(trip) { // can you promisify this?
             console.log('hello', trip);
             tripId = trip[0];
-            knex('users_trips')
+            return knex('users_trips')
               .insert({
               'user_id': user,
               'trip_id': tripId
              });
           });
->>>>>>> Database Connection to Dummy File
+>>>>>>> bug fix, get users_tables working
     },
     getTripsByUser: function(user) {
       return knex('users_trips').where({
