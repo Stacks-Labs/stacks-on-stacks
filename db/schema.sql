@@ -21,11 +21,7 @@ CREATE TABLE users (
   password VARCHAR(255) DEFAULT 'sogimasogimasogima',
   fb_id VARCHAR(255),
   fb_token VARCHAR(255),
-<<<<<<< HEAD
   profile TEXT DEFAULT NULL
-=======
-  profile TEXT NOT NULL,  
->>>>>>> Add Profile Section to Users Database Schema
 );
 
 CREATE TABLE trips (

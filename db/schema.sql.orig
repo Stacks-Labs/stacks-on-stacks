@@ -22,10 +22,14 @@ CREATE TABLE users (
   fb_id VARCHAR(255),
   fb_token VARCHAR(255),
 <<<<<<< HEAD
+<<<<<<< HEAD
   profile TEXT DEFAULT NULL
 =======
   profile TEXT NOT NULL,  
 >>>>>>> Add Profile Section to Users Database Schema
+=======
+  profile TEXT DEFAULT NULL
+>>>>>>> Changed passport to use the user model with knex
 );
 
 CREATE TABLE trips (
