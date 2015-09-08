@@ -1,5 +1,4 @@
 /*------------------------------------
-<<<<<<< HEAD
 
 // This module.exports is a function. It's the way that we
 // pass in the live database connection ("knex") and use it with
@@ -12,36 +11,16 @@ module.exports for users_trips.js
   It then takes the last inserted id (the new trip) and ties it into the
   user ID. 
 
-  getTripsByUser: This returns all user-trip records belonging to the userID
-
-  getUsersByTrip: This returns all user-trip records belonging to the tripID
-=======
->>>>>>> update models to correct knex syntax
-
-// This module.exports is a function. It's the way that we
-// pass in the live database connection ("knex") and use it with
-// all the various module methods (which are returned.)  Trying
-// to just export an object of methods will not work without
-// the live database. 
-
-module.exports for users_trips.js
-  makeTrip: This function creates a new trip (using the trips.js model). 
-  It then takes the last inserted id (the new trip) and ties it into the
-  user ID. 
-
-<<<<<<< HEAD
-=======
   getTripsByUser: This returns all user-trip records belonging to the userID
 
   getUsersByTrip: This returns all user-trip records belonging to the tripID
 
 -------------------------------------*/
 
-var trips = require('./trips.js');
->>>>>>> update models to correct knex syntax
 
 
 module.exports = function(knex) {
+var trips = require('./trips.js')(knex);
   return {
 <<<<<<< HEAD
     makeTrip: function(trip, user) {
@@ -53,17 +32,19 @@ module.exports = function(knex) {
 
 =======
     makeTrip: function(destination, timeStart, timeEnd, user) {
-      trips.addTrip(destination, timeStart, timeEnd)
+      console.log('destination inside users trips', destination);
+      return trips.addTrip(destination, timeStart, timeEnd)
         .then(
-          function(user) { // can you promisify this?
-            var trip = knex('trips').raw('SELECT LAST_INSERT_ID();');
-            tripId = trip[0].id;
-            knex('users_trips').insert({
+          function(trip) { // can you promisify this?
+            console.log('hello', trip);
+            tripId = trip[0];
+            knex('users_trips')
+              .insert({
               'user_id': user,
               'trip_id': tripId
-            });
+             });
           });
->>>>>>> update models to correct knex syntax
+>>>>>>> Database Connection to Dummy File
     },
     getTripsByUser: function(user) {
       return knex('users_trips').where({

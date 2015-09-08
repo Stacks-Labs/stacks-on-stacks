@@ -1,8 +1,17 @@
+
+
+
 var path = require('path');
 
 module.exports = function(app, passport, connection) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+var UsersTrips = require('../models/users_trips')(connection);
+var Trips = require('../models/trips')(connection);
+>>>>>>> Database Connection to Dummy File
 	
 	app.get('/', function(req, res) {
 		res.render('index.ejs', { signupMessage: req.flash('signupMessage'), 
@@ -99,6 +108,7 @@ module.exports = function(app, passport, connection) {
     res.redirect('/');
   });
 
+<<<<<<< HEAD
   // Testing Route
   app.get('/test', function(req, res) {
     res.render('dummy.ejs');
@@ -173,6 +183,32 @@ module.exports = function(app, passport, connection) {
         res.send(response);
       });
   });
+=======
+    app.get('/test', function(req, res) {
+        res.render('dummy.ejs');
+    });
+
+    // Below stuff is for testing purposes
+
+    app.get('/controllers/MakeTrips.js', function(req, res) {
+        res.sendfile('controllers/MakeTrips.js');
+    });
+
+    app.post('/api/createTrip', function(req, res){
+        for (var key in req.body) {
+          var body = JSON.parse(key);
+         }
+        UsersTrips.makeTrip(body.destination, body.start, body.end, '1')
+        .then(function(){
+            console.log("anything")
+            res.status(200);
+        });
+    })
+
+// =============================================================================
+// AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
+// =============================================================================
+>>>>>>> Database Connection to Dummy File
 
 
 
