@@ -29,7 +29,7 @@ var trips = require('./trips.js')(knex);
           function(trip) { // can you promisify this?
             console.log('hello', trip);
             tripId = trip[0];
-            knex('users_trips')
+            return knex('users_trips')
               .insert({
               'user_id': user,
               'trip_id': tripId
