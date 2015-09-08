@@ -34,8 +34,6 @@ module.exports for trips.js
 // BE SURE TO INCLUDE:
 // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
 
-var _ = require('underscore');
-
 module.exports = {
   // takes a comma delimited string, splits it into an array
   addMedia: function(url, type, id) { // type is a string that can be 'blog' 'trip' or 'user'
@@ -48,26 +46,32 @@ module.exports = {
       'user_id': null
     };
     mediaObject[type].id = id;
-    knex('media').insert(
-      mediaObject
-    );
+    knex('media')
+      .insert(
+        mediaObject
+      );
   },
   getMediaById: function(id, type) {
     var type = type + '_id';
     var searchObj = {};
     searchObj[type] = id;
-    return knex('media').where(searchObj).select();
+    return knex('media')
+      .where(searchObj)
+      .select();
   },
   deleteMediaByTypeId: function(id, type) {
     var type = type + '_id';
     var searchObj = {};
     searchObj[type] = id;
-    knex('media').where(searchObj).del();
+    knex('media')
+      .where(searchObj)
+      .del();
   },
   deleteMediaByMediaId: function(id) {
-    knex('media').where({
-      id: id
-    }).del();
+    knex('media')
+      .where({
+        id: id
+      }).del();
   }
 
 };

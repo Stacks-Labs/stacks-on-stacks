@@ -22,12 +22,18 @@ module.exports for users.js
     Grabs the username and hashed password from the database, checks the password provided
     against the hashed password in the database
     TODO REQUIRED: Must use hashing function (not yet written) -- BB
+  addProfile: Takes the user ID and a text string, and adds that text string to the
+    profile in the database
+  getUserByName: Looks up a username and returns that username's user ID in the table. 
+
 
 -------------------------------------*/
 
 module.exports = {
   signup: function(username, email, hashedPass, facebookID, facebookToken) {
-    knex('users').where({loginMethod: username}).select('username')
+    knex('users')
+      .where({loginMethod: username})
+      .select('username')
       .then(function(userInTable) {
         if (userInTable) {
           return false;
@@ -58,7 +64,10 @@ module.exports = {
   login: function(loginString, hashedPass, facebookID, facebookToken) {
 
     if (facebookID) {
-      knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'fb_id', 'fb_token')
+      knex('users')
+        .where({'username': loginString})
+        .orWhere({'email': loginString})
+        .select('username', 'fb_id', 'fb_token')
         .then(function(loginInfo) {
           if (facebookToken === loginInfo[0].fb_token) {
             return true;
@@ -67,7 +76,10 @@ module.exports = {
           }
         });
     } else {
-      knex('users').where({'username': loginString}).orWhere({'email': loginString}).select('username', 'password')
+      knex('users')
+        .where({'username': loginString})
+        .orWhere({'email': loginString})
+        .select('username', 'password')
         .then(function(loginInfo) {
           if (loginInfo[0].password === encrypt(hashedPass)) { // TODO: we need to write an encrypt function in our helpers!
             return true;
@@ -77,7 +89,14 @@ module.exports = {
         });
     }
   },
+  addProfile: function(id, profileText){
+    knex('users')
+      .where({'id': id})
+      .update({'profile':profileText});
+  },
   getUserByName: function(username){
-    return knex('users').where({'username':username}).select();
+    return knex('users')
+      .where({'username':username})
+      .select();
   }
 };
