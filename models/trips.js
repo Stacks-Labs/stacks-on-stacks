@@ -62,7 +62,7 @@ module.exports = function(knex) {
         });
     },
 
-    getTripsByUsername: function(username){
+    getTripsByUsername: function(username) {
       return knex('users')
         .innerJoin('users_trips', 'users.id', 'users_trips.user_id')
         .innerJoin('trips', 'trips.id', 'users_trips.trip_id')
@@ -121,19 +121,16 @@ module.exports = function(knex) {
     //     });
     // },
 
-    searchTripsByTime: function(begin, end) { // timestamp, timestamp
-      return knex('trips')
-        .select()
-        .then(function(trips) {
-          return trips.map(function(trip) {
-            if ((begin >= trip.time_start && begin <= trip.time_end) ||
-              (end >= trip.time_start && end <= trip.time_end)) {
-              return true;
-            } else {
-              return false;
-            }
-          });
-        });
+    getTripsByTime: function(begin, end) {
+      return knex('users')
+        .innerJoin('users_trips', 'users.id', 'users_trips.user_id')
+        .innerJoin('trips', 'trips.id', 'users_trips.trip_id')
+        .whereBetween('time_start', [begin, end])
+        .orWhereBetween('time_end', [begin, end])
+        .orWhere('time_start', '>', begin)
+        .andWhere('time_end', '>', end) //ugh, what's the logic here for and and or when you can't use parentheses?
+        .select('username', 'dest_name', 'time_start', 'time_end');
     }
+
   };
 };

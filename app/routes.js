@@ -90,7 +90,7 @@ var Users = require('../models/users')(connection);
         });
     });
 
-    // Getting Trips
+    // Getting Trips By User
 
     app.post('/api/getTrips', isLoggedIn, function(req, res){
         Trips.getTripsByUsername(req.body.username)
@@ -98,6 +98,16 @@ var Users = require('../models/users')(connection);
             res.send(response);
         });
     });
+
+    // Getting Trips By Time
+
+    app.post('/api/getTripsByTime', isLoggedIn, function(req, res){
+        Trips.getTripsByTime(req.body.start, req.body.end)
+        .then(function(response){
+            res.send(response);
+        });
+    });
+
 
 
     // Adding Profile

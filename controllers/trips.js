@@ -60,3 +60,26 @@ amigo.controller('GetTrips', function($scope, $http) {
     });
   };
 });
+
+amigo.controller('GetTripsByTime', function($scope, $http) {
+
+  $scope.getTripsByTime = function() {
+
+    console.log('clicking getTrips', $scope.start, $scope.end);
+
+    var req = {
+      method: 'POST',
+      url: '/api/getTripsByTime',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        start: $scope.start,
+        end: $scope.end
+      }
+    };
+    $http(req).then(function(res) {
+      $scope.trips = res.data;
+    });
+  };
+});

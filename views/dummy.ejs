@@ -22,6 +22,7 @@
 </head>
 
 <body ng-app="amigo">
+
   <div ng-controller="MakeTrips">
     <p>ng-controller="MakeTrips"</p>
 
@@ -97,6 +98,18 @@ Bugs:
 <HR>
 
 
+  <div ng-controller="GetTripsByTime">
+    <p>ng-controller="GetTripsByTime"</p>
+
+    <form type="submit">
+      <label>Start Time:</label><input ng-model="start" type="date"><br>
+      <label>End Time:</label><input ng-model="end" type="date"><br>
+      <button ng-click="getTripsByTime()">Make Trip</button>
+    </form> <div ng-repeat="trip in trips">
+    {{trip}}
+    </div>
+  </div>
+  <hr>
 
 </body>
 </html>
