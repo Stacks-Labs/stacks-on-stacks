@@ -84,7 +84,7 @@ var Users = require('../models/users')(connection);
     });
 
     app.post('/api/createUserTrip', isLoggedIn, function(req, res){
-       Trips.getTripsByUsername(req.body.username)
+       UsersTrips.makeTrip(req.body.trip_id, req.user.id)
         .then(function(response){
             res.send(response);
         });

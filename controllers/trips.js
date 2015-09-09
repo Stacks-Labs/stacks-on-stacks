@@ -30,6 +30,7 @@ amigo.controller('MakeTrips', function($scope, $http) {
           trip_id: res.data[0]
         }
       }
+      console.log(res.data)
 
       $http(newReq).then(function() {
         $scope.response = 'Second query sent';
