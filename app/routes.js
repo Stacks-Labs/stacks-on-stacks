@@ -7,6 +7,7 @@ module.exports = function(app, passport, connection) {
 
 var UsersTrips = require('../models/users_trips')(connection);
 var Trips = require('../models/trips')(connection);
+var Users = require('../models/users')(connection);
 	
 	app.get('/', function(req, res) {
 		res.render('index.ejs', { message: req.flash('signupMessage')});
@@ -60,16 +61,18 @@ var Trips = require('../models/trips')(connection);
         res.redirect('/');
     });
 
+    // Testing Route
     app.get('/test', function(req, res) {
         res.render('dummy.ejs');
     });
 
-    // Below stuff is for testing purposes
-
-    app.get('/controllers/MakeTrips.js', function(req, res) {
-        res.sendfile('controllers/MakeTrips.js');
+    // it's best to put all our controllers into one controller file
+    // so that we don't have to keep reinitializing ng-app. 
+    app.get('/controllers/controllers.js', function(req, res) {
+        res.sendfile('controllers/controllers.js');
     });
 
+    // Making Trips
     app.post('/api/createTrip', isLoggedIn, function(req, res){
         Trips.addTrip(req.body.destination, req.body.start, req.body.end)
         .then(function(response){
@@ -84,6 +87,16 @@ var Trips = require('../models/trips')(connection);
             res.send(response);
         });
     });
+
+    // Adding Profile
+
+    app.post('/api/addProfile', isLoggedIn, function(req, res){
+        Users.addProfile(req.user.id, req.body.profile)
+        .then(function(response){
+            res.send(response);
+        });
+    });
+
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============

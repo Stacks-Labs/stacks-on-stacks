@@ -1,21 +1,53 @@
 <!DOCTYPE html>
-<html><head>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-<script src="controllers/MakeTrips.js"></script>
-</script>
-  
-</head>
-<body ng-app="amigo">
-<div ng-controller="MakeTrips">
+<html>
+<head>
+  <style>
+  .bugreport{
+    color:#800000;
+    font-size:75%;
+    background-color:#DDDDDD;
+  }
 
-<form type="submit">
-<label>Destination:</label><input ng-model="destination"><BR>
-<label>Start Time:</label><input type="date" ng-model="start"><BR>
-<label>End Time:</label><input type="date" ng-model="end"><BR>
-<button ng-click="makeTrip()">Make Trip</button>
-</form> 
-{{ response }}
-</div>
+  </style>
+
+  <script src=
+  "http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"
+  type="text/javascript"></script>
+  <script src=
+  "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="controllers/controllers.js"></script>
+
+  <title></title>
+</head>
+
+<body ng-app="amigo">
+  <div ng-controller="MakeTrips">
+    <p>ng-controller="MakeTrips"</p>
+
+    <form type="submit">
+      <label>Destination:</label><input ng-model="destination"><br>
+      <label>Start Time:</label><input ng-model="start" type="date"><br>
+      <label>End Time:</label><input ng-model="end" type="date"><br>
+      <button ng-click="makeTrip()">Make Trip</button>
+    </form>{{ response }}
+  </div>
+  <hr>
+
+  <div ng-controller="AddProfile">
+    <p>ng-controller="AddProfile"</p>
+
+    <form type="submit">
+      <label>Profile</label>
+      <textarea ng-model="profile"></textarea><br>
+      <button ng-click="addProfile()">Add/update profile to signed in
+      user</button>
+    </form>{{ response }}
+    <br>
+    <PRE class="bugreport">
+      Bugs:
+      * Can create/edit profile for recently signed-up user, but not for logged-in user</PRE>
+  </div>
+
+<HR>
 </body>
 </html>
