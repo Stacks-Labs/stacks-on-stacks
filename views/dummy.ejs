@@ -49,6 +49,28 @@
       * Can create/edit profile for recently signed-up user, but not for logged-in user</PRE>
   </div>
 
+  <HR>
+    <div ng-controller="GetProfile">
+    <p>ng-controller="GetProfile"</p>
+
+    <form type="submit">
+      <label>Profile</label>
+      <input ng-model="username"></input><br>
+      <button ng-click="getProfile()">Get Profile of Username</button>
+    </form><BR>
+    id#: {{ user_id }} <BR>
+    email: {{ user_email }} <BR>
+    password(hashed): {{ user_hashpass }} <BR>
+    fb_id: {{ user_fb_id }} <BR>
+    fb_token: {{ user_fb_token }} <BR>
+    profile: {{ user_profile }} <BR>
+    <br>
+    <PRE class="bugreport">
+
+
+</PRE>
+  </div>
+
 <HR>
 </body>
 </html>
