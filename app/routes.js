@@ -84,11 +84,21 @@ var Users = require('../models/users')(connection);
     });
 
     app.post('/api/createUserTrip', isLoggedIn, function(req, res){
-        UsersTrips.makeTrip(req.body.trip_id, req.user.id)
+       Trips.getTripsByUsername(req.body.username)
         .then(function(response){
             res.send(response);
         });
     });
+
+    // Getting Trips
+
+    app.post('/api/getTrips', isLoggedIn, function(req, res){
+        Trips.getTripsByUsername(req.body.username)
+        .then(function(response){
+            res.send(response);
+        });
+    });
+
 
     // Adding Profile
 
