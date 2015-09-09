@@ -45,8 +45,8 @@
     </form>{{ response }}
     <br>
     <PRE class="bugreport">
-      Bugs:
-      * Can create/edit profile for recently signed-up user, but not for logged-in user</PRE>
+Bugs:
+* Can create/edit profile for recently signed-up user, but not for logged-in user</PRE>
   </div>
 
   <HR>
@@ -54,7 +54,7 @@
     <p>ng-controller="GetProfile"</p>
 
     <form type="submit">
-      <label>Profile</label>
+      <label>username</label>
       <input ng-model="username"></input><br>
       <button ng-click="getProfile()">Get Profile of Username</button>
     </form><BR>
@@ -65,12 +65,38 @@
     fb_token: {{ user_fb_token }} <BR>
     profile: {{ user_profile }} <BR>
     <br>
-    <PRE class="bugreport">
-
-
-</PRE>
+    <PRE class="bugreport">No Bugs To Report</PRE>
   </div>
 
 <HR>
+
+    <div ng-controller="GetTrips">
+    <p>ng-controller="GetTrips"</p>
+
+    <form type="submit">
+      <label>Username: </label>
+      <input ng-model="username"></input><br>
+      <button ng-click="getTrips()">Get Trips</button>
+    </form><BR>
+
+    <div ng-repeat="trip in trips">
+
+    <UL>
+    <LI>{{trip.username}}</LI>
+      <UL>
+      <LI>{{trip.dest_name}}</LI>
+      <LI>{{trip.time_start}}</LI>
+      <LI>{{trip.time_end}}</LI>
+      </UL>
+    </UL>
+    </div>
+    <br>
+    <PRE class="bugreport">No Bugs To Report</PRE>
+  </div>
+
+<HR>
+
+
+
 </body>
 </html>

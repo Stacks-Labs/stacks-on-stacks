@@ -62,6 +62,16 @@ module.exports = function(knex) {
         });
     },
 
+    getTripsByUsername: function(username){
+      return knex('users')
+        .innerJoin('users_trips', 'users.id', 'users_trips.user_id')
+        .innerJoin('trips', 'trips.id', 'users_trips.trip_id')
+        .where('username', username)
+        .select('username', 'dest_name', 'time_start', 'time_end');
+    },
+
+
+
     // BE SURE TO INCLUDE:
     // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
     // searchByDistanceAndTime: function(latitude, longitude, distance, time) {
