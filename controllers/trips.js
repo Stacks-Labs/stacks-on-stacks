@@ -14,8 +14,8 @@ amigo.controller('MakeTrips', function($scope, $http) {
       },
       data: {
         destination: $scope.destination,
-        start: $scope.start.toJSON().slice(0,10),
-        end: $scope.end.toJSON().slice(0,10)
+        start: $scope.start.toJSON().slice(0, 10),
+        end: $scope.end.toJSON().slice(0, 10)
       }
     };
     $http(req).then(function(res) {
@@ -35,6 +35,28 @@ amigo.controller('MakeTrips', function($scope, $http) {
         $scope.response = 'Second query sent';
       });
     });
+  };
+});
 
+
+amigo.controller('GetTrips', function($scope, $http) {
+
+  $scope.getTrips = function() {
+
+    console.log('clicking getTrips', $scope.username);
+
+    var req = {
+      method: 'POST',
+      url: '/api/getTrips',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        username: $scope.username
+      }
+    };
+    $http(req).then(function(res) {
+      $scope.trips = res.data;
+    });
   };
 });
