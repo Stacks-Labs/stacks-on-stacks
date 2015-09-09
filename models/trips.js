@@ -35,8 +35,6 @@ module.exports = function(knex) {
   return {
     addTrip: function(destination, timeStart, timeEnd) { // string, timestamp, timestamp.
       // var geocode = getGeocode(destination);
-
-     console.log('destination inside trips', destination);
       return knex('trips')
         .insert({
           'dest_name': destination,

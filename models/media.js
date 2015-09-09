@@ -32,7 +32,7 @@ module.exports = function(knex) {
         'user_id': null
       };
       mediaObject[type].id = id;
-      knex('media')
+      return knex('media')
         .insert(
           mediaObject
         );
@@ -49,12 +49,12 @@ module.exports = function(knex) {
       type = type + '_id';
       var searchObj = {};
       searchObj[type] = id;
-      knex('media')
+      return knex('media')
         .where(searchObj)
         .del();
     },
     deleteMediaByMediaId: function(id) {
-      knex('media')
+      return knex('media')
         .where({
           id: id
         }).del();

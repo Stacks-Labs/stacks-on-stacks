@@ -20,21 +20,14 @@ module.exports for users_trips.js
 
 
 module.exports = function(knex) {
-var trips = require('./trips.js')(knex);
   return {
-    makeTrip: function(destination, timeStart, timeEnd, user) {
-      console.log('destination inside users trips', destination);
-      return trips.addTrip(destination, timeStart, timeEnd)
-        .then(
-          function(trip) { // can you promisify this?
-            console.log('hello', trip);
-            tripId = trip[0];
-            return knex('users_trips')
-              .insert({
-              'user_id': user,
-              'trip_id': tripId
-             });
-          });
+    makeTrip: function(trip, user) {
+      return knex('users_trips')
+        .insert({
+        'user_id': user,
+        'trip_id': trip
+       });
+
     },
     getTripsByUser: function(user) {
       return knex('users_trips').where({
