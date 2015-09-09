@@ -99,6 +99,17 @@ var Users = require('../models/users')(connection);
         });
     });
 
+    // Getting Profile (by username)
+
+    app.post('/api/getProfile', isLoggedIn, function(req, res){
+        Users.getUserByName(req.body.username)
+        .then(function(response){
+            console.log(response);
+            res.send(response);
+        });
+    });
+
+
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
