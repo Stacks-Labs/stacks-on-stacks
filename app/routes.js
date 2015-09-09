@@ -66,10 +66,13 @@ var Users = require('../models/users')(connection);
         res.render('dummy.ejs');
     });
 
-    // it's best to put all our controllers into one controller file
-    // so that we don't have to keep reinitializing ng-app. 
-    app.get('/controllers/controllers.js', function(req, res) {
-        res.sendfile('controllers/controllers.js');
+    // Serve our controller files
+    app.get('/controllers/trips.js', function(req, res) {
+        res.sendfile('controllers/trips.js');
+    });
+
+    app.get('/controllers/profile.js', function(req, res) {
+        res.sendfile('controllers/profile.js');
     });
 
     // Making Trips
@@ -81,7 +84,6 @@ var Users = require('../models/users')(connection);
     });
 
     app.post('/api/createUserTrip', isLoggedIn, function(req, res){
-        console.log(req.body);
         UsersTrips.makeTrip(req.body.trip_id, req.user.id)
         .then(function(response){
             res.send(response);
