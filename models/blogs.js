@@ -21,22 +21,22 @@ module.exports = {
   // takes a comma delimited string, splits it into an array
   addBlog: function(author, subject, body){
     var created = new Date();
-    knex('blogs').insert({
+    return knex('blogs').insert({
       'author_id': author,
       'subject': subject,
       'body': body,
       'created_at' created
-    })
+    });
   },
   removeBlog: function(blogId){
-    knex('blogs')
+    return knex('blogs')
       .where({id: blog_id})
       .del();
   },
   modifyBlog: function(blogId, subject, body){
-    knex('blogs')
+    return knex('blogs')
       .where({id: blog_id})
-      .update({'subject': subject, 'body': body})
+      .update({'subject': subject, 'body': body});
   },
   getBlogsByUser: function(userId){
     return knex('blogs')

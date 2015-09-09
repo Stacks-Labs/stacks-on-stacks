@@ -21,21 +21,21 @@ module.exports for activities.js
 module.exports = function(knex) {
   return {
     addInterests: function(interest, userTripId) {
-      knex('activities')
+      return knex('activities')
         .insert({
           'users_trips_id': userTripId,
           'activity': interest
         });
     },
     removeInterests: function(id) {
-      knex('activities')
+      return knex('activities')
         .where({
           'id': id
         })
         .del();
     },
     getInterestId: function(interest, userTripId) {
-      knex('activities')
+      return knex('activities')
         .where({
           'activity': interest,
           'users_trips_id': userTripId
