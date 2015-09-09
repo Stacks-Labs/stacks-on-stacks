@@ -24,21 +24,19 @@ module.exports for amigo_feedback.js
 module.exports = function(knex) {
   return {
     addFeedback: function(authorId, subjectId, feedback) { // int, int, string, string
-      knex('amigo_feedback')
+      return knex('amigo_feedback')
         .insert({
           'user_id_author': authorId,
           'user_id_subject': subjectId,
           'feedback': feedback
         });
-      return true;
     },
     delFeedback: function(feedbackId) { // int, int, string, string
-      knex('amigo_feedback')
+      return knex('amigo_feedback')
         .where({
           'id': feedbackId
         })
         .del();
-      return true;
     },
     listMySentFeedback: function(userId) {
       return knex('amigo_feedback')

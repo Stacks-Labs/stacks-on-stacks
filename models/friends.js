@@ -25,20 +25,18 @@ module.exports for friends.js
 module.exports = function(knex) {
   return {
     befriend: function(frienderId, friendeeId) { // int, int, string, string
-      knex('friends')
+      return knex('friends')
         .insert({
           'friender_id': frienderId,
           'friendee_id': friendeeId
         });
-      return true;
     },
     defriend: function(friendshipId) { // int
-      knex('friends')
+      return knex('friends')
         .where({
           'id': friendshipId
         })
         .del();
-      return true;
     },
     listFriends: function(user) {
       return knex('friends')
