@@ -124,7 +124,7 @@ Bugs:
   </div>
   <hr>
 
-
+<table width="100%"><tr><td>
     <div ng-controller="SendMessage">
     <p>ng-controller="SendMessage"</p>
 
@@ -136,6 +136,33 @@ Bugs:
       <button ng-click="sendMessage()">send</button> {{message_response}}
     </form> 
   </div>
+
+  </td>
+  <!-- <td>
+    <div ng-controller="GetMessages">
+    <p>ng-controller="GetMessages"</p>
+    <form>
+     <label>Recipient:</label><input ng-model="recieverUsername"><br>
+     <button ng-click="getMessages('receiver')">Get My Messages</button>
+     <div ng-repeat="message in messages">
+     <BR>To:   {{message.receiver}}
+     <BR>from: {{message.sender}}
+     <br>subj: {{message.subject}}
+     <br>body: {{message.body}}
+     </div>
+     </form>
+    </div>
+
+
+  </td>
+
+
+  <td>
+    
+
+
+  </td> -->
+  </tr></table>
   <hr>
 
 </body>

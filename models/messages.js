@@ -34,19 +34,19 @@ module.exports = function(knex) {
           'id': msgId
         }).del();
     },
-    getMyMessages: function(userId) {
-      return knex('messages')
-        .where({
-          'receiver_id': userId
-        })
-        .select();
-    },
-    getMySentMessages: function(userId) {
-      return knex('messages')
-        .where({
-          'sender_id': userId
-        })
-        .select();
-    }
+    // getMessages: function(username, isReceiver) { // int, bool
+    //    var grabId = '';
+    //     if(isReceiver === 'receiver'){
+    //       grabId = 'reciever_id';
+
+    //     } else {
+    //       grabId = 'sender_id';
+    //     }
+    //    return knex('users')
+    //     .innerJoin('messages', 'users.id', 'messages.receiver_id')
+    //     .innerJoin('messages', 'users.id', 'messages.sender_id')
+    //     .where(grabId, username)
+    //     .select('sender_id', 'reciever_id', 'subject', 'body');
+    // },
   };
 }
