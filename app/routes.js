@@ -164,13 +164,14 @@ module.exports = function(app, passport, connection) {
 
   // Get Messages
 
-  // app.post('/api/getMessages', isLoggedIn, function(req, res) {
-  //   Messages.getMessages(req.body.userId, req.body.isReciever)
-  //     .then(function(response) {
-  //       console.log(response);
-  //       res.send(response);
-  //     });
-  // });
+  app.post('/api/getMessages', isLoggedIn, function(req, res) {
+    console.log('route', req.body.username, req.body.recOrSend);
+    Messages.getMessages(req.body.username, req.body.recOrSend)
+      .then(function(response) {
+        console.log(response);
+        res.send(response);
+      });
+  });
 
 
   // =============================================================================

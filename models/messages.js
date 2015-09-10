@@ -34,19 +34,20 @@ module.exports = function(knex) {
           'id': msgId
         }).del();
     },
-    // getMessages: function(username, isReceiver) { // int, bool
-    //    var grabId = '';
-    //     if(isReceiver === 'receiver'){
-    //       grabId = 'reciever_id';
-
-    //     } else {
-    //       grabId = 'sender_id';
-    //     }
-    //    return knex('users')
-    //     .innerJoin('messages', 'users.id', 'messages.receiver_id')
-    //     .innerJoin('messages', 'users.id', 'messages.sender_id')
-    //     .where(grabId, username)
-    //     .select('sender_id', 'reciever_id', 'subject', 'body');
-    // },
+    getMessages: function(username, isReceiver) { // int, string(either 'receiver' or 'sender')
+      console.log('model', username, isReceiver);
+       var grabId = 'receiver_id'; // default case just in case of errors. 
+        if(isReceiver === 'receiver'){
+          grabId = 'rUsers.username';
+        }
+        if(isReceiver === 'sender'){
+          grabId = 'sUsers.username';
+        }
+       return knex('messages')
+        .innerJoin('users AS rUsers', 'rUsers.id', 'messages.receiver_id')
+        .innerJoin('users AS sUsers', 'sUsers.id', 'messages.sender_id')
+        .where(grabId, username)
+        .select('sUsers.username as sender', 'rUsers.username as receiver', 'subject', 'body');
+    }
   };
 }
