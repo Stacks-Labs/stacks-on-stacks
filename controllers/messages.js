@@ -43,5 +43,35 @@ amigo.controller('SendMessage', function($scope, $http) {
       });
     });
   };
+
+// amigo.controller('GetMessages', function($scope, $http) {
+
+//   $scope.getMessages = function(isReceiver) {  
+//     var dataObj = {};
+//     if(isReceiver === 'receiver'){
+//       dataObj = {username:$recieverUsername};
+//     } else {
+//       dataObj = {username:$senderUsername};
+//     }
+
+//     var req = {
+//       method: 'POST',
+//       url: '/api/getTripsByTime',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       data: dataObj
+//     };
+//     $http(req).then(function(res) {
+//       $scope.messages = res.data;
+//     });
+//   };
+//     },
+//   };
+
+
+
+
+
   
 });
