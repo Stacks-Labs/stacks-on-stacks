@@ -38,18 +38,20 @@ module.exports = function(knex) {
         })
         .del();
     },
-    listFriends: function(user) {
+    getFriends: function(userCriteria) {
+      var criteria = {};
+      criteria[userCriteria.type] = userCriteria.id;
+      var otherType = '';
+      if (userCriteria.type === 'friender_id') {
+        otherType = 'friendee_id';
+      }
+      if (userCriteria.type === 'friendee_id') {
+        otherType = 'friender_id';
+      }
+
       return knex('friends')
-        .where({
-          'friender_id': user
-        })
-        .select();
-    },
-    listWhoFriendsMe: function(user) {
-      return knex('friends')
-        .where({
-          'friendee_id': user
-        })
+        .innerJoin('users', 'users.id', 'friends.' + otherType)
+        .where(criteria)
         .select();
     }
   };
