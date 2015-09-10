@@ -140,12 +140,14 @@ Bugs:
   </div>
 
   </td>
-  <!-- <td>
+  <td>
     <div ng-controller="GetMessages">
     <p>ng-controller="GetMessages"</p>
     <form>
-     <label>Recipient:</label><input ng-model="recieverUsername"><br>
-     <button ng-click="getMessages('receiver')">Get My Messages</button>
+     <label>Username:</label><input ng-model="username"><br>
+     <button ng-click="getMessages('receiver')">Get messages I recieved</button>
+     <button ng-click="getMessages('sender')">Get messages I sent</button>
+     {{messages}}
      <div ng-repeat="message in messages">
      <BR>To:   {{message.receiver}}
      <BR>from: {{message.sender}}
@@ -163,7 +165,7 @@ Bugs:
     
 
 
-  </td> -->
+  </td>
   </tr></table>
   <hr>
 
