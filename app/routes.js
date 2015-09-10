@@ -6,6 +6,7 @@ module.exports = function(app, passport, connection) {
   var Trips = require('../models/trips')(connection);
   var Users = require('../models/users')(connection);
   var Friends = require('../models/friends')(connection);
+  var Messages = require('../models/messages')(connection);
 
   app.get('/', function(req, res) {
     res.render('index.ejs', {
@@ -83,6 +84,10 @@ module.exports = function(app, passport, connection) {
     res.sendfile('controllers/friends.js');
   });
 
+  app.get('/controllers/messages.js', function(req, res) {
+    res.sendfile('controllers/messages.js');
+  });
+
   // Making Trips
   app.post('/api/createTrip', isLoggedIn, function(req, res) {
     Trips.addTrip(req.body.destination, req.body.start, req.body.end)
@@ -147,6 +152,15 @@ module.exports = function(app, passport, connection) {
       });
   });
 
+  // Send Message
+
+  app.post('/api/sendMessage', isLoggedIn, function(req, res) {
+    Messages.addMessage(req.body.sender_id, req.body.reciever_id, req.body.subject, req.body.content)
+      .then(function(response) {
+        console.log(response);
+        res.send(response);
+      });
+  });
 
 
   // =============================================================================
