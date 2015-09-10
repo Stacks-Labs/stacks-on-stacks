@@ -17,15 +17,17 @@ module.exports for blogs.js
 
 -------------------------------------*/
 
-module.exports = {
+module.exports = function(knex){
+
+return {
   // takes a comma delimited string, splits it into an array
-  addBlog: function(author, subject, body){
+  publishBlog: function(author, subject, body){
     var created = new Date();
     return knex('blogs').insert({
       'author_id': author,
       'subject': subject,
       'body': body,
-      'created_at' created
+      'created_at': created
     });
   },
   removeBlog: function(blogId){
@@ -44,3 +46,4 @@ module.exports = {
       .select();
   }
 };
+}
