@@ -18,6 +18,7 @@
   <script src="controllers/trips.js"></script>
   <script src="controllers/profile.js"></script>
   <script src="controllers/friends.js"></script>
+  <script src="controllers/messages.js"></script>
 
   <title></title>
 </head>
@@ -119,6 +120,20 @@ Bugs:
       <label>Friender (Username):</label><input ng-model="friender"><br>
       <label>Friendee (Username):</label><input ng-model="friendee"><br>
       <button ng-click="befriend()">Befriend</button> {{befriend_response}}
+    </form> 
+  </div>
+  <hr>
+
+
+    <div ng-controller="SendMessage">
+    <p>ng-controller="SendMessage"</p>
+
+    <form type="submit">
+      <label>Sender:</label><input ng-model="sender"><br>
+      <label>Recipient:</label><input ng-model="reciever"><br>
+      <label>Subject:</label><input ng-model="subject"><br>
+      <textarea ng-model="content"></textarea><br>
+      <button ng-click="sendMessage()">send</button> {{message_response}}
     </form> 
   </div>
   <hr>
