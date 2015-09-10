@@ -17,7 +17,7 @@
 }
 
 .table-user-information > tbody > tr {
-    border-top: 1px solid rgba(156,111,211,1);
+    border-top: 1px solid rgb(221, 221, 221);
 }
 
 .table-user-information > tbody > tr:first-child {
@@ -32,15 +32,3 @@
 {margin-top:20px;
 }
 
-.panel {
-  background-color: rgba(156,111,211,0.2);
-} 
-
-.panel-info>.panel-heading {
-  background-color: rgba(156,111,211,0.9);
-}
-
-
-.panel-title{
-  color:#000;
-}
