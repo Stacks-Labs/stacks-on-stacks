@@ -90,7 +90,7 @@ module.exports = function(app, passport, connection) {
 
   // Making Trips
   app.post('/api/createTrip', isLoggedIn, function(req, res) {
-    Trips.addTrip(req.body.destination, req.body.start, req.body.end)
+    Trips.addTrip(req.body.destination, req.body.geocode_latitude, req.body.geocode_longitude, req.body.start, req.body.end)
       .then(function(response) {
         res.send(response);
       });
