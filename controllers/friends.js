@@ -41,5 +41,53 @@ amigo.controller('Befriend', function($scope, $http) {
       });
     });
   };
-  
+});
+
+amigo.controller('GetFriends', function($scope, $http) {
+
+  $scope.getFriends = function(whichLookup) {
+    console.log('clicking getfriends', $scope.username, whichLookup);
+    whichLookup = whichLookup || 'myFriends';
+
+    var idReq = function(username) {
+      return {
+        method: 'POST',
+        url: '/api/getProfile',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          username: username
+        }
+      };
+    };
+
+    $http(idReq($scope.username)).then(function(res) { // promise hell
+      var userId = res.data[0].id; // we need the friender ID
+      if (whichLookup === 'myFriends') {
+        dataPack = {
+          type:'friender_id',
+          id: userId,
+        };
+      }
+      if (whichLookup === 'friendsMe') {
+        dataPack = {
+          type:'friendee_id',
+          id: userId,
+        };
+      }
+      var req = {
+        method: 'POST',
+        url: '/api/getFriends',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: dataPack
+      };
+      // we must put this inside the promise in order to have access to the Id numbers
+      $http(req).then(function(res) {
+        $scope.friends = res.data;
+      });
+    });
+  };
 });

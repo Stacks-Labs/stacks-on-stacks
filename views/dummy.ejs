@@ -114,7 +114,7 @@ Bugs:
     </div>
   </div>
   <hr>
-
+<table><tr><td>
     <div ng-controller="Befriend">
     <p>ng-controller="Befriend"</p>
 
@@ -124,6 +124,26 @@ Bugs:
       <button ng-click="befriend()">Befriend</button> {{befriend_response}}
     </form> 
   </div>
+  </td><td>
+    <div ng-controller="GetFriends">
+    <p>ng-controller="GetFriends"</p>
+    <form type="submit">
+      <label>Username:</label><input ng-model="username">
+<button ng-click="getFriends('myFriends')">Get who I've friended</button>
+     <button ng-click="getFriends('friendsMe')">get who friended me</button>
+     {{friends}}
+     <ul ng-repeat="friend in friends">
+     <li>{{friend.username}}</li>
+     </ul>
+
+
+    </form>
+</div>
+
+
+
+
+  </td></tr></table>
   <hr>
 
 <table width="100%"><tr><td>
@@ -161,11 +181,7 @@ Bugs:
   </td>
 
 
-  <td>
-    
 
-
-  </td>
   </tr></table>
   <hr>
 
