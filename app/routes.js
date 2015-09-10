@@ -100,6 +100,24 @@ var Users = require('../models/users')(connection);
     });
 
 
+// Angular Files ===============================================================
+
+    app.get('/bower_components/angular/angular.js', function(req, res) {
+        res.sendfile('bower_components/angular/angular.js');
+    });
+
+    app.get('/bower_components/angular-route/angular-route.js', function(req, res) {
+        res.sendfile('bower_components/angular-route/angular-route.js');
+    });
+
+    app.get('/app/app.js', function(req, res) {
+        res.sendfile('app/app.js');
+    });
+
+    app.get('/views/trips.html', function(req, res) {
+        res.sendfile('views/trips.html');
+    })
+
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================
