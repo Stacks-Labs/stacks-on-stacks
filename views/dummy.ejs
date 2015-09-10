@@ -17,6 +17,7 @@
   "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
   <script src="controllers/trips.js"></script>
   <script src="controllers/profile.js"></script>
+  <script src="controllers/friends.js"></script>
 
   <title></title>
 </head>
@@ -108,6 +109,17 @@ Bugs:
     </form> <div ng-repeat="trip in trips">
     {{trip}}
     </div>
+  </div>
+  <hr>
+
+    <div ng-controller="Befriend">
+    <p>ng-controller="Befriend"</p>
+
+    <form type="submit">
+      <label>Friender (Username):</label><input ng-model="friender"><br>
+      <label>Friendee (Username):</label><input ng-model="friendee"><br>
+      <button ng-click="befriend()">Befriend</button> {{befriend_response}}
+    </form> 
   </div>
   <hr>
 
