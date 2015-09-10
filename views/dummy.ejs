@@ -19,6 +19,7 @@
   <script src="controllers/profile.js"></script>
   <script src="controllers/friends.js"></script>
   <script src="controllers/messages.js"></script>
+  <script src="controllers/blogs.js"></script>
 
   <title></title>
 </head>
@@ -184,6 +185,51 @@ Bugs:
 
   </tr></table>
   <hr>
+
+
+
+<table width="100%"><tr><td>
+    <div ng-controller="WriteBlog">
+    <p>ng-controller="WriteBlog"</p>
+
+    <form type="submit">
+      <label>Author:</label><input ng-model="author"><br>
+      <label>Subject:</label><input ng-model="subject"><br>
+      <textarea ng-model="content"></textarea><br>
+      <button ng-click="publishBlog()">publish</button> {{debug_response}}
+    </form> 
+  </div>
+
+  </td>
+  <!-- <td>
+    <div ng-controller="GetBlogs">
+    <p>ng-controller="GetBlogs"</p>
+    <form>
+     <label>Username:</label><input ng-model="username"><br>
+     <button ng-click="getBlogs('receiver')">Get blogs</button>
+     {{messages}}
+     <div ng-repeat="message in messages">
+     <BR>Author:   {{message.author}}
+     <BR>Published At: {{message.time}}
+     <br>subj: {{message.subject}}
+     <br>body: {{message.body}}
+     </div>
+     </form>
+    </div>
+
+
+  </td>
+ -->
+
+
+  </tr></table>
+  <hr>
+
+
+
+
+
+
 
 </body>
 </html>

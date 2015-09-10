@@ -7,6 +7,7 @@ module.exports = function(app, passport, connection) {
   var Users = require('../models/users')(connection);
   var Friends = require('../models/friends')(connection);
   var Messages = require('../models/messages')(connection);
+  var Blogs = require('../models/blogs')(connection);
 
   app.get('/', function(req, res) {
     res.render('index.ejs', {
@@ -86,6 +87,10 @@ module.exports = function(app, passport, connection) {
 
   app.get('/controllers/messages.js', function(req, res) {
     res.sendfile('controllers/messages.js');
+  });
+
+  app.get('/controllers/blogs.js', function(req, res) {
+    res.sendfile('controllers/blogs.js');
   });
 
   // Making Trips
@@ -182,6 +187,15 @@ module.exports = function(app, passport, connection) {
       });
   });
 
+  // Blogs - add blogs
+
+  app.post('/api/publishBlog', isLoggedIn, function(req, res) {
+    Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.content)
+      .then(function(response) {
+        console.log(response);
+        res.send(response);
+      });
+  });
 
   // =============================================================================
   // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
