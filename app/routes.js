@@ -152,7 +152,7 @@ module.exports = function(app, passport, connection) {
       });
   });
 
-  // Send Message
+  // Messages - Send Message
 
   app.post('/api/sendMessage', isLoggedIn, function(req, res) {
     Messages.addMessage(req.body.sender_id, req.body.reciever_id, req.body.subject, req.body.content)
@@ -161,6 +161,16 @@ module.exports = function(app, passport, connection) {
         res.send(response);
       });
   });
+
+  // Get Messages
+
+  // app.post('/api/getMessages', isLoggedIn, function(req, res) {
+  //   Messages.getMessages(req.body.userId, req.body.isReciever)
+  //     .then(function(response) {
+  //       console.log(response);
+  //       res.send(response);
+  //     });
+  // });
 
 
   // =============================================================================
