@@ -152,6 +152,15 @@ module.exports = function(app, passport, connection) {
       });
   });
 
+  // Get Friends
+
+  app.post('/api/getFriends', isLoggedIn, function(req, res) {
+    Friends.getFriends(req.body)
+      .then(function(response) {
+        console.log(response);
+        res.send(response);
+      });
+  });
   // Messages - Send Message
 
   app.post('/api/sendMessage', isLoggedIn, function(req, res) {

@@ -36,15 +36,15 @@ module.exports = function(knex) {
     },
     getMessages: function(username, isReceiver) { // int, string(either 'receiver' or 'sender')
       console.log('model', username, isReceiver);
-       var grabId = 'receiver_id'; // default case just in case of errors. 
+       isReceiver = isReceiver || 'receiver_id'; // default case just in case of errors. 
         if(isReceiver === 'receiver'){
           grabId = 'rUsers.username';
         }
         if(isReceiver === 'sender'){
           grabId = 'sUsers.username';
         }
-       return knex('messages')
-        .innerJoin('users AS rUsers', 'rUsers.id', 'messages.receiver_id')
+       return knex('messages') // must use aliases here
+        .innerJoin('users AS rUsers', 'rUsers.id', 'messages.receiver_id') // need to use the "as" to alias
         .innerJoin('users AS sUsers', 'sUsers.id', 'messages.sender_id')
         .where(grabId, username)
         .select('sUsers.username as sender', 'rUsers.username as receiver', 'subject', 'body');
