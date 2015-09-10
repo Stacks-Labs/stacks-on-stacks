@@ -4,7 +4,7 @@ amigo.controller('WriteBlog', function($scope, $http) {
 
   $scope.publishBlog = function() {
     console.log('clicking publishBlog', $scope.sender,
-      $scope.subject, $scope.content);
+      $scope.subject, $scope.body);
 
     var idReq = function(username) {
       return {
@@ -30,7 +30,7 @@ amigo.controller('WriteBlog', function($scope, $http) {
         data: {
           author_id: authorId,
           subject: $scope.subject,
-          body: $scope.content,
+          body: $scope.body,
         }
       };
       // we must put this inside the promise in order to have access to the Id numbers

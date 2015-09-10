@@ -190,7 +190,7 @@ module.exports = function(app, passport, connection) {
   // Blogs - add blogs
 
   app.post('/api/publishBlog', isLoggedIn, function(req, res) {
-    Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.content)
+    Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.body)
       .then(function(response) {
         console.log(response);
         res.send(response);
