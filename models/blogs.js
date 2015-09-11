@@ -30,20 +30,11 @@ return {
       'created_at': created
     });
   },
-  removeBlog: function(blogId){
+  getBlogs: function(username){
     return knex('blogs')
-      .where({id: blog_id})
-      .del();
-  },
-  modifyBlog: function(blogId, subject, body){
-    return knex('blogs')
-      .where({id: blog_id})
-      .update({'subject': subject, 'body': body});
-  },
-  getBlogsByUser: function(userId){
-    return knex('blogs')
-      .where({user_id: userId})
-      .select();
+        .innerJoin('users', 'users.id', 'blogs.author_id')
+        .where('username', username)
+        .select('username as author_name', 'subject', 'body', 'created_at');  
   }
 };
 }

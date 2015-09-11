@@ -201,25 +201,27 @@ Bugs:
   </div>
 
   </td>
-  <!-- <td>
+  <td>
     <div ng-controller="GetBlogs">
     <p>ng-controller="GetBlogs"</p>
     <form>
      <label>Username:</label><input ng-model="username"><br>
-     <button ng-click="getBlogs('receiver')">Get blogs</button>
-     {{messages}}
-     <div ng-repeat="message in messages">
-     <BR>Author:   {{message.author}}
-     <BR>Published At: {{message.time}}
-     <br>subj: {{message.subject}}
-     <br>body: {{message.body}}
+     <button ng-click="getBlogs()">Get blogs</button>
+     {{blogs}}
+     <div ng-repeat="blog in blogs">
+     <BR>Author:   {{blog.author_name}}
+     <BR>Published At: {{blog.created_at}}
+     <br>subj: {{blog.subject}}
+     <br>body: {{blog.body}}
+     <BR>...<BR>
      </div>
      </form>
+     {{debug_response}}
     </div>
 
 
   </td>
- -->
+
 
 
   </tr></table>
