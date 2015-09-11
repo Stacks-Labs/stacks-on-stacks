@@ -9,6 +9,7 @@ module.exports = function(app, passport, connection) {
   var Messages = require('../models/messages')(connection);
   var Blogs = require('../models/blogs')(connection);
   var Feedback = require('../models/amigo_feedback')(connection);
+  var Activities = require('../models/activities')(connection);
 
   app.get('/', function(req, res) {
     res.render('index.ejs', {
@@ -126,6 +127,15 @@ module.exports = function(app, passport, connection) {
 
   app.post('/api/getTripsByTime', isLoggedIn, function(req, res) {
     Trips.getTripsByTime(req.body.start, req.body.end)
+      .then(function(response) {
+        res.send(response);
+      });
+  });
+
+  // Add activity to trip
+
+  app.post('/api/addActivity', isLoggedIn, function(req, res) {
+    Activities.addActivity(req.body.users_trips_id, req.body.activity)
       .then(function(response) {
         res.send(response);
       });
