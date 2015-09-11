@@ -197,6 +197,18 @@ module.exports = function(app, passport, connection) {
       });
   });
 
+
+  // Blogs - getBlogs
+
+  app.post('/api/getBlogs', isLoggedIn, function(req, res) {
+    console.log('route', req.body.username);
+    Blogs.getBlogs(req.body.username)
+      .then(function(response) {
+        console.log(response);
+        res.send(response);
+      });
+  });
+
   // =============================================================================
   // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
   // =============================================================================
