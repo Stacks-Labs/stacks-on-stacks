@@ -1,14 +1,15 @@
-
 var geocoder = new google.maps.Geocoder();
 
 var getCoordinates = function(address, callback) {
- var coordinates;
- geocoder.geocode({address: address}, function(results, status) {
-   var coord_obj = results[0].geometry.location;
-   coordinates = [coord_obj.G, coord_obj.K]; // coord_obj.G = Latitude, coord_obj.K = Longitude
-   callback(coordinates);
- })
-}
+  var coordinates;
+  geocoder.geocode({
+    address: address
+  }, function(results, status) {
+    var coord_obj = results[0].geometry.location;
+    coordinates = [coord_obj.G, coord_obj.K]; // coord_obj.G = Latitude, coord_obj.K = Longitude
+    callback(coordinates);
+  });
+};
 
 var amigo = angular.module('amigo', []);
 
@@ -18,7 +19,15 @@ amigo.controller('MakeTrips', function($scope, $http) {
 
     console.log('clicking makeTrip', $scope.destination);
 
-    getCoordinates($scope.destination, function(coor){
+    var activities = $scope.activities.split(',');
+
+    for(var i = 0; i < activities.length; i++){
+      if(activities[i].charAt(0) === ' '){
+        activities[i] = activities[i].slice(1);
+      }
+    }
+
+    getCoordinates($scope.destination, function(coor) {
       var req = {
         method: 'POST',
         url: '/api/createTrip',
@@ -30,12 +39,12 @@ amigo.controller('MakeTrips', function($scope, $http) {
           geocode_latitude: coor[0],
           geocode_longitude: coor[1],
           start: $scope.start.toJSON().slice(0, 10),
-          end: $scope.end.toJSON().slice(0, 10)
+          end: $scope.end.toJSON().slice(0, 10),
         }
       };
       $http(req).then(function(res) {
         $scope.response = 'Query sent';
-        var newReq = {
+        var UTReq = {
           method: 'POST',
           url: '/api/createUserTrip',
           headers: {
@@ -44,18 +53,32 @@ amigo.controller('MakeTrips', function($scope, $http) {
           data: {
             trip_id: res.data[0]
           }
-        }
-        console.log(res.data)
+        };
 
-        $http(newReq).then(function() {
-          $scope.response = 'Second query sent';
+        $http(UTReq).then(function(res) {
+          $scope.response +=
+            ' Second query (users.trips) sent';
+
+          for (var i = 0; i < activities.length; i++){  
+            var interestReq = {
+              method: 'POST',
+              url: '/api/addActivity',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              data: {
+                users_trips_id: res.data[0],
+                activity: activities[i]
+              }
+            };
+            $http(interestReq).then(function() {
+              $scope.response +=
+                ' act' + i;
+            });
+        }
         });
       });
-
     });
-      
-  
-
   };
 });
 
