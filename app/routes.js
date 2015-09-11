@@ -1,6 +1,14 @@
 var path = require('path');
 
 module.exports = function(app, passport, connection) {
+<<<<<<< HEAD
+=======
+	
+	app.get('/', function(req, res) {
+		res.render('index.ejs', { signupMessage: req.flash('signupMessage'), 
+                                  loginMessage: req.flash('loginMessage')});
+	});
+>>>>>>> Updated index and removed unneeded views
 
   var UsersTrips = require('../models/users_trips')(connection);
   var Trips = require('../models/trips')(connection);
@@ -21,6 +29,7 @@ module.exports = function(app, passport, connection) {
     res.render('dashboard.ejs');
   });
 
+<<<<<<< HEAD
   app.get('/signup', function(req, res) {
     // render the page and pass in any flash data if it exists
     res.render('signup.ejs', {
@@ -50,6 +59,26 @@ module.exports = function(app, passport, connection) {
   app.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile.ejs', {
       user: req.user
+=======
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/#signup',
+        failureFlash: true 
+        }) 
+    );
+
+    app.post('/login', passport.authenticate('local-login', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/#login',
+        failureFlash: true
+        })
+    );
+
+    app.get('/profile', isLoggedIn, function(req, res) {
+        res.render('profile.ejs', {
+            user : req.user
+        });
+>>>>>>> Updated index and removed unneeded views
     });
   });
 
