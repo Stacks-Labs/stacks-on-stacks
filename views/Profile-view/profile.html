@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+  <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<!-- <script src="profile.js"></script> -->
+
+<!-- profile view -->
+<body ng-app="app">
+<div class="container" ng-controller="Ctrl">
+        
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+   
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <!-- remote validation -->
+              <h3 class="panel-title"><a href="#" editable-textarea='user.name' onbeforesave="checkName($data)">{{user.name || "Enter Name"}}</a></h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+                
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Current trips:</td>
+                        <td><a href="#" editable-textarea='user.currentTrips'>{{user.currentTrips || "No current trips"}}</a></td>
+                      </tr>
+                      <tr>
+                        <td>Past trips:</td>
+                        <td><a href="#" editable-textarea='user.pastTrips'>{{user.pastTrips || "No past trips"}}</a></td>
+                      </tr>
+                      <tr>
+                        <td>Age:</td>
+                        <td><a href="#" editable-textarea='user.age'>{{user.age || "immortal"}}</a></td>
+                      </tr>
+                   
+                         <tr>
+                             <tr>
+                        <td>Gender</td>
+                        <td><a href="#" editable-textarea='user.gender'>{{user.gender || "Enter Gender"}}</a></td>
+                      </tr>
+                        <tr>
+                        <td>About Me:</td>
+                        <td><a href="#" editable-textarea='user.aboutMe'>{{user.aboutMe || "Tell us about yourself"}}</a></td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><a href="mailto:info@support.com">KyleS@makersquare.com</a></td>
+                      </tr>
+                        <td>Interests:</td>
+                        <td><a href="#" editable-textarea='user.interests'>{{user.interests || "I am into ..."}}</a>
+                        </td>
+                           
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+  </body>    
+  <script src="app.js"></script>
+</html>    
