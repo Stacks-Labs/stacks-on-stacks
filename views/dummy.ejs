@@ -19,7 +19,9 @@
   <script src="controllers/profile.js"></script>
   <script src="controllers/friends.js"></script>
   <script src="controllers/messages.js"></script>
-  <script src="controllers/blogs.js"></script>
+  <script src="controllers/blogs.js"></script>  
+  <script src="controllers/feedback.js"></script>
+
 
   <title></title>
 </head>
@@ -186,6 +188,43 @@ Bugs:
   </tr></table>
   <hr>
 
+
+<table width="100%"><tr><td>
+    <div ng-controller="AddFeedback">
+    <p>ng-controller="AddFeedback"</p> 
+
+    <form type="submit">
+      <label>author:</label><input ng-model="author"><br>
+      <label>subject(person):</label><input ng-model="subject"><br>
+      <textarea ng-model="feedback"></textarea><br>
+      <button ng-click="addFeedback()">send</button> {{debug_response}}
+    </form> 
+  </div>
+
+  </td>
+  <td>
+    <div ng-controller="GetFeedback">
+    <p>ng-controller="GetFeedback"</p>
+    <form>
+     <label>Username:</label><input ng-model="username"><br>
+     <button ng-click="getFeedback('author')">Get feedback I wrote</button>
+     <button ng-click="getFeedback('subject')">Get feedback about me</button>
+     {{feedbacks}}
+     <div ng-repeat="feedback in feedbacks">
+     <BR>author:   {{feedback.author}}
+     <BR>subject: {{feedback.subject}}
+     <br>feedback: {{feedback.feedback}}
+     </div>
+     </form>
+    </div>
+
+
+  </td>
+
+
+
+  </tr></table>
+  <hr>
 
 
 <table width="100%"><tr><td>

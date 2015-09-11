@@ -23,34 +23,34 @@ module.exports for amigo_feedback.js
 
 module.exports = function(knex) {
   return {
-    addFeedback: function(authorId, subjectId, feedback) { // int, int, string, string
+    addFeedback: function(author, subject, feedback) { // int, int, string, string
       return knex('amigo_feedback')
         .insert({
-          'user_id_author': authorId,
-          'user_id_subject': subjectId,
+          'author_id': author,
+          'subject_id': subject,
           'feedback': feedback
         });
     },
-    delFeedback: function(feedbackId) { // int, int, string, string
+    deleteMessage: function(feedbackId) { // int, int, string, string
       return knex('amigo_feedback')
         .where({
           'id': feedbackId
-        })
-        .del();
+        }).del();
     },
-    listMySentFeedback: function(userId) {
-      return knex('amigo_feedback')
-        .where({
-          'user_id_author': userId
-        })
-        .select();
-    },
-    listAboutMeFeedback: function(userId) {
-      return knex('amigo_feedback')
-        .where({
-          'user_id_subject': userId
-        })
-        .select();
+    getFeedback: function(username, isAuthor) { // int, string(either 'receiver' or 'sender')
+      console.log('model', username, isAuthor);
+       isAuthor = isAuthor || 'author'; // default case just in case of errors. 
+        if(isAuthor === 'author'){
+          grabId = 'aUsers.username';
+        }
+        if(isAuthor === 'subject'){
+          grabId = 'sUsers.username';
+        }
+       return knex('amigo_feedback') // must use aliases here
+        .innerJoin('users AS aUsers', 'aUsers.id', 'amigo_feedback.author_id') // need to use the "as" to alias
+        .innerJoin('users AS sUsers', 'sUsers.id', 'amigo_feedback.subject_id')
+        .where(grabId, username)
+        .select('sUsers.username as subject', 'aUsers.username as author', 'feedback');
     }
   };
-};
+}
