@@ -23,7 +23,7 @@ module.exports for media.js
 
 module.exports = function(knex) {
   return {
-    addMedia: function(url, type, id) { // type is a string that can be 'blog' 'trip' or 'user'
+    addMedia: function(id, url, type) { // type is a string that can be 'blog' 'trip' or 'user'
       type = type + '_id';
       var mediaObject = {
         'url': url,
@@ -31,7 +31,7 @@ module.exports = function(knex) {
         'trip_id': null,
         'user_id': null
       };
-      mediaObject[type].id = id;
+      mediaObject[type] = id;
       return knex('media')
         .insert(
           mediaObject

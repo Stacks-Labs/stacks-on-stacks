@@ -38,7 +38,6 @@ module.exports = function(knex) {
         }).del();
     },
     getFeedback: function(username, isAuthor) { // int, string(either 'receiver' or 'sender')
-      console.log('model', username, isAuthor);
        isAuthor = isAuthor || 'author'; // default case just in case of errors. 
         if(isAuthor === 'author'){
           grabId = 'aUsers.username';

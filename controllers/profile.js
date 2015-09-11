@@ -4,8 +4,6 @@ amigo.controller('AddProfile', function($scope, $http) {
 
   $scope.addProfile = function() {
 
-    console.log('clicking AddProfile', $scope.profile);
-
     var req = {
       method: 'POST',
       url: '/api/addProfile',
@@ -13,11 +11,12 @@ amigo.controller('AddProfile', function($scope, $http) {
         'Content-Type': 'application/json'
       },
       data: {
-        profile: $scope.profile
+        profile: $scope.profile,
+        profilepic: $scope.profilepic
       }
     };
     $http(req).then(function(res) {
-      $scope.response = 'Query sent';
+      $scope.response = res;
     });
 
   };

@@ -10,6 +10,7 @@ module.exports = function(app, passport, connection) {
   var Blogs = require('../models/blogs')(connection);
   var Feedback = require('../models/amigo_feedback')(connection);
   var Activities = require('../models/activities')(connection);
+  var Media = require('../models/media')(connection);
 
   app.get('/', function(req, res) {
     res.render('index.ejs', {
@@ -101,7 +102,8 @@ module.exports = function(app, passport, connection) {
 
   // Making Trips
   app.post('/api/createTrip', isLoggedIn, function(req, res) {
-    Trips.addTrip(req.body.destination, req.body.geocode_latitude, req.body.geocode_longitude, req.body.start, req.body.end)
+    Trips.addTrip(req.body.destination, req.body.geocode_latitude, req.body
+        .geocode_longitude, req.body.start, req.body.end)
       .then(function(response) {
         res.send(response);
       });
@@ -109,9 +111,11 @@ module.exports = function(app, passport, connection) {
 
   app.post('/api/createUserTrip', isLoggedIn, function(req, res) {
     UsersTrips.makeTrip(req.body.trip_id, req.user.id)
-      .then(function(response) {
-        res.send(response);
-      });
+      .then(
+        Media.addMedia(req.body.trip_id, req.body.media, 'trip')
+        .then(function(response) {
+          res.send(response);
+        }));
   });
 
   // Getting Trips By User
@@ -147,9 +151,11 @@ module.exports = function(app, passport, connection) {
 
   app.post('/api/addProfile', isLoggedIn, function(req, res) {
     Users.addProfile(req.user.id, req.body.profile)
-      .then(function(response) {
-        res.send(response);
-      });
+      .then(
+        Media.addMedia(req.user.id, req.body.profilepic, 'user')
+        .then(function(response) {
+          res.send(response);
+        }));
   });
 
   // Getting Profile (by username)
@@ -157,7 +163,6 @@ module.exports = function(app, passport, connection) {
   app.post('/api/getProfile', isLoggedIn, function(req, res) {
     Users.getUserByName(req.body.username)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });
@@ -167,7 +172,6 @@ module.exports = function(app, passport, connection) {
   app.post('/api/befriend', isLoggedIn, function(req, res) {
     Friends.befriend(req.body.friender, req.body.friendee)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });
@@ -177,16 +181,15 @@ module.exports = function(app, passport, connection) {
   app.post('/api/getFriends', isLoggedIn, function(req, res) {
     Friends.getFriends(req.body)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });
   // Messages - Send Message
 
   app.post('/api/sendMessage', isLoggedIn, function(req, res) {
-    Messages.addMessage(req.body.sender_id, req.body.reciever_id, req.body.subject, req.body.content)
+    Messages.addMessage(req.body.sender_id, req.body.reciever_id, req.body
+        .subject, req.body.content)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });
@@ -197,7 +200,6 @@ module.exports = function(app, passport, connection) {
     console.log('route', req.body.username, req.body.recOrSend);
     Messages.getMessages(req.body.username, req.body.recOrSend)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });
@@ -205,13 +207,11 @@ module.exports = function(app, passport, connection) {
   // Blogs - add blogs
 
   app.post('/api/publishBlog', isLoggedIn, function(req, res) {
-    Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.body)
+    Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.body, req.body.media)
       .then(function(response) {
-        console.log(response);
-        res.send(response);
-      });
+          res.send(response);
+        });
   });
-
 
   // Blogs - Get Blogs
 
@@ -219,19 +219,16 @@ module.exports = function(app, passport, connection) {
     console.log('route', req.body.username);
     Blogs.getBlogs(req.body.username)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });
 
 
-    // Feedback - leave Feedback
+  // Feedback - leave Feedback
 
   app.post('/api/addFeedback', isLoggedIn, function(req, res) {
-    console.log('route', req.body.feedback);
     Feedback.addFeedback(req.body.author_id, req.body.subject_id, req.body.feedback)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });
@@ -239,10 +236,8 @@ module.exports = function(app, passport, connection) {
   // Feedback - get Feedback
 
   app.post('/api/getFeedback', isLoggedIn, function(req, res) {
-    console.log('route', req.body.username, req.body.authOrSubj);
     Feedback.getFeedback(req.body.username, req.body.authOrSubj)
       .then(function(response) {
-        console.log(response);
         res.send(response);
       });
   });

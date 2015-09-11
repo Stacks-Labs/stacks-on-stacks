@@ -36,6 +36,7 @@
       <label>Start Time:</label><input ng-model="start" type="date"><br>
       <label>End Time:</label><input ng-model="end" type="date"><br>
       <label>Activities for trip/Seperate by Comma</label><input ng-model="activities">
+            <label>trip pictures (url)</label><input ng-model="tripPic">
       <button ng-click="makeTrip()">Make Trip</button>
     </form>{{ response }}
   </div>
@@ -47,6 +48,7 @@
     <form type="submit">
       <label>Profile</label>
       <textarea ng-model="profile"></textarea><br>
+      <label>Profile Pic (URL)<input ng-model="profilepic"><BR>
       <button ng-click="addProfile()">Add/update profile to signed in
       user</button>
     </form>{{ response }}
@@ -236,6 +238,7 @@ Bugs:
       <label>Author:</label><input ng-model="author"><br>
       <label>Subject:</label><input ng-model="subject"><br>
       <textarea ng-model="body"></textarea><br>
+           <label>Blog Pic (URL)<input ng-model="blogpic">
       <button ng-click="publishBlog()">publish</button> {{debug_response}}
     </form> 
   </div>

@@ -17,12 +17,10 @@ amigo.controller('MakeTrips', function($scope, $http) {
 
   $scope.makeTrip = function() {
 
-    console.log('clicking makeTrip', $scope.destination);
-
     var activities = $scope.activities.split(',');
 
-    for(var i = 0; i < activities.length; i++){
-      if(activities[i].charAt(0) === ' '){
+    for (var i = 0; i < activities.length; i++) {
+      if (activities[i].charAt(0) === ' ') {
         activities[i] = activities[i].slice(1);
       }
     }
@@ -51,7 +49,8 @@ amigo.controller('MakeTrips', function($scope, $http) {
             'Content-Type': 'application/json'
           },
           data: {
-            trip_id: res.data[0]
+            trip_id: res.data[0],
+            media: $scope.tripPic
           }
         };
 
@@ -59,7 +58,7 @@ amigo.controller('MakeTrips', function($scope, $http) {
           $scope.response +=
             ' Second query (users.trips) sent';
 
-          for (var i = 0; i < activities.length; i++){  
+          for (var i = 0; i < activities.length; i++) {
             var interestReq = {
               method: 'POST',
               url: '/api/addActivity',
@@ -75,7 +74,7 @@ amigo.controller('MakeTrips', function($scope, $http) {
               $scope.response +=
                 ' act' + i;
             });
-        }
+          }
         });
       });
     });
@@ -108,8 +107,6 @@ amigo.controller('GetTrips', function($scope, $http) {
 amigo.controller('GetTripsByTime', function($scope, $http) {
 
   $scope.getTripsByTime = function() {
-
-    console.log('clicking getTrips', $scope.start, $scope.end);
 
     var req = {
       method: 'POST',
