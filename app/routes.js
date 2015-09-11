@@ -8,6 +8,7 @@ module.exports = function(app, passport, connection) {
   var Friends = require('../models/friends')(connection);
   var Messages = require('../models/messages')(connection);
   var Blogs = require('../models/blogs')(connection);
+  var Feedback = require('../models/amigo_feedback')(connection);
 
   app.get('/', function(req, res) {
     res.render('index.ejs', {
@@ -91,6 +92,10 @@ module.exports = function(app, passport, connection) {
 
   app.get('/controllers/blogs.js', function(req, res) {
     res.sendfile('controllers/blogs.js');
+  });
+
+  app.get('/controllers/feedback.js', function(req, res) {
+    res.sendfile('controllers/feedback.js');
   });
 
   // Making Trips
@@ -198,7 +203,7 @@ module.exports = function(app, passport, connection) {
   });
 
 
-  // Blogs - getBlogs
+  // Blogs - Get Blogs
 
   app.post('/api/getBlogs', isLoggedIn, function(req, res) {
     console.log('route', req.body.username);
@@ -208,6 +213,30 @@ module.exports = function(app, passport, connection) {
         res.send(response);
       });
   });
+
+
+    // Feedback - leave Feedback
+
+  app.post('/api/addFeedback', isLoggedIn, function(req, res) {
+    console.log('route', req.body.feedback);
+    Feedback.addFeedback(req.body.author_id, req.body.subject_id, req.body.feedback)
+      .then(function(response) {
+        console.log(response);
+        res.send(response);
+      });
+  });
+
+  // Feedback - get Feedback
+
+  app.post('/api/getFeedback', isLoggedIn, function(req, res) {
+    console.log('route', req.body.username, req.body.authOrSubj);
+    Feedback.getFeedback(req.body.username, req.body.authOrSubj)
+      .then(function(response) {
+        console.log(response);
+        res.send(response);
+      });
+  });
+
 
   // =============================================================================
   // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
