@@ -1,3 +1,5 @@
+// helperfunction creates the correct format for getting a user ID by name. 
+
 var amigo = angular.module('amigo');
 
 amigo.controller('WriteBlog', function($scope, $http) {
@@ -41,4 +43,24 @@ amigo.controller('WriteBlog', function($scope, $http) {
   };
 });
 
-// next is getblogs
+amigo.controller('GetBlogs', function($scope, $http) {
+
+  $scope.getBlogs = function() {
+    console.log('clicking getBlogs', $scope.username);
+
+    var req = {
+      method: 'POST',
+      url: '/api/getBlogs',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        username: $scope.username
+      }
+    };
+    $http(req).then(function(res) {
+      $scope.debug_response = 'Query sent';
+      $scope.blogs = res.data;
+    });
+  };
+});
