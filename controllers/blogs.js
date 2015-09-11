@@ -5,7 +5,7 @@ var amigo = angular.module('amigo');
 amigo.controller('WriteBlog', function($scope, $http) {
 
   $scope.publishBlog = function() {
-    console.log('clicking publishBlog', $scope.sender,
+
       $scope.subject, $scope.body);
 
     var idReq = function(username) {
@@ -33,6 +33,7 @@ amigo.controller('WriteBlog', function($scope, $http) {
           author_id: authorId,
           subject: $scope.subject,
           body: $scope.body,
+          media: $scope.blogpic
         }
       };
       // we must put this inside the promise in order to have access to the Id numbers
@@ -46,7 +47,6 @@ amigo.controller('WriteBlog', function($scope, $http) {
 amigo.controller('GetBlogs', function($scope, $http) {
 
   $scope.getBlogs = function() {
-    console.log('clicking getBlogs', $scope.username);
 
     var req = {
       method: 'POST',

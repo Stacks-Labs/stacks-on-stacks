@@ -3,7 +3,6 @@ var amigo = angular.module('amigo');
 amigo.controller('Befriend', function($scope, $http) {
 
   $scope.befriend = function() {
-    console.log('clicking befriend', $scope.friender, $scope.friendee);
 
     var idReq = function(username) {
       return {
@@ -22,7 +21,6 @@ amigo.controller('Befriend', function($scope, $http) {
       var frienderId = res.data[0].id; // we need the friender ID
       $http(idReq($scope.friendee)).then(function(res) {
         var friendeeId = res.data[0].id; // then the friendee ID
-        console.log('user IDs', frienderId, friendeeId);
         var req = {
           method: 'POST',
           url: '/api/befriend',
@@ -46,7 +44,6 @@ amigo.controller('Befriend', function($scope, $http) {
 amigo.controller('GetFriends', function($scope, $http) {
 
   $scope.getFriends = function(whichLookup) {
-    console.log('clicking getfriends', $scope.username, whichLookup);
     whichLookup = whichLookup || 'myFriends';
 
     var idReq = function(username) {

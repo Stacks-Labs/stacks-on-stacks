@@ -3,7 +3,6 @@ var amigo = angular.module('amigo');
 amigo.controller('SendMessage', function($scope, $http) {
 
   $scope.sendMessage = function() {
-    console.log('clicking SendMessage', $scope.sender, $scope.reciever,
       $scope.subject, $scope.content);
 
     var idReq = function(username) {
@@ -23,7 +22,6 @@ amigo.controller('SendMessage', function($scope, $http) {
       var senderId = res.data[0].id; // we need the friender ID
       $http(idReq($scope.reciever)).then(function(res) {
         var recieverId = res.data[0].id; // then the friendee ID
-        console.log('user IDs', senderId, recieverId);
         var req = {
           method: 'POST',
           url: '/api/sendMessage',
