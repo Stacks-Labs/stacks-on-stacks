@@ -3,7 +3,6 @@ var amigo = angular.module('amigo');
 amigo.controller('AddFeedback', function($scope, $http) {
 
   $scope.addFeedback = function() {
-    console.log('clicking AddFeedback', $scope.author, $scope.subject,
       $scope.feedback);
 
     var idReq = function(username) {
@@ -49,7 +48,6 @@ amigo.controller('AddFeedback', function($scope, $http) {
 amigo.controller('GetFeedback', function($scope, $http) {
 
   $scope.getFeedback = function(isAuthor) {
-     console.log('controller', $scope.username, isAuthor);
     var req = {
       method: 'POST',
       url: '/api/getFeedback',

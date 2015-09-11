@@ -17,24 +17,36 @@ module.exports for blogs.js
 
 -------------------------------------*/
 
-module.exports = function(knex){
+module.exports = function(knex) {
 
-return {
-  // takes a comma delimited string, splits it into an array
-  publishBlog: function(author, subject, body){
-    var created = new Date();
-    return knex('blogs').insert({
-      'author_id': author,
-      'subject': subject,
-      'body': body,
-      'created_at': created
-    });
-  },
-  getBlogs: function(username){
-    return knex('blogs')
+  return {
+    // takes a comma delimited string, splits it into an array
+    publishBlog: function(author, subject, body, media) {
+      var created = new Date();
+      return knex('blogs')
+        .insert({
+          'author_id': author,
+          'subject': subject,
+          'body': body,
+          'created_at': created
+        })
+        .returning('id')
+        .into('blogs')
+        .then(function(id) {
+          id = id[0];
+          return knex.insert({
+            'url': media,
+            'blog_id': id,
+            'user_id': null,
+            'trip_id': null
+          }).into('media');
+        });
+    },
+    getBlogs: function(username) {
+      return knex('blogs')
         .innerJoin('users', 'users.id', 'blogs.author_id')
         .where('username', username)
-        .select('username as author_name', 'subject', 'body', 'created_at');  
-  }
+        .select('username as author_name', 'subject', 'body', 'created_at');
+    }
+  };
 };
-}

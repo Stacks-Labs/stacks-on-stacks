@@ -35,7 +35,6 @@ module.exports = function(knex) {
         }).del();
     },
     getMessages: function(username, isReceiver) { // int, string(either 'receiver' or 'sender')
-      console.log('model', username, isReceiver);
        isReceiver = isReceiver || 'receiver_id'; // default case just in case of errors. 
         if(isReceiver === 'receiver'){
           grabId = 'rUsers.username';
