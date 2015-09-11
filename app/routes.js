@@ -3,16 +3,12 @@ var path = require('path');
 module.exports = function(app, passport, connection) {
 	
 	app.get('/', function(req, res) {
-		res.render('index.ejs', { message: req.flash('signupMessage')});
+		res.render('index.ejs', { signupMessage: req.flash('signupMessage'), 
+                                  loginMessage: req.flash('loginMessage')});
 	});
 
     app.get('/dashboard', isLoggedIn, function(req, res) {
         res.render('dashboard.ejs');
-    });
-
-    app.get('/signup', function(req, res) {
-        // render the page and pass in any flash data if it exists
-        res.render('signup.ejs', { message: req.flash('signupMessage')})
     });
 
     app.post('/signup', passport.authenticate('local-signup', {
@@ -22,14 +18,9 @@ module.exports = function(app, passport, connection) {
         }) 
     );
 
-    app.get('/login', function(req, res) {
-        // render the page and pass in any flash data if it exists
-        res.render('login.ejs', { message: req.flash('loginMessage')})
-    });
-
     app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/dashboard',
-        failureRedirect: '/login',
+        failureRedirect: '/#login',
         failureFlash: true
         })
     );
