@@ -46,6 +46,64 @@ module.exports = function(app, passport, connection) {
         res.redirect('/');
     });
 
+    // Serve our controller files
+    app.get('/controllers/trips.js', function(req, res) {
+        res.sendfile('controllers/trips.js');
+    });
+
+    app.get('/controllers/profile.js', function(req, res) {
+        res.sendfile('controllers/profile.js');
+    });
+
+    // Making Trips
+    app.post('/api/createTrip', isLoggedIn, function(req, res){
+        Trips.addTrip(req.body.destination, req.body.start, req.body.end)
+        .then(function(response){
+            res.send(response);
+        });
+    });
+
+    app.post('/api/createUserTrip', isLoggedIn, function(req, res){
+        UsersTrips.makeTrip(req.body.trip_id, req.user.id)
+        .then(function(response){
+            res.send(response);
+        });
+    });
+
+    // Angular Files ===============================================================
+
+    app.get('/bower_components/angular/angular.js', function(req, res) {
+        res.sendfile('bower_components/angular/angular.js');
+    });
+
+    app.get('/bower_components/angular-route/angular-route.js', function(req, res) {
+        res.sendfile('bower_components/angular-route/angular-route.js');
+    });
+
+    app.get('/views/js/jquery.js', function(req, res) {
+        res.sendfile('views/js/jquery.js');
+    });
+
+    app.get('/bower_components/angular-bootstrap/ui-bootstrap.js', function(req, res) {
+        res.sendfile('bower_components/angular-bootstrap/ui-bootstrap.js');
+    });
+
+    app.get('/bower_components/angular-xeditable/dist/js/xeditable.js', function(req, res) {
+        res.sendfile('bower_components/angular-xeditable/dist/js/xeditable.js');
+    });
+
+    app.get('/bower_components/angular-xeditable/dist/css/xeditable.css', function(req, res) {
+        res.sendfile('bower_components/angular-xeditable/dist/css/xeditable.css');
+    });
+
+    app.get('/app/app.js', function(req, res) {
+        res.sendfile('app/app.js');
+    });
+
+    app.get('/views/trips.html', function(req, res) {
+        res.sendfile('views/trips.html');
+    })
+
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================
