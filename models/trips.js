@@ -69,6 +69,58 @@ module.exports = function(knex) {
         .where('username', username)
         .select('username', 'dest_name', 'geocode_latitude', 'geocode_longitude', 'time_start', 'time_end');
     },
+
+
+
+    // BE SURE TO INCLUDE:
+    // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
+    // searchByDistanceAndTime: function(latitude, longitude, distance, time) {
+    //   return knex('trips')
+    //     .select()
+    //     .then(function(trips) {
+    //       return trips.map(function(trip) {
+    //         if (google.maps.geometry.spherical.computeDistanceBetween({
+    //           'lat': latitude,
+    //           'lng': longitude
+    //         }, {
+    //           'lat': trip.geocode_latitude,
+    //           'lng': trip.geocode_longitude
+    //         }) && time >= trip.time_start && time <= trip.time_end) {
+    //           return true;
+    //         } else {
+    //           return false;
+    //         }
+    //       });
+    //     });
+    // },
+
+    // searchTripsByDistance: function(latitude, longitude, distance, includePastTrips) { // int, int, int, bool
+    //   var time;
+    //   includePastTrips = false; // delete this if implimenting past trips checkbox
+    //   return knex('trips')
+    //     .select()
+    //     .then(function(trips) {
+    //       if (includePastTrips) {
+    //         time = 0;
+    //       } else {
+    //         time = new Date();
+    //       }
+    //       return trips.map(function(trip) {
+    //         if (google.maps.geometry.spherical.computeDistanceBetween({
+    //           'lat': latitude,
+    //           'lng': longitude
+    //         }, {
+    //           'lat': trip.geocode_latitude,
+    //           'lng': trip.geocode_longitude
+    //         }) && time >= trip.time_start) {
+    //           return true;
+    //         } else {
+    //           return false;
+    //         }
+    //       });
+    //     });
+    // },
+
     getTripsByTime: function(begin, end) {
       return knex('users')
         .innerJoin('users_trips', 'users.id', 'users_trips.user_id')

@@ -1,9 +1,11 @@
+/*------------------------------------
 // This module.exports is a function. It's the way that we
 // pass in the live database connection ("knex") and use it with
 // all the various module methods (which are returned.)  Trying
 // to just export an object of methods will not work without
 // the live database. 
-/*------------------------------------
+
+
 module.exports for users.js
   signupLocal: -- takes a username and a hashed password,
   returns a promise to insert that username and hashed password

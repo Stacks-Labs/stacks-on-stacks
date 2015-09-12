@@ -3,7 +3,6 @@ var amigo = angular.module('amigo');
 amigo.controller('AddFeedback', function($scope, $http) {
 
   $scope.addFeedback = function() {
-      $scope.feedback);
 
     var idReq = function(username) {
       return {

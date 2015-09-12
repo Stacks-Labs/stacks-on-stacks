@@ -1,23 +1,6 @@
-
-
-
 var path = require('path');
 
 module.exports = function(app, passport, connection) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-
-var UsersTrips = require('../models/users_trips')(connection);
-var Trips = require('../models/trips')(connection);
->>>>>>> Database Connection to Dummy File
-	
-	app.get('/', function(req, res) {
-		res.render('index.ejs', { signupMessage: req.flash('signupMessage'), 
-                                  loginMessage: req.flash('loginMessage')});
-	});
->>>>>>> Updated index and removed unneeded views
 
   var UsersTrips = require('../models/users_trips')(connection);
   var Trips = require('../models/trips')(connection);
@@ -31,20 +14,13 @@ var Trips = require('../models/trips')(connection);
 
   app.get('/', function(req, res) {
     res.render('index.ejs', {
-      message: req.flash('signupMessage')
+      signupMessage: req.flash('signupMessage'),
+      loginMessage: req.flash('loginMessage')
     });
   });
 
   app.get('/dashboard', isLoggedIn, function(req, res) {
-    res.render('dashboard.ejs');
-  });
-
-<<<<<<< HEAD
-  app.get('/signup', function(req, res) {
-    // render the page and pass in any flash data if it exists
-    res.render('signup.ejs', {
-      message: req.flash('signupMessage')
-    });
+        res.render('dashboard.ejs');
   });
 
   app.post('/signup', passport.authenticate('local-signup', {
@@ -53,42 +29,15 @@ var Trips = require('../models/trips')(connection);
     failureFlash: true
   }));
 
-  app.get('/login', function(req, res) {
-    // render the page and pass in any flash data if it exists
-    res.render('login.ejs', {
-      message: req.flash('loginMessage')
-    });
-  });
-
   app.post('/login', passport.authenticate('local-login', {
     successRedirect: '/dashboard',
-    failureRedirect: '/login',
+    failureRedirect: '/#login',
     failureFlash: true
   }));
 
   app.get('/profile', isLoggedIn, function(req, res) {
     res.render('profile.ejs', {
       user: req.user
-=======
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/dashboard',
-        failureRedirect: '/#signup',
-        failureFlash: true 
-        }) 
-    );
-
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/dashboard',
-        failureRedirect: '/#login',
-        failureFlash: true
-        })
-    );
-
-    app.get('/profile', isLoggedIn, function(req, res) {
-        res.render('profile.ejs', {
-            user : req.user
-        });
->>>>>>> Updated index and removed unneeded views
     });
   });
 
@@ -103,17 +52,52 @@ var Trips = require('../models/trips')(connection);
     })
   );
 
-<<<<<<< HEAD
   app.get('/logout', function(req, res) {
+    console.log('req', req.logout)
     req.logout();
     res.redirect('/');
   });
 
-<<<<<<< HEAD
   // Testing Route
   app.get('/test', function(req, res) {
     res.render('dummy.ejs');
   });
+
+
+  //Serve Helper Files
+  app.get('/bower_components/angular-route/angular-route.js', function(req,
+    res) {
+    res.sendfile('bower_components/angular-route/angular-route.js');
+  });
+
+  app.get('/views/js/jquery.js', function(req, res) {
+    res.sendfile('views/js/jquery.js');
+  });
+
+  app.get('/bower_components/angular-bootstrap/ui-bootstrap.js', function(req,
+    res) {
+    res.sendfile('bower_components/angular-bootstrap/ui-bootstrap.js');
+  });
+
+  app.get('/bower_components/angular-xeditable/dist/js/xeditable.js',
+    function(req, res) {
+      res.sendfile(
+        'bower_components/angular-xeditable/dist/js/xeditable.js');
+    });
+
+  app.get('/bower_components/angular-xeditable/dist/css/xeditable.css',
+    function(req, res) {
+      res.sendfile(
+        'bower_components/angular-xeditable/dist/css/xeditable.css');
+    });
+
+  app.get('/app/app.js', function(req, res) {
+    res.sendfile('app/app.js');
+  });
+
+  app.get('/views/trips.html', function(req, res) {
+    res.sendfile('views/trips.html');
+  })
 
   // Serve our controller files
   app.get('/controllers/trips.js', function(req, res) {
@@ -123,12 +107,6 @@ var Trips = require('../models/trips')(connection);
   app.get('/controllers/profile.js', function(req, res) {
     res.sendfile('controllers/profile.js');
   });
-=======
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
->>>>>>> Cleaned up models, fixed posting to user_trips to use actual user id
 
   app.get('/controllers/friends.js', function(req, res) {
     res.sendfile('controllers/friends.js');
@@ -190,36 +168,6 @@ var Trips = require('../models/trips')(connection);
         res.send(response);
       });
   });
-=======
-    app.get('/test', function(req, res) {
-        res.render('dummy.ejs');
-    });
-
-    // Below stuff is for testing purposes
-
-    app.get('/controllers/MakeTrips.js', function(req, res) {
-        res.sendfile('controllers/MakeTrips.js');
-    });
-
-    app.post('/api/createTrip', isLoggedIn, function(req, res){
-        Trips.addTrip(req.body.destination, req.body.start, req.body.end)
-        .then(function(response){
-            res.send(response);
-        });
-    });
-
-    app.post('/api/createUserTrip', isLoggedIn, function(req, res){
-        console.log(req.body);
-        UsersTrips.makeTrip(req.body.trip_id, req.user.id)
-        .then(function(response){
-            res.send(response);
-        });
-    });
-
-// =============================================================================
-// AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
-// =============================================================================
->>>>>>> Database Connection to Dummy File
 
 
 
@@ -283,10 +231,11 @@ var Trips = require('../models/trips')(connection);
   // Blogs - add blogs
 
   app.post('/api/publishBlog', isLoggedIn, function(req, res) {
-    Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.body, req.body.media)
+    Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.body,
+        req.body.media)
       .then(function(response) {
-          res.send(response);
-        });
+        res.send(response);
+      });
   });
 
   // Blogs - Get Blogs
@@ -303,7 +252,8 @@ var Trips = require('../models/trips')(connection);
   // Feedback - leave Feedback
 
   app.post('/api/addFeedback', isLoggedIn, function(req, res) {
-    Feedback.addFeedback(req.body.author_id, req.body.subject_id, req.body.feedback)
+    Feedback.addFeedback(req.body.author_id, req.body.subject_id, req.body
+        .feedback)
       .then(function(response) {
         res.send(response);
       });
@@ -317,8 +267,6 @@ var Trips = require('../models/trips')(connection);
         res.send(response);
       });
   });
-
-
   // =============================================================================
   // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
   // =============================================================================
@@ -368,10 +316,10 @@ var Trips = require('../models/trips')(connection);
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
-      return next();
+      return next()
     }
 
     res.redirect('/');
   }
 
-};
+}
