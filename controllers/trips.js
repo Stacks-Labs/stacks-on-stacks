@@ -1,108 +1,126 @@
-var amigo = angular.module('amigo');
+var geocoder = new google.maps.Geocoder();
 
-amigo.controller('tripsCtrl', function($scope, $http) {
-  console.log("tripsCtrl");
+var getCoordinates = function(address, callback) {
+  var coordinates;
+  geocoder.geocode({
+    address: address
+  }, function(results, status) {
+    var coord_obj = results[0].geometry.location;
+    coordinates = [coord_obj.G, coord_obj.K]; // coord_obj.G = Latitude, coord_obj.K = Longitude
+    callback(coordinates);
+  });
+};
+
+var amigo = angular.module('amigo', []);
+
+amigo.controller('MakeTrips', function($scope, $http) {
+
   $scope.makeTrip = function() {
 
-    console.log('clicking makeTrip', $scope.destination, $scope.start.toJSON().slice(0,10), $scope.end.toJSON().slice(0,10));
+    var activities = $scope.activities.split(',');
 
-    var req = {
-      method: 'POST',
-      url: '/api/createTrip',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        destination: $scope.destination,
-          start: $scope.start.toJSON().slice(0,10),
-          end: $scope.end.toJSON().slice(0,10)
+    for (var i = 0; i < activities.length; i++) {
+      if (activities[i].charAt(0) === ' ') {
+        activities[i] = activities[i].slice(1);
       }
-    };
-    $http(req).then(function(res) {
-      $scope.response = 'Query sent';
-      var newReq = {
+    }
+
+    getCoordinates($scope.destination, function(coor) {
+      var req = {
         method: 'POST',
-        url: '/api/createUserTrip',
+        url: '/api/createTrip',
         headers: {
           'Content-Type': 'application/json'
         },
         data: {
-          trip_id: res.data[0]
+          destination: $scope.destination,
+          geocode_latitude: coor[0],
+          geocode_longitude: coor[1],
+          start: $scope.start.toJSON().slice(0, 10),
+          end: $scope.end.toJSON().slice(0, 10),
         }
-      }
+      };
+      $http(req).then(function(res) {
+        $scope.response = 'Query sent';
+        var UTReq = {
+          method: 'POST',
+          url: '/api/createUserTrip',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: {
+            trip_id: res.data[0],
+            media: $scope.tripPic
+          }
+        };
 
-      $http(newReq).then(function() {
-        $scope.response = 'Second query sent';
+        $http(UTReq).then(function(res) {
+          $scope.response +=
+            ' Second query (users.trips) sent';
+
+          for (var i = 0; i < activities.length; i++) {
+            var interestReq = {
+              method: 'POST',
+              url: '/api/addActivity',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              data: {
+                users_trips_id: res.data[0],
+                activity: activities[i]
+              }
+            };
+            $http(interestReq).then(function() {
+              $scope.response +=
+                ' act' + i;
+            });
+          }
+        });
       });
     });
   };
-  $scope.addProfile = function() {
+});
 
-    console.log('clicking AddProfile', $scope.profile);
+
+amigo.controller('GetTrips', function($scope, $http) {
+
+  $scope.getTrips = function() {
+
+    console.log('clicking getTrips', $scope.username);
 
     var req = {
       method: 'POST',
-      url: '/api/addProfile',
+      url: '/api/getTrips',
       headers: {
         'Content-Type': 'application/json'
       },
       data: {
-        profile: $scope.profile
+        username: $scope.username
       }
     };
     $http(req).then(function(res) {
-      $scope.response = 'Query sent';
+      $scope.trips = res.data;
     });
-
   };
 });
 
-// amigo.controller('Ctrl', function($scope, $filter, $http) {
-//   $scope.acts = [];
+amigo.controller('GetTripsByTime', function($scope, $http) {
 
-//   $scope.saveAct = function(activity, id) {
+  $scope.getTripsByTime = function() {
 
-//     var req = {
-//       method: 'POST',
-//       url: '/api/addActivity',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       data: {
-//         activity: activity,
-//         userTripId: id
-//       }
-//     };
-
-//     $http(req).then(function(res) {
-//       $scope.getActivities();
-//     });
-//   };
-
-//   $scope.getActivities = function() {
-//     var req = {
-//       method: 'GET',
-//       url: 'api/getActivities',
-//     };
-
-//     $http(req).then(function(res) {
-//       $scope.acts = res.data;
-//     });
-//   }
-
-//   // remove activity
-//   $scope.removeAct = function(index) {
-//     $scope.acts.splice(index, 1);
-//   };
-
-//   // add activity
-//   $scope.addAct = function() {
-//     $scope.inserted = {
-//       id: $scope.acts.length+1,
-//       name: ''
-//     };
-//     $scope.acts.push($scope.inserted);
-//   };
-
-//   $scope.getActivities();
-// });
+    var req = {
+      method: 'POST',
+      url: '/api/getTripsByTime',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        start: $scope.start,
+        end: $scope.end
+      }
+    };
+    $http(req).then(function(res) {
+      $scope.trips = res.data;
+    });
+  };
+});
