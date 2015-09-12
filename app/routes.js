@@ -65,6 +65,11 @@ module.exports = function(app, passport, connection) {
 
 
   //Serve Helper Files
+  app.get('/bower_components/angular/angular.js', function(req,
+    res) {
+    res.sendfile('bower_components/angular/angular.js');
+  });
+
   app.get('/bower_components/angular-route/angular-route.js', function(req,
     res) {
     res.sendfile('bower_components/angular-route/angular-route.js');

@@ -1,0 +1,26 @@
+{
+  "name": "stacks",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stacks-on-stacks/stacks-on-stacks",
+  "authors": [
+    "Brian Boyko <brian.boyko@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-bootstrap": "~0.13.4",
+    "angular-route": "~1.4.5",
+    "angular-xeditable": "~0.1.9",
+    "ui-bootstrap": "~0.13.4"
+  }
+}
