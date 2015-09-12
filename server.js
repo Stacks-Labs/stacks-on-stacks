@@ -1,4 +1,3 @@
-
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
@@ -14,14 +13,14 @@ var mysql = require('mysql');
 
 var databasehost = process.env.HOST || 'localhost';
 var knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host: databasehost,
-    user: 'root',
-    password: '',
-    database: 'amigo',
-    charset: 'utf8'
-  }
+ client: 'mysql',
+ connection: {
+   host: databasehost,
+   user: 'root',
+   password: '',
+   database: 'amigo',
+   charset: 'utf8'
+ }
 });
 
 // var connection = mysql.createConnection({
@@ -40,10 +39,10 @@ app.use(bodyParser()); // get info from html forms
 app.set('view engine', 'ejs')
 
 app.use(session({
-	secret: 'somestring',
-	saveUninitialized: true,
-	save: true,
-  resave: true
+    secret: 'somestring',
+    saveUninitialized: true,
+    save: true,
+ resave: true
 }));
 
 app.use(passport.initialize());
