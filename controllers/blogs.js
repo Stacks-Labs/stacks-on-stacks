@@ -6,7 +6,6 @@ amigo.controller('WriteBlog', function($scope, $http) {
 
   $scope.publishBlog = function() {
 
-      $scope.subject, $scope.body);
 
     var idReq = function(username) {
       return {

@@ -15,10 +15,30 @@
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
+                    
+
+
+                     
                       <tr>
                         <td>Current trips:</td>
-                        <td><a href="#" editable-textarea='user.currentTrips'>{{user.currentTrips || "No current trips"}}</a></td>
+                        <td>
+                           <div ng-controller="GetMyTrips" ng-init="getMyTrips()">
+                         <div ng-repeat="trip in trips">
+                        <div ng-repeat="trip in trips">
+                        <ul>
+                          <LI>{{trip.dest_name}}</LI>
+                          <LI>Departure: {{trip.time_start.substring(0,10)}}</li>
+                          <li>Return: {{trip.time_end.substring(0,10)}}</li>
+                          <li><a ng-href="http://maps.google.com/?q={{trip.geocode_latitude}},{{trip.geocode_longitude}}">Get Map</a>
+                          </ul>
+                          <hr>
+                        </div>
+                        </div>
+                        </td>
                       </tr>
+
+                         </div>
+                        </div>
                       <tr>
                         <td>Past trips:</td>
                         <td><a href="#" editable-textarea='user.pastTrips'>{{user.pastTrips || "No past trips"}}</a></td>

@@ -3,7 +3,6 @@ var amigo = angular.module('amigo');
 amigo.controller('SendMessage', function($scope, $http) {
 
   $scope.sendMessage = function() {
-      $scope.subject, $scope.content);
 
     var idReq = function(username) {
       return {

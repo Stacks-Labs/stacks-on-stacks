@@ -82,7 +82,20 @@ amigo.controller('MakeTrips', function($scope, $http) {
 });
 
 
-amigo.controller('GetTrips', function($scope, $http) {
+amigo.controller('GetMyTrips', function($scope, $http) {
+
+  $scope.getMyTrips = function (){
+    var req = {
+      method: 'POST',
+      url: '/api/getMyTrips',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    };
+    $http(req).then(function(res) {
+      $scope.trips = res.data;
+    });
+  }
 
   $scope.getTrips = function() {
 
