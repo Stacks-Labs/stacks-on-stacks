@@ -104,6 +104,10 @@ module.exports = function(app, passport, connection) {
         res.sendfile('views/trips.html');
     })
 
+    app.get('/views/profile.html', function(req, res) {
+        res.sendfile('views/profile.html');
+    })
+
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
 // =============================================================================

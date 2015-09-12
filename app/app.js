@@ -11,6 +11,10 @@ amigo.config(['$routeProvider',
         templateUrl: 'views/trips.html',
         controller: 'tripsCtrl'
       }).
+      when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'Ctrl'
+      }).
       otherwise({
         redirectTo: '/trips'
       });
