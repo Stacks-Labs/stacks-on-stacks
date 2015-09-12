@@ -35,9 +35,10 @@ module.exports = function(app, passport, connection) {
     failureFlash: true
   }));
 
-  app.get('/login', function(req, res) {
-      // render the page and pass in any flash data if it exists
-      res.render('login.ejs', { message: req.flash('loginMessage')})
+    app.get('/login', function(req, res) {
+        // render the page and pass in any flash data if it exists
+        res.render('login.ejs', { message: req.flash('loginMessage')})
+    });
   });
 
   app.post('/login', passport.authenticate('local-login', {
