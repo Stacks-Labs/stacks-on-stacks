@@ -26,30 +26,31 @@ module.exports = function(knex) {
   return {
 <<<<<<< HEAD
     befriend: function(frienderId, friendeeId) { // int, int -- logic to get IDs from username is in controller
-      return knex('friends')
 =======
     befriend: function(frienderId, friendeeId) { // int, int, string, string
-      knex('friends')
->>>>>>> update models to correct knex syntax
+>>>>>>> Cleaned up models, fixed posting to user_trips to use actual user id
+      return knex('friends')
         .insert({
           'friender_id': frienderId,
           'friendee_id': friendeeId
         });
-<<<<<<< HEAD
     },
     defriend: function(friendshipId) { // int
       return knex('friends')
-=======
-      return true;
-    },
-    defriend: function(friendshipId) { // int
-      knex('friends')
->>>>>>> update models to correct knex syntax
         .where({
           'id': friendshipId
         })
         .del();
 <<<<<<< HEAD
+=======
+    },
+    listFriends: function(user) {
+      return knex('friends')
+        .where({
+          'friender_id': user
+        })
+        .select();
+>>>>>>> Cleaned up models, fixed posting to user_trips to use actual user id
     },
     getFriends: function(userCriteria) {
       var criteria = {};
@@ -65,22 +66,6 @@ module.exports = function(knex) {
       return knex('friends')
         .innerJoin('users', 'users.id', 'friends.' + otherType)
         .where(criteria)
-=======
-      return true;
-    },
-    listFriends: function(user) {
-      return knex('friends')
-        .where({
-          'friender_id': user
-        })
-        .select();
-    },
-    listWhoFriendsMe: function(user) {
-      return knex('friends')
-        .where({
-          'friendee_id': user
-        })
->>>>>>> update models to correct knex syntax
         .select();
     }
   };

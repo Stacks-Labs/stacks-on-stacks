@@ -10,17 +10,30 @@ amigo.controller('MakeTrips', function($scope, $http) {
       method: 'POST',
       url: '/api/createTrip',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
       data: {
         destination: $scope.destination,
-        start: $scope.start,
-        end: $scope.end
+        start: $scope.start.toJSON().slice(0,10),
+        end: $scope.end.toJSON().slice(0,10)
       }
     };
     $http(req).then(function(res) {
       $scope.response = 'Query sent';
-          console.log('http(req)then', $scope.destination);
+      var newReq = {
+        method: 'POST',
+        url: '/api/createUserTrip',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {
+          trip_id: res.data[0]
+        }
+      }
+
+      $http(newReq).then(function() {
+        $scope.response = 'Second query sent';
+      });
     });
 
   };

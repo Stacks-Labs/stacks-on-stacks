@@ -23,11 +23,7 @@ module.exports for media.js
 
 module.exports = function(knex) {
   return {
-<<<<<<< HEAD
     addMedia: function(id, url, type) { // type is a string that can be 'blog' 'trip' or 'user'
-=======
-    addMedia: function(url, type, id) { // type is a string that can be 'blog' 'trip' or 'user'
->>>>>>> update models to correct knex syntax
       type = type + '_id';
       var mediaObject = {
         'url': url,
@@ -37,11 +33,10 @@ module.exports = function(knex) {
       };
 <<<<<<< HEAD
       mediaObject[type] = id;
-      return knex('media')
 =======
       mediaObject[type].id = id;
-      knex('media')
->>>>>>> update models to correct knex syntax
+>>>>>>> Cleaned up models, fixed posting to user_trips to use actual user id
+      return knex('media')
         .insert(
           mediaObject
         );
@@ -58,20 +53,12 @@ module.exports = function(knex) {
       type = type + '_id';
       var searchObj = {};
       searchObj[type] = id;
-<<<<<<< HEAD
       return knex('media')
-=======
-      knex('media')
->>>>>>> update models to correct knex syntax
         .where(searchObj)
         .del();
     },
     deleteMediaByMediaId: function(id) {
-<<<<<<< HEAD
       return knex('media')
-=======
-      knex('media')
->>>>>>> update models to correct knex syntax
         .where({
           id: id
         }).del();

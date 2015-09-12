@@ -25,12 +25,25 @@ module.exports = function(knex) {
   return {
 <<<<<<< HEAD
     addFeedback: function(author, subject, feedback) { // int, int, string, string
+=======
+    addFeedback: function(authorId, subjectId, feedback) { // int, int, string, string
+>>>>>>> Cleaned up models, fixed posting to user_trips to use actual user id
       return knex('amigo_feedback')
         .insert({
           'author_id': author,
           'subject_id': subject,
           'feedback': feedback
         });
+<<<<<<< HEAD
+=======
+    },
+    delFeedback: function(feedbackId) { // int, int, string, string
+      return knex('amigo_feedback')
+        .where({
+          'id': feedbackId
+        })
+        .del();
+>>>>>>> Cleaned up models, fixed posting to user_trips to use actual user id
     },
     deleteMessage: function(feedbackId) { // int, int, string, string
       return knex('amigo_feedback')
@@ -54,38 +67,3 @@ module.exports = function(knex) {
     }
   };
 }
-=======
-    addFeedback: function(authorId, subjectId, feedback) { // int, int, string, string
-      knex('amigo_feedback')
-        .insert({
-          'user_id_author': authorId,
-          'user_id_subject': subjectId,
-          'feedback': feedback
-        });
-      return true;
-    },
-    delFeedback: function(feedbackId) { // int, int, string, string
-      knex('amigo_feedback')
-        .where({
-          'id': feedbackId
-        })
-        .del();
-      return true;
-    },
-    listMySentFeedback: function(userId) {
-      return knex('amigo_feedback')
-        .where({
-          'user_id_author': userId
-        })
-        .select();
-    },
-    listAboutMeFeedback: function(userId) {
-      return knex('amigo_feedback')
-        .where({
-          'user_id_subject': userId
-        })
-        .select();
-    }
-  };
-};
->>>>>>> update models to correct knex syntax

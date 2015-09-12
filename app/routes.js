@@ -103,6 +103,7 @@ var Trips = require('../models/trips')(connection);
     })
   );
 
+<<<<<<< HEAD
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
@@ -122,6 +123,12 @@ var Trips = require('../models/trips')(connection);
   app.get('/controllers/profile.js', function(req, res) {
     res.sendfile('controllers/profile.js');
   });
+=======
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
+>>>>>>> Cleaned up models, fixed posting to user_trips to use actual user id
 
   app.get('/controllers/friends.js', function(req, res) {
     res.sendfile('controllers/friends.js');
@@ -194,16 +201,20 @@ var Trips = require('../models/trips')(connection);
         res.sendfile('controllers/MakeTrips.js');
     });
 
-    app.post('/api/createTrip', function(req, res){
-        for (var key in req.body) {
-          var body = JSON.parse(key);
-         }
-        UsersTrips.makeTrip(body.destination, body.start, body.end, '1')
-        .then(function(){
-            console.log("anything")
-            res.status(200);
+    app.post('/api/createTrip', isLoggedIn, function(req, res){
+        Trips.addTrip(req.body.destination, req.body.start, req.body.end)
+        .then(function(response){
+            res.send(response);
         });
-    })
+    });
+
+    app.post('/api/createUserTrip', isLoggedIn, function(req, res){
+        console.log(req.body);
+        UsersTrips.makeTrip(req.body.trip_id, req.user.id)
+        .then(function(response){
+            res.send(response);
+        });
+    });
 
 // =============================================================================
 // AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
