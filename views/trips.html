@@ -1,73 +1,70 @@
-   <div ng-controller="tripsCtrl">
-    <h2 style="font-style: italic">current trips</h2><button class=
-    "btn btn-info btn-sm" data-target="#newTrip" data-toggle="modal" type=
-    "button">Add New Trip</button>
-
-    <div class="container new_trip">
-      <div class="row">
-        <div class="col-xs-4">
-      </div>
-    </div>
-
-    <div class="current_trips" style=
-    "position:absolute float:left">
-    <div class="col-xs-8 a_trip">
-      <h4 style="font-style: italic">Barcelona Sept 5-9,
-        2015</h4>
-
-        <div></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="container">
-  <h3>Past Trips</h3>
-
-  <div class="row">
-    <div class="col-xs-8">
-      <ul>
-        <li>Brazil June 5-19, 2014</li>
-
-        <li style="list-style: none; display: inline">
-          <div class="col-sm-4"></div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="newTrip">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form class="form-horizontal">
-        <div class="modal-header">
-          <button class="close" data-dismiss="modal" type=
-          "button">&times;</button>
-
-          <h4 class="modal-title">Create New Trip</h4>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="item active">         
         </div>
-
-        <div class="modal-body">
-          <div class="form-group">
-            <div class="col-sm-10">
-              <input class="form-control" ng-model="destination" id='destination'
-              placeholder="Enter Destination" type="text">
+      </div>
+    </div>
+    <div class="search">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+              <div class="form-section">
+                <div class="row">
+                    <form role="form">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="sr-only" for="location">Location</label>
+                          <input type="text" class="form-control" id="location" placeholder="Where ?">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="sr-only" for="checkin">Check in</label>
+                          <div class="input-group">
+                            <input type="date" class="form-control" id="checkin" placeholder="Check in">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="sr-only" for="checkout">Check out</label>
+                          <div class="input-group">
+                            <input type="date" class="form-control" id="checkout" placeholder="Check out">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <!-- <div class="form-group">
+                          <label class="sr-only" for="guest">Guest</label>
+                          <select id="guest" name="guest" class="form-control">
+                              <option value="1">1 Guest</option>
+                              <option value="2">2 Guests</option>
+                              <option value="3">3 Guests</option>
+                              <option value="4">4 Guests</option>
+                              <option value="5">5 Guests</option>
+                              <option value="6">6 Guests</option>
+                              <option value="7">7 Guests</option>
+                              <option value="8">8 Guests</option>
+                              <option value="9">9 Guests</option>
+                              <option value="10">10 Guests</option>
+                              <option value="11">11 Guests</option>
+                              <option value="12">12 Guests</option>
+                              <option value="13">13 Guests</option>
+                              <option value="14">14 Guests</option>
+                              <option value="15">15 Guests</option>
+                              <option value="16">16+ Guests</option>
+                          </select>
+                        </div> -->
+                      </div>
+                      <div class="col-md-2">
+                        <button type="submit" class="btn btn-default btn-primary">Search</button>
+                      </div>
+                    </form>
+                </div>
+              </div>
             </div>
-          </div><input id="start" name=
-          "start date" type="date" ng-model= "start" required>
-           <input id="end" ng-model="end" name=
-          "end date" type="date" min='{{start}}' required> 
-
-          <div class="modal-footer">
-            <button class="btn btn-default" data-dismiss=
-            "modal" type="button">Close</button> <input class=
-            "btn btn-default" data-dismiss="modal" ng-click=
-            "makeTrip()" type="submit" value="Submit">
           </div>
         </div>
-      </form>
-    </div>
-  </div>
-</div>
+      </div>  
