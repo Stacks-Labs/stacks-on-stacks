@@ -1,4 +1,4 @@
-profile.js
+
 $(document).ready(function() {
     var panels = $('.user-infos');
     var panelsButton = $('.dropdown-user');
