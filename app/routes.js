@@ -18,8 +18,13 @@ module.exports = function(app, passport, connection) {
   });
 
     app.get('/dashboard', isLoggedIn, function(req, res) {
-        res.render('dashboard.ejs');
+        res.render('dashboard.ejs', {user_id: req.user.id});
     });
+
+    app.get('/test', isLoggedIn, function(req, res) {
+        res.render('dummy.ejs', {user_id: req.user.id});
+    });
+
 
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect: '/dashboard',
@@ -97,6 +102,13 @@ module.exports = function(app, passport, connection) {
 
   app.post('/api/getTrips', isLoggedIn, function(req, res) {
     Trips.getTripsByUsername(req.body.username)
+      .then(function(response) {
+        res.send(response);
+      });
+  });
+
+  app.post('/api/getMyTrips', isLoggedIn, function(req, res) {
+    Trips.getTripsById(req.user.id)
       .then(function(response) {
         res.send(response);
       });

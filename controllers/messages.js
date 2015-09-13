@@ -1,9 +1,8 @@
-var amigo = angular.module('amigo');
+
 
 amigo.controller('SendMessage', function($scope, $http) {
 
   $scope.sendMessage = function() {
-      $scope.subject, $scope.content);
 
     var idReq = function(username) {
       return {
@@ -48,7 +47,6 @@ amigo.controller('SendMessage', function($scope, $http) {
 amigo.controller('GetMessages', function($scope, $http) {
 
   $scope.getMessages = function(isReceiver) {
-     console.log('controller', $scope.username, isReceiver);
     var req = {
       method: 'POST',
       url: '/api/getMessages',

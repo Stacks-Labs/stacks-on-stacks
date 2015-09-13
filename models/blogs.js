@@ -22,6 +22,7 @@ module.exports = function(knex) {
   return {
     // takes a comma delimited string, splits it into an array
     publishBlog: function(author, subject, body, media) {
+      media = media || 'no picture provided';
       var created = new Date();
       return knex('blogs')
         .insert({

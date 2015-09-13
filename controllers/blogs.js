@@ -1,12 +1,10 @@
 // helperfunction creates the correct format for getting a user ID by name. 
 
-var amigo = angular.module('amigo');
 
 amigo.controller('WriteBlog', function($scope, $http) {
 
   $scope.publishBlog = function() {
 
-      $scope.subject, $scope.body);
 
     var idReq = function(username) {
       return {

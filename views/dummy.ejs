@@ -1,280 +1,410 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style>
-  .bugreport{
-    color:#800000;
-    font-size:75%;
-    background-color:#DDDDDD;
-  }
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <!-- Custom Fonts -->
+  <link href="./css/dummy.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <script src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script>
 
-  </style>
-
-  <script src=
-  "http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"
-  type="text/javascript"></script>
-  <script src=
-  "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  var amigo = angular.module('amigo', []);
+  </script>
   <script src="controllers/trips.js"></script>
   <script src="controllers/profile.js"></script>
   <script src="controllers/friends.js"></script>
   <script src="controllers/messages.js"></script>
-  <script src="controllers/blogs.js"></script>  
+  <script src="controllers/blogs.js"></script>
   <script src="controllers/feedback.js"></script>
 
-
-  <title></title>
+  <title>
+  </title>
 </head>
 
 <body ng-app="amigo">
+<H1>Amigo Backend Testing Area</H1>
+<HR>
+<div class="col-md-12">
+<h2>Login</h2>
+<div class="divider col-md-4">
+<H4>Social Signup</H4>
+<ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="https://twitter.com/" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li>
+                            <li>
+                                <a href="/auth/facebook" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                            </li>
+                            <li>
+                            </li>    
+                        </ul>
+</div>
+<div class="divider col-md-4">
+<H4>Local Signup</H4>
+<form action="/signup" method="post">
+                              <input id="username" name="username" type="username" placeholder="username" class="form-control input-md"> 
 
+                              <input id="password" name="password" type="password" placeholder="password" class="form-control input-md"> 
+                              
+                              <!--
+                              <input id="password" type="password" placeholder="confirm password" class="form-control input-md"> -->
+
+                              <button class="btn btn-default btn-lg" id="submit"><i class="submit"></i><span class="network-name">submit</span></button>
+                          </form>
+</div>
+<div class="col-md-4">
+<h4>Local login<h4>
+  <form class="form-horizontal" action="/login" method="post">
+                        <fieldset>
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-2 control-label" for="username">Username</label>  
+                          <div class="col-md-8">
+                          <input id="username" name="username" type="text" placeholder="enter name" class="form-control input-md">
+                            
+                          </div>
+                        </div>
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                          <label class="col-md-2 control-label" for="password">Password </label>
+                          <div class="col-md-8">
+                            <input id="password" name="password" type="password" placeholder="password" class="form-control input-md">
+                            
+                          </div>
+
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="form-group">
+                          <button class="btn btn-default">Submit</button>
+                        </div>
+                            
+                          </div>
+                        </div>
+
+                        </fieldset>
+                        </form>
+</div>
+
+<HR>
   <div ng-controller="MakeTrips">
-    <p>ng-controller="MakeTrips"</p>
+<div class="col-md-12">
+  <div class="col-md-6">
+    <H3>ng-controller="MakeTrips"</H3>
+
 
     <form type="submit">
-      <label>Destination:</label><input ng-model="destination"><br>
-      <label>Start Time:</label><input ng-model="start" type="date"><br>
-      <label>End Time:</label><input ng-model="end" type="date"><br>
-      <label>Activities for trip/Seperate by Comma</label><input ng-model="activities">
-            <label>trip pictures (url)</label><input ng-model="tripPic">
+      <P><label>Destination:</label><input ng-model="destination"></P>
+      <P><label>Start Time:</label><input ng-model="start" type="date"></P>
+      <P><label>End Time:</label><input ng-model="end" type="date"></P>
+      <P><label>Trip Activities</label><input ng-model="activities"></P>
+      <P><label>Trip picture (URL)</label><input ng-model="tripPic"></P>
       <button ng-click="makeTrip()">Make Trip</button>
-    </form>{{ response }}
+    </form>
   </div>
+  <div class="col-md-6 response">Response<pre>{{ response }}</pre></div>
+ </div>
+</div>
+
   <hr>
 
-  <div ng-controller="AddProfile">
-    <p>ng-controller="AddProfile"</p>
+<div ng-controller="AddProfile">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <h3>ng-controller="AddProfile"</h3>
 
-    <form type="submit">
-      <label>Profile</label>
-      <textarea ng-model="profile"></textarea><br>
-      <label>Profile Pic (URL)<input ng-model="profilepic"><BR>
-      <button ng-click="addProfile()">Add/update profile to signed in
-      user</button>
-    </form>{{ response }}
-    <br>
-    <PRE class="bugreport">
-Bugs:
-* Can create/edit profile for recently signed-up user, but not for logged-in user</PRE>
+      <form type="submit">
+        <p><label>Profile</label>
+        <textarea ng-model="profile"></textarea>
+        </p>
+
+
+        <p><label>Profile Pic (URL)</label><input ng-model="profilepic"></p>
+        <button ng-click="addProfile()">Add/update profile to signed in user</button>
+      </form>
+    </div>
+
+
+    <div class="col-md-6 response">
+      Response
+
+      <pre>
+{{resProfile}}
+{{resProfilePic}}
+</pre>
+    </div>
   </div>
+</div>
 
-  <HR>
-    <div ng-controller="GetProfile">
-    <p>ng-controller="GetProfile"</p>
+  <hr>
+  <div ng-controller="GetProfile">
+<div class="col-md-12">
+  <div class="col-md-6">
+    <H3>ng-controller="GetProfile"</H3>
+
 
     <form type="submit">
-      <label>username</label>
-      <input ng-model="username"></input><br>
+      <label>Username: </label> <input ng-model="username"><br>
       <button ng-click="getProfile()">Get Profile of Username</button>
-    </form><BR>
-    id#: {{ user_id }} <BR>
-    email: {{ user_email }} <BR>
-    password(hashed): {{ user_hashpass }} <BR>
-    fb_id: {{ user_fb_id }} <BR>
-    fb_token: {{ user_fb_token }} <BR>
-    profile: {{ user_profile }} <BR>
-    <br>
-    <PRE class="bugreport">No Bugs To Report</PRE>
+    </form>
   </div>
+    <div class="col-md-6 response">
+    Response:
+    <pre>
+    id#: {{ user_id }}
+    email: {{ user_email }}
+    password(hashed): {{ user_hashpass }}
+    fb_id: {{ user_fb_id }}
+    fb_token: {{ user_fb_token }}
+    profile: {{ user_profile }}
+    </pre>
+</div></div>
+  <hr>
+  <div ng-controller="GetTrips">
+<div class="col-md-12">
+  <div class="col-md-6">
 
-<HR>
-
-    <div ng-controller="GetTrips">
-    <p>ng-controller="GetTrips"</p>
-
+    <H3>ng-controller="GetTrips" // from Username</H3>
     <form type="submit">
-      <label>Username: </label>
-      <input ng-model="username"></input><br>
-      <button ng-click="getTrips()">Get Trips</button>
-    </form><BR>
-
+      <P><label>Username:</label> <input ng-model="username"><p>
+      <button ng-click="getTripsByUsername()">Get Trips</button>
+    </form>
+    <br>
+  </div>
+   <div class="col-md-6 response">Response:
     <div ng-repeat="trip in trips">
+      <ul>
+        <li>{{trip.username}}</li>
 
-    <UL>
-    <LI>{{trip.username}}</LI>
-      <UL>
-      <LI>{{trip.dest_name}}</LI>
-      <LI>{{trip.geocode_latitude}}</LI>
-      <LI>{{trip.geocode_longitude}}</LI>
-      <LI>{{trip.time_start}}</LI>
-      <LI>{{trip.time_end}}</LI>
-      </UL>
-    </UL>
+
+        <li style="list-style: none; display: inline">
+          <ul>
+            <li><strong>Destination: </strong>{{trip.dest_name}}</li>
+
+
+            <li><strong>Latitude: </strong>{{trip.geocode_latitude}}</li>
+
+
+            <li><strong>Longitude: </strong>{{trip.geocode_longitude}}</li>
+
+
+            <li><strong>Time Start: </strong>{{trip.time_start.slice(0, 10)}}</li>
+
+
+            <li><strong>Time End: </strong>{{trip.time_end.slice(0, 10)}}</li>
+          </ul>
+        </li>
+      </ul>
+  
     </div>
     <br>
-    <PRE class="bugreport">No Bugs To Report</PRE>
+</div></div>
   </div>
 
-<HR>
+  <hr>
 
 
   <div ng-controller="GetTripsByTime">
-    <p>ng-controller="GetTripsByTime"</p>
-
+  <div class="col-md-12">
+  <div class="col-md-6">
+    <H3>ng-controller="GetTripsByTime"</H3>
     <form type="submit">
-      <label>Start Time:</label><input ng-model="start" type="date"><br>
-      <label>End Time:</label><input ng-model="end" type="date"><br>
+      <p><label>Start Time:</label><input ng-model="start" type="date"></p>
+      <p><label>End Time:</label><input ng-model="end" type="date"></p>
       <button ng-click="getTripsByTime()">Get Trips by Time</button>
-    </form> <div ng-repeat="trip in trips">
-    {{trip}}
+    </form>
+    </div>
+ <div class="col-md-6 response">Response:
+        <div ng-repeat="trip in trips">
+      <ul>
+        <li>{{trip.username}}</li>
+
+
+        <li style="list-style: none; display: inline">
+          <ul>
+            <li><strong>Destination: </strong>{{trip.dest_name}}</li>
+
+
+            <li><strong>Latitude: </strong>{{trip.geocode_latitude}}</li>
+
+
+            <li><strong>Longitude: </strong>{{trip.geocode_longitude}}</li>
+
+
+            <li><strong>Time Start: </strong>{{trip.time_start.slice(0, 10)}}</li>
+
+
+            <li><strong>Time End: </strong>{{trip.time_end.slice(0, 10)}}</li>
+          </ul>
+        </li>
+      </ul>
+  
     </div>
   </div>
+</div>
+
   <hr>
-<table><tr><td>
-    <div ng-controller="Befriend">
-    <p>ng-controller="Befriend"</p>
 
-    <form type="submit">
-      <label>Friender (Username):</label><input ng-model="friender"><br>
-      <label>Friendee (Username):</label><input ng-model="friendee"><br>
-      <button ng-click="befriend()">Befriend</button> {{befriend_response}}
-    </form> 
-  </div>
-  </td><td>
-    <div ng-controller="GetFriends">
-    <p>ng-controller="GetFriends"</p>
-    <form type="submit">
-      <label>Username:</label><input ng-model="username">
-<button ng-click="getFriends('myFriends')">Get who I've friended</button>
-     <button ng-click="getFriends('friendsMe')">get who friended me</button>
-     {{friends}}
-     <ul ng-repeat="friend in friends">
-     <li>{{friend.username}}</li>
-     </ul>
+          <div class="col-md-12">
+  <div class="divider col-md-6">
+        <div ng-controller="Befriend">
+          <H4>ng-controller="Befriend"</H4>
 
 
-    </form>
+          <form type="submit">
+            <label>Friender (Username):</label><input ng-model="friender"><br>
+            <label>Friendee (Username):</label><input ng-model="friendee"><br>
+            <button ng-click="befriend()">Befriend</button> 
+          </form>
+          <pre>{{befriend_response}}</pre>
+        </div>
+        </div>
+  <div class="col-md-6">
+        <div ng-controller="GetFriends">
+          <H4>ng-controller="GetFriends"</H4>
+          <form type="submit">
+            <p><label>Username:</label><input ng-model="username"></p>
+            <button ng-click="getFriends('myFriends')">Get who I've friended</button> <button ng-click="getFriends('friendsMe')">Get who friended me</button>
+          </form>
+          <div style="clear:both"></div>
+              <div class="response">
+            <ul ng-repeat="friend in friends">
+              <li>{{friend.username}}</li>
+            </ul>
+            </div>
+        </div>
+</div>
+</div>
+
+  <hr>
+
+
+          <div class="col-md-12">
+  <div class="divider col-md-6">
+        <div ng-controller="SendMessage">
+          <H4>ng-controller="SendMessage"</H4>
+
+
+          <form type="submit">
+            <p><label>Sender:</label><input ng-model="sender"></p>
+            <p><label>Recipient:</label><input ng-model="reciever"></p>
+            <p><label>Subject:</label><input ng-model="subject"></p>
+            <p><label>Body:</label><textarea ng-model="content"></textarea></p>
+            <button ng-click="sendMessage()">send</button> 
+            <PRE>{{message_response}}</PRE>
+          </form>
+        </div>
+        </div>
+  <div class="col-md-6">
+        <div ng-controller="GetMessages">
+          <H4>ng-controller="GetMessages"</H4>
+
+
+          <form>
+            <label>Username:</label><input ng-model="username"><br>
+            <button ng-click="getMessages('receiver')">Get messages I recieved</button> <button ng-click="getMessages('sender')">Get messages I sent</button>
+          </form>
+<div style="clear:both"></div>
+<div class="response">
+            <div ng-repeat="message in messages">
+              <UL>
+              <LI><strong>Recipient: </strong>{{message.receiver}}</LI>
+              <LI><strong>Sender: </strong>{{message.sender}}</LI>
+              <LI><strong>Subject: </strong>{{message.subject}}</LI>
+              </UL>
+              <P class="messagebody">{{message.body}}</P>
+            </div>
+            </div>
+        </div>
+</div>
 </div>
 
 
-
-
-  </td></tr></table>
   <hr>
 
-<table width="100%"><tr><td>
-    <div ng-controller="SendMessage">
-    <p>ng-controller="SendMessage"</p>
 
-    <form type="submit">
-      <label>Sender:</label><input ng-model="sender"><br>
-      <label>Recipient:</label><input ng-model="reciever"><br>
-      <label>Subject:</label><input ng-model="subject"><br>
-      <textarea ng-model="content"></textarea><br>
-      <button ng-click="sendMessage()">send</button> {{message_response}}
-    </form> 
-  </div>
+          <div class="col-md-12">
+  <div class="divider col-md-6">
+        <div ng-controller="AddFeedback">
+          <H4>ng-controller="AddFeedback"</H4>
 
-  </td>
-  <td>
-    <div ng-controller="GetMessages">
-    <p>ng-controller="GetMessages"</p>
-    <form>
-     <label>Username:</label><input ng-model="username"><br>
-     <button ng-click="getMessages('receiver')">Get messages I recieved</button>
-     <button ng-click="getMessages('sender')">Get messages I sent</button>
-     {{messages}}
-     <div ng-repeat="message in messages">
-     <BR>To:   {{message.receiver}}
-     <BR>from: {{message.sender}}
-     <br>subj: {{message.subject}}
-     <br>body: {{message.body}}
-     </div>
-     </form>
+
+          <form type="submit">
+            <P><label>Author:</label><input ng-model="author"></P>
+            <P><label>Subject(person):</label><input ng-model="subject"></P>
+            <P><label>Feedback:</label><textarea ng-model="feedback"></textarea></P>
+            <button ng-click="addFeedback()">send</button> 
+          </form>
+          <pre>{{debug_response}}</pre>
+        </div>
+</div>
+  <div class="col-md-6">
+        <div ng-controller="GetFeedback">
+          <p>ng-controller="GetFeedback"</p>
+
+
+          <form>
+            <label>Username:</label><input ng-model="username"><br>
+            <button ng-click="getFeedback('author')">Get feedback I wrote</button> <button ng-click="getFeedback('subject')">Get feedback about me</button>
+          </form>
+          <div style="clear:both"></div>
+<div class="response">
+            <div ng-repeat="feedback in feedbacks">
+              <UL>
+              <LI><strong>Author: </strong>{{feedback.author}}</LI>
+              <LI><strong>Subject: </strong>{{feedback.subject}}</LI>
+              <LI><strong>Feedback: </strong>{{feedback.feedback}}</LI>
+              </UL>
+            </div></div>
+        </div>
+</div></div>
+
+  <hr>
+
+
+          <div class="col-md-12">
+  <div class="divider col-md-6">
+        <div ng-controller="WriteBlog">
+          <H4>ng-controller="WriteBlog"</H4>
+
+
+          <form type="submit">
+            <P><label>Author:</label><input ng-model="author"></P>
+            <P><label>Subject:</label><input ng-model="subject"></P>
+            <P><label>Body:</label><textarea ng-model="body"></textarea></P>
+            <p><label>Blog Pic (URL):</label><input ng-model="blogpic"></p>
+            <p><button ng-click="publishBlog()">Publish Blog</button></p>
+          </form>
+            <pre>{{debug_response}}</pre>
+        </div>
+</div>
+  <div class="col-md-6">
+        <div ng-controller="GetBlogs">
+          <H4>ng-controller="GetBlogs"</H4>
+
+
+          <form>
+            <label>Username:</label><input ng-model="username"><br>
+            <button ng-click="getBlogs()">Get blogs</button>
+          </form>
+          <div style="clear:both"></div>
+<div class="response">
+            <div ng-repeat="blog in blogs">
+            <UL>
+              <LI><strong>Author: </strong>{{blog.author_name}} <em>at: {{blog.created_at.slice(0,10)}}</em></LI>
+              <LI><strong>Subject: </strong>{{blog.subject}}</LI>
+              <P class="messagebody">{{blog.body}}</P>
+            </div></div>
+        </div>
+    </div>
     </div>
 
-
-  </td>
-
-
-
-  </tr></table>
   <hr>
-
-
-<table width="100%"><tr><td>
-    <div ng-controller="AddFeedback">
-    <p>ng-controller="AddFeedback"</p> 
-
-    <form type="submit">
-      <label>author:</label><input ng-model="author"><br>
-      <label>subject(person):</label><input ng-model="subject"><br>
-      <textarea ng-model="feedback"></textarea><br>
-      <button ng-click="addFeedback()">send</button> {{debug_response}}
-    </form> 
-  </div>
-
-  </td>
-  <td>
-    <div ng-controller="GetFeedback">
-    <p>ng-controller="GetFeedback"</p>
-    <form>
-     <label>Username:</label><input ng-model="username"><br>
-     <button ng-click="getFeedback('author')">Get feedback I wrote</button>
-     <button ng-click="getFeedback('subject')">Get feedback about me</button>
-     {{feedbacks}}
-     <div ng-repeat="feedback in feedbacks">
-     <BR>author:   {{feedback.author}}
-     <BR>subject: {{feedback.subject}}
-     <br>feedback: {{feedback.feedback}}
-     </div>
-     </form>
-    </div>
-
-
-  </td>
-
-
-
-  </tr></table>
-  <hr>
-
-
-<table width="100%"><tr><td>
-    <div ng-controller="WriteBlog">
-    <p>ng-controller="WriteBlog"</p>
-
-    <form type="submit">
-      <label>Author:</label><input ng-model="author"><br>
-      <label>Subject:</label><input ng-model="subject"><br>
-      <textarea ng-model="body"></textarea><br>
-           <label>Blog Pic (URL)<input ng-model="blogpic">
-      <button ng-click="publishBlog()">publish</button> {{debug_response}}
-    </form> 
-  </div>
-
-  </td>
-  <td>
-    <div ng-controller="GetBlogs">
-    <p>ng-controller="GetBlogs"</p>
-    <form>
-     <label>Username:</label><input ng-model="username"><br>
-     <button ng-click="getBlogs()">Get blogs</button>
-     {{blogs}}
-     <div ng-repeat="blog in blogs">
-     <BR>Author:   {{blog.author_name}}
-     <BR>Published At: {{blog.created_at}}
-     <br>subj: {{blog.subject}}
-     <br>body: {{blog.body}}
-     <BR>...<BR>
-     </div>
-     </form>
-     {{debug_response}}
-    </div>
-
-
-  </td>
-
-
-
-  </tr></table>
-  <hr>
-
-
-
-
-
-
-
 </body>
 </html>

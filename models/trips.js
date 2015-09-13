@@ -62,6 +62,13 @@ module.exports = function(knex) {
         });
     },
 
+    getTripsById: function(id) {
+      return knex('users')
+        .innerJoin('users_trips', 'users.id', 'users_trips.user_id')
+        .innerJoin('trips', 'trips.id', 'users_trips.trip_id')
+        .where('users.id', id)
+        .select('username', 'dest_name', 'geocode_latitude', 'geocode_longitude', 'time_start', 'time_end');
+    },
     getTripsByUsername: function(username) {
       return knex('users')
         .innerJoin('users_trips', 'users.id', 'users_trips.user_id')
