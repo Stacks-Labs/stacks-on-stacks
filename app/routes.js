@@ -21,7 +21,13 @@ module.exports = function(app, passport, connection) {
         res.render('dashboard.ejs', {user_id: req.user.id});
     });
 
-    app.get('/test', isLoggedIn, function(req, res) {
+    app.get('/test', function(req, res, next) {
+        if (req.isAuthenticated()){
+            return next();
+        }
+        else res.render('dummy.ejs');
+
+    }, function(req, res) {
         res.render('dummy.ejs', {user_id: req.user.id});
     });
 
@@ -33,9 +39,23 @@ module.exports = function(app, passport, connection) {
         }) 
     );
 
+    app.post('/testSignup', passport.authenticate('local-signup', {
+        successRedirect: '/test',
+        failureRedirect: '/test',
+        failureFlash: true 
+        }) 
+    );
+
     app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/dashboard',
         failureRedirect: '/#login',
+        failureFlash: true
+        })
+    );
+
+    app.post('/testLogin', passport.authenticate('local-login', {
+        successRedirect: '/test',
+        failureRedirect: '/test#fail',
         failureFlash: true
         })
     );
@@ -53,6 +73,12 @@ module.exports = function(app, passport, connection) {
         console.log('req', req.logout)
         req.logout();
         res.redirect('/');
+    });
+
+    app.get('/testLogout', function(req, res) {
+        console.log('req', req.logout)
+        req.logout();
+        res.redirect('/test');
     });
 
 // Serve our controller files

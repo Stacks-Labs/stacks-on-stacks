@@ -26,6 +26,12 @@
 
 <body ng-app="amigo">
 <H1>Amigo Backend Testing Area</H1>
+<% if (locals.user_id) { %>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4 alert alert-danger">Logged in with User ID: <%= user_id %></div>
+                        <div class="col-md-2"><a href="/testLogout" class="btn btn-default btn-lg">Log out</a></div>
+                        <div class="clearfix"></div>
+                        <% } %>
 <HR>
 <div class="col-md-12">
 <h2>Login</h2>
@@ -33,13 +39,7 @@
 <H4>Social Signup</H4>
 <ul class="list-inline intro-social-buttons">
                             <li>
-                                <a href="https://twitter.com/" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                            </li>
-                            <li>
                                 <a href="/auth/facebook" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
                             </li>
                             <li>
                             </li>    
@@ -47,7 +47,7 @@
 </div>
 <div class="divider col-md-4">
 <H4>Local Signup</H4>
-<form action="/signup" method="post">
+<form action="/testSignup" method="post">
                               <input id="username" name="username" type="username" placeholder="username" class="form-control input-md"> 
 
                               <input id="password" name="password" type="password" placeholder="password" class="form-control input-md"> 
@@ -60,7 +60,7 @@
 </div>
 <div class="col-md-4">
 <h4>Local login<h4>
-  <form class="form-horizontal" action="/login" method="post">
+  <form class="form-horizontal" action="/testLogin" method="post">
                         <fieldset>
                         <!-- Text input-->
                         <div class="form-group">
