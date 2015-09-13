@@ -60,3 +60,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6f9ff', end
 -moz-border-radius: 10px;
 border-radius: 10px;
 }
+
+.divider{
+  border-right:1px solid #888;
+}

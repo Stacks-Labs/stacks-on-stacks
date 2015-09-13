@@ -26,6 +26,73 @@
 
 <body ng-app="amigo">
 <H1>Amigo Backend Testing Area</H1>
+<HR>
+<div class="col-md-12">
+<h2>Login</h2>
+<div class="divider col-md-4">
+<H4>Social Signup</H4>
+<ul class="list-inline intro-social-buttons">
+                            <li>
+                                <a href="https://twitter.com/" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                            </li>
+                            <li>
+                                <a href="/auth/facebook" class="btn btn-default btn-lg"><i class="fa fa-facebook fa-fw"></i> <span class="network-name">Facebook</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
+                            </li>
+                            <li>
+                            </li>    
+                        </ul>
+</div>
+<div class="divider col-md-4">
+<H4>Local Signup</H4>
+<form action="/signup" method="post">
+                              <input id="username" name="username" type="username" placeholder="username" class="form-control input-md"> 
+
+                              <input id="password" name="password" type="password" placeholder="password" class="form-control input-md"> 
+                              
+                              <!--
+                              <input id="password" type="password" placeholder="confirm password" class="form-control input-md"> -->
+
+                              <button class="btn btn-default btn-lg" id="submit"><i class="submit"></i><span class="network-name">submit</span></button>
+                          </form>
+</div>
+<div class="col-md-4">
+<h4>Local login<h4>
+  <form class="form-horizontal" action="/login" method="post">
+                        <fieldset>
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-2 control-label" for="username">Username</label>  
+                          <div class="col-md-8">
+                          <input id="username" name="username" type="text" placeholder="enter name" class="form-control input-md">
+                            
+                          </div>
+                        </div>
+
+                        <!-- Password input-->
+                        <div class="form-group">
+                          <label class="col-md-2 control-label" for="password">Password </label>
+                          <div class="col-md-8">
+                            <input id="password" name="password" type="password" placeholder="password" class="form-control input-md">
+                            
+                          </div>
+
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="form-group">
+                          <button class="btn btn-default">Submit</button>
+                        </div>
+                            
+                          </div>
+                        </div>
+
+                        </fieldset>
+                        </form>
+</div>
+
+<HR>
   <div ng-controller="MakeTrips">
 <div class="col-md-12">
   <div class="col-md-6">
@@ -83,7 +150,7 @@
 
 
     <form type="submit">
-      <label>username</label> <input ng-model="username"><br>
+      <label>Username: </label> <input ng-model="username"><br>
       <button ng-click="getProfile()">Get Profile of Username</button>
     </form>
   </div>
@@ -185,7 +252,7 @@
   <hr>
 
           <div class="col-md-12">
-  <div class="col-md-6">
+  <div class="divider col-md-6">
         <div ng-controller="Befriend">
           <H4>ng-controller="Befriend"</H4>
 
@@ -219,7 +286,7 @@
 
 
           <div class="col-md-12">
-  <div class="col-md-6">
+  <div class="divider col-md-6">
         <div ng-controller="SendMessage">
           <H4>ng-controller="SendMessage"</H4>
 
@@ -263,7 +330,7 @@
 
 
           <div class="col-md-12">
-  <div class="col-md-6">
+  <div class="divider col-md-6">
         <div ng-controller="AddFeedback">
           <H4>ng-controller="AddFeedback"</H4>
 
@@ -290,9 +357,9 @@
 <div class="response">
             <div ng-repeat="feedback in feedbacks">
               <UL>
-              <LI><strong>author: </strong>{{feedback.author}}</LI>
-              <LI><strong>subject: </strong>{{feedback.subject}}</LI>
-              <LI><strong>feedback: </strong>{{feedback.feedback}}</LI>
+              <LI><strong>Author: </strong>{{feedback.author}}</LI>
+              <LI><strong>Subject: </strong>{{feedback.subject}}</LI>
+              <LI><strong>Feedback: </strong>{{feedback.feedback}}</LI>
               </UL>
             </div></div>
         </div>
@@ -302,7 +369,7 @@
 
 
           <div class="col-md-12">
-  <div class="col-md-6">
+  <div class="divider col-md-6">
         <div ng-controller="WriteBlog">
           <H4>ng-controller="WriteBlog"</H4>
 
