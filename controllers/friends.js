@@ -1,4 +1,4 @@
-var amigo = angular.module('amigo');
+
 
 amigo.controller('Befriend', function($scope, $http) {
 

@@ -11,13 +11,13 @@ var getCoordinates = function(address, callback) {
   });
 };
 
-var amigo = angular.module('amigo');
+
 
 amigo.controller('MakeTrips', function($scope, $http) {
 
   $scope.makeTrip = function() {
-
-    var activities = $scope.activities.split(',');
+    $scope.activities = $scope.activities || 'No Activities Defined'
+    var activities = $scope.activities.split(',')
 
     for (var i = 0; i < activities.length; i++) {
       if (activities[i].charAt(0) === ' ') {
@@ -42,6 +42,7 @@ amigo.controller('MakeTrips', function($scope, $http) {
       };
       $http(req).then(function(res) {
         $scope.response = 'Query sent';
+        $scope.tripPic = $scope.tripPic || 'No Trip Picture'
         var UTReq = {
           method: 'POST',
           url: '/api/createUserTrip',
@@ -82,7 +83,7 @@ amigo.controller('MakeTrips', function($scope, $http) {
 });
 
 
-amigo.controller('GetMyTrips', function($scope, $http) {
+amigo.controller('GetTrips', function($scope, $http) {
 
   $scope.getMyTrips = function (){
     var req = {
@@ -97,7 +98,7 @@ amigo.controller('GetMyTrips', function($scope, $http) {
     });
   }
 
-  $scope.getTrips = function() {
+  $scope.getTripsByUsername = function() {
 
     console.log('clicking getTrips', $scope.username);
 

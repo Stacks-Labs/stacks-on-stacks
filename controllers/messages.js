@@ -1,4 +1,4 @@
-var amigo = angular.module('amigo');
+
 
 amigo.controller('SendMessage', function($scope, $http) {
 

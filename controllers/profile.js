@@ -1,8 +1,10 @@
-var amigo = angular.module('amigo');
+
 
 amigo.controller('AddProfile', function($scope, $http) {
 
   $scope.addProfile = function() {
+
+    $scope.profilepic = $scope.profilepic || 'No Picture'
 
     var req = {
       method: 'POST',
@@ -16,7 +18,8 @@ amigo.controller('AddProfile', function($scope, $http) {
       }
     };
     $http(req).then(function(res) {
-      $scope.response = res;
+      $scope.resProfile = 'Profile: ' + res.config.data.profile;
+      $scope.resProfilePic = 'Profile Pic ' + res.config.data.profilePic;
     });
 
   };
