@@ -47,7 +47,6 @@ amigo.controller('SendMessage', function($scope, $http) {
 amigo.controller('GetMessages', function($scope, $http) {
 
   $scope.getMessages = function(isReceiver) {
-     console.log('controller', $scope.username, isReceiver);
     var req = {
       method: 'POST',
       url: '/api/getMessages',

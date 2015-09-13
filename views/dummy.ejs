@@ -118,19 +118,19 @@
 
         <li style="list-style: none; display: inline">
           <ul>
-            <li>{{trip.dest_name}}</li>
+            <li><strong>Destination: </strong>{{trip.dest_name}}</li>
 
 
-            <li>{{trip.geocode_latitude}}</li>
+            <li><strong>Latitude: </strong>{{trip.geocode_latitude}}</li>
 
 
-            <li>{{trip.geocode_longitude}}</li>
+            <li><strong>Longitude: </strong>{{trip.geocode_longitude}}</li>
 
 
-            <li>{{trip.time_start}}</li>
+            <li><strong>Time Start: </strong>{{trip.time_start.slice(0, 10)}}</li>
 
 
-            <li>{{trip.time_end}}</li>
+            <li><strong>Time End: </strong>{{trip.time_end.slice(0, 10)}}</li>
           </ul>
         </li>
       </ul>
@@ -154,16 +154,30 @@
     </form>
     </div>
  <div class="col-md-6 response">Response:
-    <div ng-repeat="trip in trips">
-<pre>
-Username: {{trip.username}}
-Destination: {{trip.dest_name}}
-Geocode Latitude: {{trip.geocode_latitude}}
-Geocode Longitude: {{trip.geocode_longitude}}
-Time Start: {{trip.time_start}}
-Time End: {{trip.time_end}}
-===========================
-</pre>
+        <div ng-repeat="trip in trips">
+      <ul>
+        <li>{{trip.username}}</li>
+
+
+        <li style="list-style: none; display: inline">
+          <ul>
+            <li><strong>Destination: </strong>{{trip.dest_name}}</li>
+
+
+            <li><strong>Latitude: </strong>{{trip.geocode_latitude}}</li>
+
+
+            <li><strong>Longitude: </strong>{{trip.geocode_longitude}}</li>
+
+
+            <li><strong>Time Start: </strong>{{trip.time_start.slice(0, 10)}}</li>
+
+
+            <li><strong>Time End: </strong>{{trip.time_end.slice(0, 10)}}</li>
+          </ul>
+        </li>
+      </ul>
+  
     </div>
   </div>
 </div>
@@ -222,21 +236,24 @@ Time End: {{trip.time_end}}
         </div>
   <div class="col-md-6">
         <div ng-controller="GetMessages">
-          <p>ng-controller="GetMessages"</p>
+          <H4>ng-controller="GetMessages"</H4>
 
 
           <form>
             <label>Username:</label><input ng-model="username"><br>
-            <button ng-click="getMessages('receiver')">Get messages I recieved</button> <button ng-click="getMessages('sender')">Get messages I sent</button> {{messages}}
-
-            <div ng-repeat="message in messages">
-              <br>
-              To: {{message.receiver}}<br>
-              from: {{message.sender}}<br>
-              subj: {{message.subject}}<br>
-              body: {{message.body}}
-            </div>
+            <button ng-click="getMessages('receiver')">Get messages I recieved</button> <button ng-click="getMessages('sender')">Get messages I sent</button>
           </form>
+<div style="clear:both"></div>
+<div class="response">
+            <div ng-repeat="message in messages">
+              <UL>
+              <LI><strong>Recipient: </strong>{{message.receiver}}</LI>
+              <LI><strong>Sender: </strong>{{message.sender}}</LI>
+              <LI><strong>Subject: </strong>{{message.subject}}</LI>
+              </UL>
+              <P class="messagebody">{{message.body}}</P>
+            </div>
+            </div>
         </div>
 </div>
 </div>
@@ -245,89 +262,81 @@ Time End: {{trip.time_end}}
   <hr>
 
 
-  <table width="100%">
-    <tr>
-      <td>
+          <div class="col-md-12">
+  <div class="col-md-6">
         <div ng-controller="AddFeedback">
-          <p>ng-controller="AddFeedback"</p>
+          <H4>ng-controller="AddFeedback"</H4>
 
 
           <form type="submit">
-            <label>author:</label><input ng-model="author"><br>
-            <label>subject(person):</label><input ng-model="subject"><br>
-
-            <textarea ng-model="feedback">
-</textarea><br>
-            <button ng-click="addFeedback()">send</button> {{debug_response}}
+            <P><label>Author:</label><input ng-model="author"></P>
+            <P><label>Subject(person):</label><input ng-model="subject"></P>
+            <P><label>Feedback:</label><textarea ng-model="feedback"></textarea></P>
+            <button ng-click="addFeedback()">send</button> 
           </form>
+          <pre>{{debug_response}}</pre>
         </div>
-      </td>
-
-      <td>
+</div>
+  <div class="col-md-6">
         <div ng-controller="GetFeedback">
           <p>ng-controller="GetFeedback"</p>
 
 
           <form>
             <label>Username:</label><input ng-model="username"><br>
-            <button ng-click="getFeedback('author')">Get feedback I wrote</button> <button ng-click="getFeedback('subject')">Get feedback about me</button> {{feedbacks}}
-
-            <div ng-repeat="feedback in feedbacks">
-              <br>
-              author: {{feedback.author}}<br>
-              subject: {{feedback.subject}}<br>
-              feedback: {{feedback.feedback}}
-            </div>
+            <button ng-click="getFeedback('author')">Get feedback I wrote</button> <button ng-click="getFeedback('subject')">Get feedback about me</button>
           </form>
+          <div style="clear:both"></div>
+<div class="response">
+            <div ng-repeat="feedback in feedbacks">
+              <UL>
+              <LI><strong>author: </strong>{{feedback.author}}</LI>
+              <LI><strong>subject: </strong>{{feedback.subject}}</LI>
+              <LI><strong>feedback: </strong>{{feedback.feedback}}</LI>
+              </UL>
+            </div></div>
         </div>
-      </td>
-    </tr>
-  </table>
+</div></div>
 
   <hr>
 
 
-  <table width="100%">
-    <tr>
-      <td>
+          <div class="col-md-12">
+  <div class="col-md-6">
         <div ng-controller="WriteBlog">
-          <p>ng-controller="WriteBlog"</p>
+          <H4>ng-controller="WriteBlog"</H4>
 
 
           <form type="submit">
-            <label>Author:</label><input ng-model="author"><br>
-            <label>Subject:</label><input ng-model="subject"><br>
-
-            <textarea ng-model="body">
-</textarea><br>
-            <label>Blog Pic (URL)<input ng-model="blogpic"> <button ng-click="publishBlog()"><label><label>publish</label> {{debug_response}}</label></button></label>
+            <P><label>Author:</label><input ng-model="author"></P>
+            <P><label>Subject:</label><input ng-model="subject"></P>
+            <P><label>Body:</label><textarea ng-model="body"></textarea></P>
+            <p><label>Blog Pic (URL):</label><input ng-model="blogpic"></p>
+            <p><button ng-click="publishBlog()">Publish Blog</button></p>
           </form>
+            <pre>{{debug_response}}</pre>
         </div>
-      </td>
-
-      <td>
+</div>
+  <div class="col-md-6">
         <div ng-controller="GetBlogs">
-          <p>ng-controller="GetBlogs"</p>
+          <H4>ng-controller="GetBlogs"</H4>
 
 
           <form>
             <label>Username:</label><input ng-model="username"><br>
-            <button ng-click="getBlogs()">Get blogs</button> {{blogs}}
-
-            <div ng-repeat="blog in blogs">
-              <br>
-              Author: {{blog.author_name}}<br>
-              Published At: {{blog.created_at}}<br>
-              subj: {{blog.subject}}<br>
-              body: {{blog.body}}<br>
-              ...<br>
-            </div>
+            <button ng-click="getBlogs()">Get blogs</button>
           </form>
-          {{debug_response}}
+          <div style="clear:both"></div>
+<div class="response">
+            <div ng-repeat="blog in blogs">
+            <UL>
+              <LI><strong>Author: </strong>{{blog.author_name}} <em>at: {{blog.created_at.slice(0,10)}}</em></LI>
+              <LI><strong>Subject: </strong>{{blog.subject}}</LI>
+              <P class="messagebody">{{blog.body}}</P>
+            </div></div>
         </div>
-      </td>
-    </tr>
-  </table>
+    </div>
+    </div>
 
   <hr>
 </body>
