@@ -11,12 +11,12 @@ module.exports for trips.js
     Adds a trip to the database. It takes the destination name (string), start and end times (both in timestamp form).
     It also automatically calculates the geocode of the latitude and longitude (with functions to be impliemented)
     All are stored in the database. 
-  deleteTrip:
+  deleteTrip: UNTESTED
     Checks to see if any other user is referencing the trip. If not, deletes the trip
-  searchByDistanceAndTime: 
+  searchByDistanceAndTime: UNTESTED
     Queries the database for all trips within 'distance' of an origin point and time. 
     Before this function is called, the geocode must be parsed into latitude and longitude 'double' float values. 
-  searchByDistance: 
+  searchByDistance: UNTESTED
     Queries the database for all trips within 'distance' of an origin. It is hardcoded to 
     return only trips that are not yet passed -- that line must be deleted if an "include past trips" checkbox is an option
     available to the user. 
@@ -44,32 +44,33 @@ module.exports = function(knex) {
           'time_end': timeEnd
         });
     },
-    deleteTrip: function(trip) {
-      knex('user_trips')
-        .where({
-          'trip_id': trip
-        })
-        .select()
-        .then(function(tripCheck) {
-          if (!tripCheck.length) {
-            knex('trips').where({
-              'id': trip
-            }).del();
-            return true;
-          } else {
-            return false;
-          }
-        });
-    },
+    // UNTESTED CODE
+    // deleteTrip: function(trip) {
+    //   knex('user_trips')
+    //     .where({
+    //       'trip_id': trip
+    //     })
+    //     .select()
+    //     .then(function(tripCheck) {
+    //       if (!tripCheck.length) {
+    //         knex('trips').where({
+    //           'id': trip
+    //         }).del();
+    //         return true;
+    //       } else {
+    //         return false;
+    //       }
+    //     });
+    // },
 
-    getTripsById: function(id) {
+    getTripsById: function(id) { // returns an array of objects
       return knex('users')
         .innerJoin('users_trips', 'users.id', 'users_trips.user_id')
         .innerJoin('trips', 'trips.id', 'users_trips.trip_id')
         .where('users.id', id)
         .select('username', 'dest_name', 'geocode_latitude', 'geocode_longitude', 'time_start', 'time_end');
     },
-    getTripsByUsername: function(username) {
+    getTripsByUsername: function(username) { // returns an array of objects
       return knex('users')
         .innerJoin('users_trips', 'users.id', 'users_trips.user_id')
         .innerJoin('trips', 'trips.id', 'users_trips.trip_id')
@@ -77,11 +78,7 @@ module.exports = function(knex) {
         .select('username', 'dest_name', 'geocode_latitude', 'geocode_longitude', 'time_start', 'time_end');
     },
 
-
-
-    // BE SURE TO INCLUDE:
-    // <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>
-    // searchByDistanceAndTime: function(latitude, longitude, distance, time) {
+    // THIS IS UNTESTED CODE
     //   return knex('trips')
     //     .select()
     //     .then(function(trips) {

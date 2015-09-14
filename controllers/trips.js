@@ -1,3 +1,4 @@
+// code provided by Google Maps API
 var geocoder = new google.maps.Geocoder();
 
 var getCoordinates = function(address, callback) {
@@ -10,20 +11,23 @@ var getCoordinates = function(address, callback) {
     callback(coordinates);
   });
 };
-
+// end google stuff
 
 
 amigo.controller('MakeTrips', function($scope, $http, $location) {
-
   $scope.makeTrip = function() {
-    $scope.activities = $scope.activities || 'No Activities Defined'
+    // We really should have just allowed the database to hold
+    // a null value. But we didn't. Change this in the schema.sql file. 
+    $scope.activities = $scope.activities || 'No Activities Defined' 
+    // seperate activities into an array
     var activities = $scope.activities.split(',')
-
+    // remove leading blank spaces
     for (var i = 0; i < activities.length; i++) {
       if (activities[i].charAt(0) === ' ') {
         activities[i] = activities[i].slice(1);
       }
     }
+    // activities is now an array of activity strings
 
     getCoordinates($scope.destination, function(coor) {
       var req = {
@@ -34,14 +38,15 @@ amigo.controller('MakeTrips', function($scope, $http, $location) {
         },
         data: {
           destination: $scope.destination,
-          geocode_latitude: coor[0],
-          geocode_longitude: coor[1],
+          geocode_latitude: coor[0], // because we only get this in a callback
+          geocode_longitude: coor[1], // the entire req must be used inside that callback.
           start: $scope.start.toJSON().slice(0, 10),
           end: $scope.end.toJSON().slice(0, 10),
         }
       };
       $http(req).then(function(res) {
         $scope.response = 'Query sent';
+        // again, replace this with allowing the db to take null values
         $scope.tripPic = $scope.tripPic || 'No Trip Picture'
         var UTReq = {
           method: 'POST',

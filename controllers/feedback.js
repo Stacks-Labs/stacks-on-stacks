@@ -1,9 +1,11 @@
-
-
+// Add feedback about a user
 amigo.controller('AddFeedback', function($scope, $http) {
-
   $scope.addFeedback = function() {
-
+    // idReq is a helperfunction which creates 
+    // the correct format for getting a user ID by name. 
+    // This function returns the proper format
+    // for a request. It's used often, so it's
+    // abstracted out for DRY. 
     var idReq = function(username) {
       return {
         method: 'POST',
@@ -18,10 +20,9 @@ amigo.controller('AddFeedback', function($scope, $http) {
     };
 
     $http(idReq($scope.author)).then(function(res) { // promise hell
-      var authorId = res.data[0].id; // we need the friender ID
+      var authorId = res.data[0].id; // we need the friender ID first
       $http(idReq($scope.subject)).then(function(res) {
-        var subjectId = res.data[0].id; // then the friendee ID
-        console.log('user IDs', authorId, subjectId);
+        var subjectId = res.data[0].id; // then we need a seperate call for the friendee id
         var req = {
           method: 'POST',
           url: '/api/addFeedback',

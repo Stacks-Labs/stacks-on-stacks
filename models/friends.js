@@ -38,7 +38,11 @@ module.exports = function(knex) {
         })
         .del();
     },
-    getFriends: function(userCriteria) {
+    //userCriteria.type is either 'friender_id' or 'friendee_id'
+    //(defined in the ng-click function call as "getFriends('xxxxx')")
+    //allowing you to use this function in order to 
+    //see who you friend, or who friends you. 
+    getFriends: function(userCriteria) { 
       var criteria = {};
       criteria[userCriteria.type] = userCriteria.id;
       var otherType = '';

@@ -3,7 +3,8 @@ var path = require('path');
 module.exports = function(app, passport, connection) {
 
   // TODO: place these requires in the correct location
-  // This should have been done in the server.js file after knex was made but before the routes were included.
+  // This should have been done in the server.js file after knex was made
+  // but before the routes were included.
   // I don't want to move it at this point because it might break everything.
   var UsersTrips = require('../models/users_trips')(connection);
   var Trips = require('../models/trips')(connection);
@@ -20,31 +21,30 @@ module.exports = function(app, passport, connection) {
                                   loginMessage: req.flash('loginMessage')});
   });
 
-    app.get('/dashboard', isLoggedIn, function(req, res) {
-        res.render('dashboard.ejs', {user_id: req.user.id});
-    });
+  app.get('/dashboard', isLoggedIn, function(req, res) {
+      res.render('dashboard.ejs', {user_id: req.user.id});
+  });
 
-    app.get('/test', function(req, res, next) {
-        if (req.isAuthenticated()){
-            return next();
-        }
-        else res.render('dummy.ejs');
 
+  // This is the path for the backend
+  // developer area. /test leads to the
+  // dummy.ejs file. 
+  app.get('/test', function(req, res, next) {
+      if (req.isAuthenticated()){
+          return next();
+      }
+      else {
+        res.render('dummy.ejs')
+      };
     }, function(req, res) {
         res.render('dummy.ejs', {user_id: req.user.id});
     });
 
-
+    // Passport is an authentication system, and we call it here.
+    // Passport configuration is in /app/config/passport.js
     app.post('/signup', passport.authenticate('local-signup', {
         successRedirect: '/dashboard',
         failureRedirect: '/#signup',
-        failureFlash: true 
-        }) 
-    );
-
-    app.post('/testSignup', passport.authenticate('local-signup', {
-        successRedirect: '/test',
-        failureRedirect: '/test',
         failureFlash: true 
         }) 
     );
@@ -56,12 +56,6 @@ module.exports = function(app, passport, connection) {
         })
     );
 
-    app.post('/testLogin', passport.authenticate('local-login', {
-        successRedirect: '/test',
-        failureRedirect: '/test#fail',
-        failureFlash: true
-        })
-    );
 
     app.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'] }));
 
@@ -78,13 +72,33 @@ module.exports = function(app, passport, connection) {
         res.redirect('/');
     });
 
+
+    // this is specifically for the test page so it does not end up
+    // redirecting back to user-profile. 
     app.get('/testLogout', function(req, res) {
         console.log('req', req.logout)
         req.logout();
         res.redirect('/test');
     });
+    app.post('/testSignup', passport.authenticate('local-signup', {
+        successRedirect: '/test',
+        failureRedirect: '/test',
+        failureFlash: true 
+        }) 
+    );
+    app.post('/testLogin', passport.authenticate('local-login', {
+        successRedirect: '/test',
+        failureRedirect: '/test#fail',
+        failureFlash: true
+        })
+    );
 
 // Serve our controller files
+// Our dashboard page has all of these included
+// so we have to send them our controller files
+// What we *should* have done was put all
+// the views and controllers in a "static" folder
+// and serve the entire folder.  
   app.get('/controllers/trips.js', function(req, res) {
     res.sendfile('controllers/trips.js');
   });
@@ -108,7 +122,8 @@ module.exports = function(app, passport, connection) {
   app.get('/controllers/feedback.js', function(req, res) {
     res.sendfile('controllers/feedback.js');
   });
-  
+
+// These routes talk to the database. These *can't* be served from a "static" folder
 // Making Trips
   app.post('/api/createTrip', isLoggedIn, function(req, res) {
     Trips.addTrip(req.body.destination, req.body.geocode_latitude, req.body
@@ -117,7 +132,6 @@ module.exports = function(app, passport, connection) {
         res.send(response);
       });
   });
-
   app.post('/api/createUserTrip', isLoggedIn, function(req, res) {
     UsersTrips.makeTrip(req.body.trip_id, req.user.id)
       .then(
@@ -127,8 +141,7 @@ module.exports = function(app, passport, connection) {
         }));
   });
 
-  // Getting Trips By User
-
+  // Getting Trips By User Name
   app.post('/api/getTrips', isLoggedIn, function(req, res) {
     Trips.getTripsByUsername(req.body.username)
       .then(function(response) {
@@ -136,6 +149,7 @@ module.exports = function(app, passport, connection) {
       });
   });
 
+  // Getting Trips of the Logged In User
   app.post('/api/getMyTrips', isLoggedIn, function(req, res) {
     Trips.getTripsById(req.user.id)
       .then(function(response) {
@@ -144,7 +158,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Getting Trips By Time
-
   app.post('/api/getTripsByTime', isLoggedIn, function(req, res) {
     Trips.getTripsByTime(req.body.start, req.body.end)
       .then(function(response) {
@@ -153,7 +166,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Add activity to trip
-
   app.post('/api/addActivity', isLoggedIn, function(req, res) {
     Activities.addActivity(req.body.users_trips_id, req.body.activity)
       .then(function(response) {
@@ -164,7 +176,6 @@ module.exports = function(app, passport, connection) {
 
 
   // Adding Profile
-
   app.post('/api/addProfile', isLoggedIn, function(req, res) {
     Users.addProfile(req.user.id, req.body.profile)
       .then(
@@ -175,7 +186,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Getting Profile (by username)
-
   app.post('/api/getProfile', isLoggedIn, function(req, res) {
     Users.getUserByName(req.body.username)
       .then(function(response) {
@@ -184,7 +194,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Befriend
-
   app.post('/api/befriend', isLoggedIn, function(req, res) {
     Friends.befriend(req.body.friender, req.body.friendee)
       .then(function(response) {
@@ -193,7 +202,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Get Friends
-
   app.post('/api/getFriends', isLoggedIn, function(req, res) {
     Friends.getFriends(req.body)
       .then(function(response) {
@@ -202,7 +210,6 @@ module.exports = function(app, passport, connection) {
   });
   
   // Messages - Send Message
-
   app.post('/api/sendMessage', isLoggedIn, function(req, res) {
     Messages.addMessage(req.body.sender_id, req.body.reciever_id, req.body
         .subject, req.body.content)
@@ -212,7 +219,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Get Messages
-
   app.post('/api/getMessages', isLoggedIn, function(req, res) {
     console.log('route', req.body.username, req.body.recOrSend);
     Messages.getMessages(req.body.username, req.body.recOrSend)
@@ -222,7 +228,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Blogs - add blogs
-
   app.post('/api/publishBlog', isLoggedIn, function(req, res) {
     Blogs.publishBlog(req.body.author_id, req.body.subject, req.body.body, req.body.media)
       .then(function(response) {
@@ -231,7 +236,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Blogs - Get Blogs
-
   app.post('/api/getBlogs', isLoggedIn, function(req, res) {
     console.log('route', req.body.username);
     Blogs.getBlogs(req.body.username)
@@ -242,7 +246,6 @@ module.exports = function(app, passport, connection) {
 
 
   // Feedback - leave Feedback
-
   app.post('/api/addFeedback', isLoggedIn, function(req, res) {
     Feedback.addFeedback(req.body.author_id, req.body.subject_id, req.body.feedback)
       .then(function(response) {
@@ -251,7 +254,6 @@ module.exports = function(app, passport, connection) {
   });
 
   // Feedback - get Feedback
-
   app.post('/api/getFeedback', isLoggedIn, function(req, res) {
     Feedback.getFeedback(req.body.username, req.body.authOrSubj)
       .then(function(response) {
@@ -260,7 +262,8 @@ module.exports = function(app, passport, connection) {
   });
 
     // Angular Files ===============================================================
-
+    // again, we *should* have served these from a static folder
+    // =============================================================================
     app.get('/bower_components/angular/angular.js', function(req, res) {
         res.sendfile('bower_components/angular/angular.js');
     });

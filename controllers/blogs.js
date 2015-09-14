@@ -1,11 +1,11 @@
-// helperfunction creates the correct format for getting a user ID by name. 
-
-
+// Write a blog
 amigo.controller('WriteBlog', function($scope, $http) {
-
   $scope.publishBlog = function() {
-
-
+    // idReq is a helperfunction which creates 
+    // the correct format for getting a user ID by name. 
+    // This function returns the proper format
+    // for a request. It's used often, so it's
+    // abstracted out for DRY. 
     var idReq = function(username) {
       return {
         method: 'POST',
@@ -18,9 +18,11 @@ amigo.controller('WriteBlog', function($scope, $http) {
         }
       };
     };
-
-    $http(idReq($scope.author)).then(function(res) { // promise hell
-      var authorId = res.data[0].id; // we need the friender ID
+    // pass in the username to idReq .then use the user ID it returns in 
+    // the $http request. 
+    $http(idReq($scope.author)).then(function(res) { 
+      var authorId = res.data[0].id; // we need the author ID, not just the name.
+      // format a new request object
       var req = {
         method: 'POST',
         url: '/api/publishBlog',
@@ -31,10 +33,10 @@ amigo.controller('WriteBlog', function($scope, $http) {
           author_id: authorId,
           subject: $scope.subject,
           body: $scope.body,
-          media: $scope.blogpic
+          media: $scope.blogpic // this is optional
         }
       };
-      // we must put this inside the promise in order to have access to the Id numbers
+      // pass the request object into the database
       $http(req).then(function(res) {
         $scope.debug_response = 'Query sent';
       });
@@ -43,9 +45,7 @@ amigo.controller('WriteBlog', function($scope, $http) {
 });
 
 amigo.controller('GetBlogs', function($scope, $http) {
-
   $scope.getBlogs = function() {
-
     var req = {
       method: 'POST',
       url: '/api/getBlogs',

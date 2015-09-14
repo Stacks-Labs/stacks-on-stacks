@@ -42,11 +42,12 @@ module.exports = function(knex) {
         if(isReceiver === 'sender'){
           grabId = 'sUsers.username';
         }
-       return knex('messages') // must use aliases here
+       return knex('messages') // must use SQL aliases here, because we're joining 'users' table to itself. 
         .innerJoin('users AS rUsers', 'rUsers.id', 'messages.receiver_id') // need to use the "as" to alias
         .innerJoin('users AS sUsers', 'sUsers.id', 'messages.sender_id')
         .where(grabId, username)
-        .select('sUsers.username as sender', 'rUsers.username as receiver', 'subject', 'body');
+            // allows to just send a property called "sender" and a property called "receiver"
+        .select('sUsers.username as sender', 'rUsers.username as receiver', 'subject', 'body'); 
     }
   };
 }

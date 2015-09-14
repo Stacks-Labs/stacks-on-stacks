@@ -20,7 +20,8 @@ module.exports for media.js
   deleteMediaByMediaId: given an id# FOR THIS TABLE, deletes that media. 
 
 -------------------------------------*/
-
+//We can use the media table for a 'profile', for a 'trip', or for a 'blog',
+//We wrote this function to allow controllers to pass in the specific type
 module.exports = function(knex) {
   return {
     addMedia: function(id, url, type) { // type is a string that can be 'blog' 'trip' or 'user'

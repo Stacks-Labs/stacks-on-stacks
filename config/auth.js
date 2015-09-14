@@ -1,3 +1,5 @@
+// We really should have git-ignored this. 
+// The legacy team will have to change this. Good luck!
 module.exports = {
 	'facebookAuth': {
 		'clientID': '1657168701233626',
