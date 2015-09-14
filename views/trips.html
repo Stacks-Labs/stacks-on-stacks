@@ -9,19 +9,19 @@
           <div class="row">
             <div class="col-md-10 col-md-offset-1">
               <div class="form-section">
-                <div class="row">
+                <div ng-controller="MakeTrips" class="row">
                     <form role="form">
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="sr-only" for="location">Location</label>
-                          <input type="text" class="form-control" id="location" placeholder="Where ?">
+                          <input type="text" class="form-control" id="location" placeholder="Where ?" ng-model="destination">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="sr-only" for="checkin">Check in</label>
                           <div class="input-group">
-                            <input type="date" class="form-control" id="checkin" placeholder="Check in">
+                            <input type="date" class="form-control" id="checkin" placeholder="Check in" ng-model="start">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                           </div>
                         </div>
@@ -30,12 +30,34 @@
                         <div class="form-group">
                           <label class="sr-only" for="checkout">Check out</label>
                           <div class="input-group">
-                            <input type="date" class="form-control" id="checkout" placeholder="Check out">
+                            <input type="date" class="form-control" id="checkout" placeholder="Check out" ng-model="end">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-2">
+
+                      <!-- 
+
+                        <div ng-controller="MakeTrips">
+<div class="col-md-12">
+  <div class="col-md-6">
+    <H3>ng-controller="MakeTrips"</H3>
+
+
+    <form type="submit">
+      <P><label>Destination:</label><input ng-model="destination"></P>
+      <P><label>Start Time:</label><input ng-model="start" type="date"></P>
+      <P><label>End Time:</label><input ng-model="end" type="date"></P>
+      <P><label>Trip Activities</label><input ng-model="activities"></P>
+      <P><label>Trip picture (URL)</label><input ng-model="tripPic"></P>
+      <button ng-click="makeTrip()">Make Trip</button>
+    </form>
+  </div>
+  <div class="col-md-6 response">Response<pre>{{ response }}</pre></div>
+ </div>
+</div>
+ -->
                         <!-- <div class="form-group">
                           <label class="sr-only" for="guest">Guest</label>
                           <select id="guest" name="guest" class="form-control">
@@ -59,7 +81,7 @@
                         </div> -->
                       </div>
                       <div class="col-md-2">
-                        <button type="submit" class="btn btn-default btn-primary">Search</button>
+                        <button ng-click="makeTrip()" type="submit" class="btn btn-default btn-primary">Book Trip</button>
                       </div>
                     </form>
                 </div>
