@@ -200,6 +200,7 @@ module.exports = function(app, passport, connection) {
         res.send(response);
       });
   });
+  
   // Messages - Send Message
 
   app.post('/api/sendMessage', isLoggedIn, function(req, res) {
