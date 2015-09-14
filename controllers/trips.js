@@ -13,7 +13,7 @@ var getCoordinates = function(address, callback) {
 
 
 
-amigo.controller('MakeTrips', function($scope, $http) {
+amigo.controller('MakeTrips', function($scope, $http, $location) {
 
   $scope.makeTrip = function() {
     $scope.activities = $scope.activities || 'No Activities Defined'
@@ -74,6 +74,9 @@ amigo.controller('MakeTrips', function($scope, $http) {
             $http(interestReq).then(function() {
               $scope.response +=
                 ' act' + i;
+              if($location.url !== '/test'){
+                $location.url('/profile')
+              }
             });
           }
         });
