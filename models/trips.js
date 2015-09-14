@@ -134,7 +134,7 @@ module.exports = function(knex) {
         .innerJoin('trips', 'trips.id', 'users_trips.trip_id')
         .whereBetween('time_start', [begin, end])
         .orWhereBetween('time_end', [begin, end])
-        .orWhere('time_start', '>', begin)
+        .orWhere('time_start', '<', begin)
         .andWhere('time_end', '>', end) //ugh, what's the logic here for and and or when you can't use parentheses?
         .select('username', 'dest_name', 'geocode_latitude', 'geocode_longitude', 'time_start', 'time_end');
     }
