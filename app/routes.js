@@ -2,6 +2,9 @@ var path = require('path');
 
 module.exports = function(app, passport, connection) {
 
+  // TODO: place these requires in the correct location
+  // This should have been done in the server.js file after knex was made but before the routes were included.
+  // I don't want to move it at this point because it might break everything.
   var UsersTrips = require('../models/users_trips')(connection);
   var Trips = require('../models/trips')(connection);
   var Users = require('../models/users')(connection);
