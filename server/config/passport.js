@@ -41,7 +41,7 @@ module.exports = function(passport, knex, Users) {
 
         // set the user's local credentials
         newUser.username = username;
-        newUser.password = bcrypt.hashSync(password, 10);
+        newUser.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
         Users.signupLocal(newUser.username, newUser.password).then(function(user) {
           newUser.id = user[0];

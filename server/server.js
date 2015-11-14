@@ -14,7 +14,7 @@ var port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/../client/public'));
+app.use(express.static(__dirname + '/../client'));
 app.use('/bower_components', express.static(__dirname + '/../client/public/lib/bower_components'));
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -51,6 +51,7 @@ require('./config/passport')(passport, knex, Users)
 app.use(passport.initialize());
 app.use(passport.session());
 app.set('view engine', 'ejs')
+app.set('views', __dirname + '/../client/views');
 app.use(flash()); // use connect-flash for flash messages stored in session
 require('./routes.js')(app, passport, knex) // load our routes and pass in our app and fully configured passport
 
