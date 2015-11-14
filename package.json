@@ -10,7 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "test",
-    "start": "nodemon server/server.js"
+    "start": "nodemon --harmony server/server.js"
   },
   "repository": {
     "type": "git",

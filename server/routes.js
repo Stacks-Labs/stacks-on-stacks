@@ -1,6 +1,6 @@
 var path = require('path');
 
-module.exports = function(app, passport, connection) {
+module.exports = function(app, passport, connection, UsersTrips, Trips, Users, Friends, Messages, Blogs, Feedback, Activities, Media) {
   
   app.get('/', function(req, res) {
     res.render('index.ejs', { signupMessage: req.flash('signupMessage'), 
