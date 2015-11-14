@@ -53,7 +53,7 @@ app.use(passport.session());
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/../client/views');
 app.use(flash()); // use connect-flash for flash messages stored in session
-require('./routes.js')(app, passport, knex) // load our routes and pass in our app and fully configured passport
+require('./routes.js')(app, passport, knex, UsersTrips, Trips, Users, Friends, Messages, Blogs, Feedback, Activities, Media) // load our routes and pass in our app and fully configured passport
 
 app.listen(port);
 console.log('Server running on port:', port)
