@@ -25,6 +25,7 @@ module.exports = function(knex) {
   return {
     addFeedback: function(author, subject, feedback) { // int, int, string, string
       return knex('amigo_feedback')
+        .returning("id")
         .insert({
           'author_id': author,
           'subject_id': subject,

@@ -22,6 +22,7 @@ module.exports = function(knex) {
   return {
     addActivity: function(userTripId, activity) {
       return knex('activities')
+        .returning("id")
         .insert({
           'users_trips_id': userTripId,
           'activity': activity

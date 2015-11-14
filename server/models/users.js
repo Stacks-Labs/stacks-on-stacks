@@ -36,6 +36,17 @@ module.exports for users.js
   if you only have the facebookID. 
 
 
+One thing: Postgres doesn't automatically return the ID after inserting, 
+Mysql does. 
+
+So, for example:
+
+Postgres:
+      knex('users').returning("id").insert({foo})
+
+MySQL:
+      knex('users').insert({foo})
+
 -------------------------------------*/
 
 
@@ -43,18 +54,22 @@ module.exports = function(knex) {
 
   return {
     signupLocal: function(username, hashedPass) {
-      return knex('users').insert({
-        'username': username,
-        'password': hashedPass,
-      });
+      return knex('users')
+        .returning("id")
+        .insert({
+          'username': username,
+          'password': hashedPass,
+        });
     },
 
     signupFacebook: function(username, facebookId, facebookToken) {
-      return knex('users').insert({
-        'username': username,
-        'fb_id': facebookId,
-        'fb_token': facebookToken
-      });
+      return knex('users')
+        .returning("id")
+        .insert({
+          'username': username,
+          'fb_id': facebookId,
+          'fb_token': facebookToken
+        });
     },
 
     updateFacebook: function(facebookId, facebookToken, userId) {

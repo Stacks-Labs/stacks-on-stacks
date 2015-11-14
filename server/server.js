@@ -25,10 +25,10 @@ app.use(session({
 
 var databasehost = process.env.HOST || 'localhost';
 var knex = require('knex')({
- client: 'mysql',
+ client: 'pg',
  connection: {
    host: databasehost,
-   user: 'root',
+   user: 'postgres',
    password: '',
    database: 'amigo',
    charset: 'utf8'

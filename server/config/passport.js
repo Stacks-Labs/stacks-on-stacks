@@ -16,7 +16,11 @@ module.exports = function(passport, knex, Users) {
   // Checks to see what your user ID is on each page
   // and makes sure that gets the entire row
   passport.deserializeUser(function(id, done) {
-    Users.getUserById(id).then(function(user) { done(null, user[0])}); 
+    console.log("passport.deserializeUser(id,done):", id, done);
+    Users.getUserById(id).then(function(user) { 
+      console.log("Users.getUserById(id).then(function(user):", user);
+      done(null, user[0])
+    }); 
   });
 
   passport.use('local-signup', new LocalStrategy({
@@ -44,6 +48,7 @@ module.exports = function(passport, knex, Users) {
         newUser.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
         Users.signupLocal(newUser.username, newUser.password).then(function(user) {
+          console.log("In passport.js, line 51, user", user); 
           newUser.id = user[0];
           console.log( "In passport.js, line 51: newUser.id, user[0]", newUser.id, user[0]);
           return done(null, newUser);

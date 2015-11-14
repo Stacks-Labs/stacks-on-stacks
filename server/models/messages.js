@@ -21,6 +21,7 @@ module.exports = function(knex) {
   return {
     addMessage: function(sender, receiver, subject, body) { // int, int, string, string
       return knex('messages')
+        .returning("id")
         .insert({
           'sender_id': sender,
           'receiver_id': receiver,

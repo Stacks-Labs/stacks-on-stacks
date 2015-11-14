@@ -25,6 +25,7 @@ module.exports = function(knex) {
       media = media || 'no picture provided';
       var created = new Date();
       return knex('blogs')
+        .returning("id")
         .insert({
           'author_id': author,
           'subject': subject,

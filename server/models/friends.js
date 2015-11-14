@@ -26,6 +26,7 @@ module.exports = function(knex) {
   return {
     befriend: function(frienderId, friendeeId) { // int, int -- logic to get IDs from username is in controller
       return knex('friends')
+        .returning("id")
         .insert({
           'friender_id': frienderId,
           'friendee_id': friendeeId

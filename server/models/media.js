@@ -34,6 +34,7 @@ module.exports = function(knex) {
       };
       mediaObject[type] = id;
       return knex('media')
+        .returning("id")
         .insert(
           mediaObject
         );
