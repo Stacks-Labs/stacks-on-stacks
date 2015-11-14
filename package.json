@@ -1,21 +1,27 @@
 {
   "name": "stacks-on-stacks",
   "version": "1.0.0",
-  "description": "[![Stories in Ready](https://badge.waffle.io/stacks-on-stacks/stacks-on-stacks.png?label=ready&title=Ready)](https://waffle.io/stacks-on-stacks/stacks-on-stacks) # stacks-on-stacks",
+  "description": "A social media platform for travelers and nomads",
+  "main": "server/server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "test",
+    "start": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stacks-on-stacks/stacks-on-stacks.git"
+    "url": "git+https://github.com/Stacks-Labs/stacks-on-stacks.git"
   },
-  "author": "",
+  "author": "Stacks On Stacks",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stacks-on-stacks/stacks-on-stacks/issues"
+    "url": "https://github.com/Stacks-Labs/stacks-on-stacks/issues"
   },
-  "homepage": "https://github.com/stacks-on-stacks/stacks-on-stacks#readme",
+  "homepage": "https://github.com/Stacks-Labs/stacks-on-stacks#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.3",
