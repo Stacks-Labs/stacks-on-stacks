@@ -45,6 +45,7 @@ module.exports = function(passport, knex, Users) {
 
         Users.signupLocal(newUser.username, newUser.password).then(function(user) {
           newUser.id = user[0];
+          console.log( "In passport.js, line 51: newUser.id, user[0]", newUser.id, user[0]);
           return done(null, newUser);
         });
       
